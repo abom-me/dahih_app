@@ -219,6 +219,13 @@
             </list>
           </value>
         </entry>
+        <entry key="fluentui_system_icons">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/fluentui_system_icons-1.1.223/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter">
           <value>
             <list>
@@ -300,6 +307,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="intl">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.19.0/lib" />
             </list>
           </value>
         </entry>
@@ -548,6 +562,13 @@
             </list>
           </value>
         </entry>
+        <entry key="shimmer">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shimmer-3.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="sky_engine">
           <value>
             <list>
@@ -757,6 +778,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file-7.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fixnum-1.1.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fluentui_system_icons-1.1.223/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_riverpod-2.4.9/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.9/lib" />
@@ -766,6 +788,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/graphs-2.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.19.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/io-1.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
@@ -801,6 +824,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.3.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf-1.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shimmer-3.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_gen-1.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_span-1.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/sprintf-7.0.0/lib" />

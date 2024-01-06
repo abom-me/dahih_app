@@ -28,7 +28,29 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
 
       theme: ThemeData(
-        scaffoldBackgroundColor: Theme.of(context).colorScheme.background,
+        textTheme:TextTheme(
+          /// all text style have this color 002055
+          bodyLarge: TextStyle(color: const Color(0xff002055)),
+          bodyMedium: TextStyle(color: const Color(0xff002055)),
+          labelLarge: TextStyle(color: const Color(0xff002055)),
+          bodySmall: TextStyle(color: const Color(0xff002055)),
+          displayLarge: TextStyle(color: const Color(0xff002055)),
+          displayMedium: TextStyle(color: const Color(0xff002055)),
+          displaySmall: TextStyle(color: const Color(0xff002055)),
+          headlineMedium: TextStyle(color: const Color(0xff002055)),
+          headlineSmall: TextStyle(color: const Color(0xff002055)),
+          titleLarge: TextStyle(color: const Color(0xff002055)),
+
+
+
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Color(0xff002055)),
+
+        ),
+        scaffoldBackgroundColor: Colors.white,
         fontFamily: "Noto Sana Arabic",useMaterial3: true, colorScheme: MaterialTheme.lightMediumContrastScheme().toColorScheme(),),
     darkTheme: ThemeData(fontFamily: "Noto Sana Arabic",useMaterial3: true, colorScheme: MaterialTheme.darkMediumContrastScheme().toColorScheme(),),
       home: const SplashPage(),

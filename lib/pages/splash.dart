@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/pages/nav.dart';
+import 'package:khlfan_shtain/settings/routes.dart';
 
 import '../providers/auth_provider.dart';
+import 'home/home.dart';
 import 'login.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
@@ -17,9 +20,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 getData() async {
   final auth = ref.watch(authProvider);
 if(await auth.isLogin()){
-//
+GoPage.pushF(page: BottomNavigator(), context: context);
 }else{
-  Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+GoPage.pushF(page: LoginPage(), context: context);
 }
 }
 @override

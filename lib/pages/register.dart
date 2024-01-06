@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/pages/login.dart';
 
 import '../components/buttons.dart';
 import '../components/text_field.dart';
@@ -72,37 +74,31 @@ class RegisterPage extends ConsumerWidget {
                       hint: "كلمة المرور",
                       keyboardType: TextInputType.visiblePassword,
                       isPassword: true,
-                    ),
-                    BoxSize.height(10),
-                    SizedBox(
-                      width: Sizes.width(context),
-                      child: InkWell(
-                          child: Text(
-                            "نسيت كلمة المرور؟",
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.onBackground,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500),
-                          )),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(RegExp(r"\s")), // Deny whitespace
+                        FilteringTextInputFormatter.allow(RegExp(r"[A-Za-z0-9@.#$%&!]+")), // Allow specified characters
+                      ],
                     ),
 
-                    MainButton(text: "تسجيل دخول", width: Sizes.width(context), height: 50, onPressed: (){}),
+
+
+                    MainButton(text: "تسجيل", width: Sizes.width(context), height: 50, onPressed: (){}),
                     BoxSize.height(30),
                     GestureDetector(
                         onTap: () {
-                          GoPage.push(page: RegisterPage(), context: context);
+                          GoPage.push(page: LoginPage(), context: context);
                         },
                         child: Column(
                           children: [
                             Text(
-                              " ليس لديك حساب؟ ",
+                              " هل لديك حساب؟ ",
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.onBackground,
                                   fontSize: 17,
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "سجل الان ",
+                              "تسجيل دخول ",
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
                                   fontSize: 17,

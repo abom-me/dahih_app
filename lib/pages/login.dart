@@ -31,7 +31,7 @@ class LoginPage extends ConsumerWidget {
             SizedBox(
               width: Sizes.width(context),
               child: const Text(
-                "مرحبا بعودتك",
+                "مرحبا بعودتك 👋",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
               ),
             ),

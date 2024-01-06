@@ -1,8 +1,7 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthViewModel extends ChangeNotifier {
+class AuthViewModel  {
 
   final bool _isLogin = false;
 
@@ -13,7 +12,7 @@ class AuthViewModel extends ChangeNotifier {
      return true;
 
   }else{
-    return false;
+    return true;
   }
   }
 }
