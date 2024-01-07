@@ -38,7 +38,7 @@ class _HomeTasksState extends ConsumerState<HomeTasks> {
                     itemBuilder: (context, index) {
 
                       final task = snapshot.data![index];
-final remainingTime = ref.read(homeProvider).countTaskTimeLeft(task.date!);
+final remainingTime = ref.read(homeProvider).countTaskTimeLeft(DateTime.parse(task.date!));
                       return Container(
                         margin: const EdgeInsets.only(bottom: 15),
                         width: Sizes.width(context),
@@ -60,7 +60,7 @@ final remainingTime = ref.read(homeProvider).countTaskTimeLeft(task.date!);
                                 Text(task.task!,textAlign: TextAlign.left,style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
                                 SizedBox(height: 5,),
 
-                                Text(DateFormat("dd/MM/yy - hh:mm a").format(task.date!).replaceAll("AM", "صباحًا").replaceAll("PM", "مساءًا"),textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
+                                Text(DateFormat("dd/MM/yy - hh:mm a").format(DateTime.parse(task.date!)).replaceAll("AM", "صباحًا").replaceAll("PM", "مساءًا"),textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
                               ],
                             ),
                             Stack(

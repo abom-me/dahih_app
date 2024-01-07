@@ -3,9 +3,11 @@
 
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
 import 'package:khlfan_shtain/repo/courses.dart';
+import 'package:khlfan_shtain/utils/global_keys.dart';
 
 import '../models/course_model.dart';
 import '../repo/tasks.dart';
@@ -15,7 +17,7 @@ final homeViewModelProvider = Provider<HomeViewModel>((ref) {
   return HomeViewModel();
 });
 class HomeViewModel{
-
+FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
 Future<List<Course>> getTodayCourses() async {
 List<Course> todayCourses = [];
 //make Future delay to simulate network call
@@ -88,11 +90,14 @@ Stream<int> getCourseTimeLeft(DateTime endTime) {
 
 Future<List<Tasks>> getTasks() async {
   List<Tasks> tasksList = [];
-  //make Future delay to simulate network call
-  await Future.delayed(const Duration(seconds: 2));
-  tasksList=tasks;
-  // order tasks by date
-  tasksList.sort((a, b) => a.date!.compareTo(b.date!));
+ final data=await firebaseFirestore.collection("tasks").doc(userData.uid).collection('tasks').get();
+
+  data.docs.forEach((element) {
+
+    tasksList.add(Tasks.fromJson(element.data()));
+  });
+  // tasksList.sort((a, b) => a.date!.compareTo(b.date!));
+  // print(tasksList.length);
   return tasksList;
 }
 

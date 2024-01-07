@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/components/bottom_sheet.dart';
+import 'package:khlfan_shtain/pages/new/new_sheet.dart';
 import 'package:khlfan_shtain/settings/sizes.dart';
 import 'package:khlfan_shtain/utils/enum/screens_enum.dart';
 
@@ -14,6 +18,7 @@ class BottomNavigator extends ConsumerStatefulWidget {
 }
 
 class _BottomNavigatorState extends ConsumerState<BottomNavigator> {
+  PageController controller = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomNavProvider).currentIndex;
@@ -32,16 +37,7 @@ class _BottomNavigatorState extends ConsumerState<BottomNavigator> {
           children: [
 Padding(
   padding: const EdgeInsets.only(bottom: 90),
-  child: PageView.builder(
-
-      itemCount: screens.length,
-      onPageChanged: (value) {
-        ref.read(bottomNavProvider.notifier).changeIndex(screens[value]);
-      },
-      itemBuilder: (context, index) {
-    return ref.watch(bottomNavProvider).showScreen();
-        }
-        ),
+  child: ref.watch(bottomNavProvider).showScreen(),
 ),
             Positioned(
               bottom: 0,
@@ -56,6 +52,7 @@ Padding(
                   children: [
                     IconButton(
                       onPressed: () {
+
                         ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.home);
                       },
                       icon: currentIndex ==ScreensEnum.home?Icon(
@@ -68,6 +65,8 @@ Padding(
                     ),
                     IconButton(
                       onPressed: () {
+
+
                         ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.tasks);
                       },
                       icon: currentIndex ==ScreensEnum.tasks?Icon(
@@ -78,9 +77,15 @@ Padding(
                         color: Theme.of(context).colorScheme.secondary,
                       )
                     ),
-FloatingActionButton(onPressed: (){},child: Icon(FluentIcons.add_24_filled,color: Theme.of(context).colorScheme.background,),backgroundColor: Theme.of(context).colorScheme.primary,),
+FloatingActionButton(onPressed: (){
+
+  bottomSheetBlur(context, widget: const NewSheet(), height: 300,  color: Theme.of(context).colorScheme.background,);
+
+
+},backgroundColor: Theme.of(context).colorScheme.primary,child: Icon(FluentIcons.add_24_filled,color: Theme.of(context).colorScheme.background,),),
                     IconButton(
                         onPressed: () {
+
                           ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.profile);
                         },
                         icon: currentIndex ==ScreensEnum.profile?Icon(
@@ -93,6 +98,8 @@ FloatingActionButton(onPressed: (){},child: Icon(FluentIcons.add_24_filled,color
                     ),
                     IconButton(
                       onPressed: () {
+
+
                         ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.profile);
                       },
                       icon: currentIndex ==ScreensEnum.profile?Icon(

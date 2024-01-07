@@ -43,3 +43,43 @@
 // }
 //
 //
+
+import 'package:flutter/material.dart';
+class TestKey extends StatefulWidget {
+  const TestKey({super.key});
+
+  @override
+  State<TestKey> createState() => _TestKeyState();
+}
+
+class _TestKeyState extends State<TestKey> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Test Key'),),
+      body: Container(
+        child: Column(
+          children: [
+            TextFormField(),
+            Container(
+              key: const Key('test'),
+              height: 100,
+              width: 100,
+              color: Colors.red,
+            ),
+            Container(
+              height: 100,
+              width: 100,
+              color: Colors.blue,
+            ),
+            Container(
+              height: 100,
+              width: 100,
+              color: Colors.green,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

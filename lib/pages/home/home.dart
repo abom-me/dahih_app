@@ -8,6 +8,7 @@ import 'package:khlfan_shtain/pages/home/widgets/tasks.dart';
 import 'package:khlfan_shtain/repo/courses.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
+import 'package:khlfan_shtain/utils/global_keys.dart';
 
 import '../../components/try_again_widget.dart';
 import '../../models/course_model.dart';
@@ -114,8 +115,9 @@ class HomeHeader extends StatelessWidget {
             child: SvgPicture.asset("assets/images/header_light.svg",height: 100,width: 100,),
           ),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("مرحبا بعودتك نصر 🤩",style: TextStyle(
+            Text("مرحبا بعودتك ${userData.name} 🤩",style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.w800,

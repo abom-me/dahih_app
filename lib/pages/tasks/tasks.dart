@@ -79,7 +79,7 @@ selectedDateColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                       itemBuilder: (context, index) {
 
                         final task = snapshot.data![index];
-                        final remainingTime = ref.read(homeProvider).countTaskTimeLeft(task.date!);
+                        final remainingTime = ref.read(homeProvider).countTaskTimeLeft(DateTime.parse(task.date!));
                         return SwipeableWidget(
                             actions: [
                               Container(
@@ -117,7 +117,7 @@ ref.read(tasksProvider.notifier).changeTaskStatus(task, TaskStatusEnum.completed
                                 ),
                                 child: Icon(Icons.edit,color: Colors.white,),
                               ),
-                           ],
+                           ], onDismissed: (s){}, actionExtentRatio: 0.5,
                             child:  Container(
                           margin: const EdgeInsets.only(bottom: 15),
                           width: Sizes.width(context),
@@ -139,7 +139,7 @@ ref.read(tasksProvider.notifier).changeTaskStatus(task, TaskStatusEnum.completed
                                   Text(task.task!,textAlign: TextAlign.left,style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
                                   const SizedBox(height: 5,),
 
-                                  Text(DateFormat("dd/MM/yy - hh:mm a").format(task.date!).replaceAll("AM", "صباحًا").replaceAll("PM", "مساءًا"),textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
+                                  Text(DateFormat("dd/MM/yy - hh:mm a").format(DateTime.parse(task.date!)).replaceAll("AM", "صباحًا").replaceAll("PM", "مساءًا"),textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
                                 ],
                               ),
                               Stack(
@@ -182,7 +182,7 @@ ref.read(tasksProvider.notifier).changeTaskStatus(task, TaskStatusEnum.completed
                               ),
                             ],
                           ),
-                        ), onDismissed: (s){}, actionExtentRatio: 0.5);
+                        ));
                       },
                     );
                   }else if(snapshot.hasError){

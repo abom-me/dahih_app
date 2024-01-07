@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,6 +27,11 @@ class TasksProvider with ChangeNotifier{
 
   changeTaskStatus(Tasks task,TaskStatusEnum status){
     tasksViewModel.changeTaskStatus(task: task,status: status);
+    notifyListeners();
+  }
+
+  addTask(BuildContext context,Tasks task){
+    tasksViewModel.addTask(context,task: task);
     notifyListeners();
   }
 }

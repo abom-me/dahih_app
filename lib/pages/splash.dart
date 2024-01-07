@@ -35,7 +35,7 @@ GoPage.pushF(page: LoginPage(), context: context);
   }
   @override
   Widget build(BuildContext context) {
-    final auth = ref.watch(authProvider);
+    // final auth = ref.watch(authProvider);
     return Scaffold(
       body: Center(
         child: Text(

@@ -7,12 +7,18 @@ import 'package:khlfan_shtain/viewmodel/textfield_viewmodel.dart';
 import '../providers/textfield_provider.dart';
 
 class TextFieldWidget extends ConsumerStatefulWidget {
-  const TextFieldWidget({
+  const TextFieldWidget( {
+    this.multiLine,
+    this.readOnly,
+    this.onTap,
     required this.controller,
+     this.maxline,
+    required this.focusNode,
     required this.hint,
     required this.keyboardType,
     this.isPassword,
     this.inputFormatters,
+    this.valid,
     super.key,
   });
 
@@ -20,6 +26,12 @@ class TextFieldWidget extends ConsumerStatefulWidget {
   final String hint;
   final TextInputType keyboardType;
   final bool? isPassword;
+  final FocusNode focusNode;
+  final bool?multiLine;
+  final int?maxline;
+  final bool? readOnly;
+  final GestureTapCallback ?onTap;
+ final FormFieldValidator<String>? valid;
 final List<TextInputFormatter>? inputFormatters;
   @override
   ConsumerState createState() => _TextFieldWidgetState();
@@ -27,17 +39,31 @@ final List<TextInputFormatter>? inputFormatters;
 
 class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
   bool obscureTextValue = true;
-
+// @override
+//   void dispose() {
+//   widget.controller.dispose();
+//   widget.focusNode.dispose();
+//     // TODO: implement dispose
+//     super.dispose();
+//   }
   @override
   Widget build(BuildContext context) {
 
 
     return TextFormField(
+      focusNode: widget.focusNode,
+     maxLines: widget.multiLine==true?widget.maxline:1,
+      validator:widget.valid ,
       inputFormatters: widget.inputFormatters,
       controller: widget.controller,
       onChanged: (value) {
         setState(() {});
       },
+      onFieldSubmitted: (value) {
+        widget.focusNode.unfocus();
+      },
+      onTap: widget.onTap,
+      readOnly: widget.readOnly??false,
       textDirection: widget.controller.text.isArabic
           ? TextDirection.rtl
           : TextDirection.ltr,
