@@ -47,7 +47,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                 builder: (context, snapshot) {
 
                   if(snapshot.hasData){
-                    return ListView.builder(
+                    return snapshot.data!.isNotEmpty ?ListView.builder(
                       controller: _scrollController,
                       scrollDirection: Axis.horizontal,
 
@@ -162,6 +162,12 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                             )
                         );
                       },
+                    ):Container(
+                      width: Sizes.width(context),
+                      height: 200,
+                      child: const Center(
+                        child: Text("لا يوجد محاضرات اليوم 🥳",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500),),
+                      ),
                     );
                   }else if(snapshot.hasError){
                     return tryAgainWidget(onPressed: (){

@@ -45,7 +45,7 @@ class LoginPage extends ConsumerWidget {
                         .onSurface
                         .withOpacity(0.5),
                     fontSize: 20,
-                    fontWeight: FontWeight.w100),
+                    fontWeight: FontWeight.normal),
               ),
             ),
             BoxSize.height(50),

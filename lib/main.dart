@@ -6,6 +6,7 @@ import 'package:khlfan_shtain/settings/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
  await  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => {runApp(const ProviderScope(child: MyApp()))});
 }
@@ -51,8 +52,8 @@ class MyApp extends StatelessWidget {
 
         ),
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: "Noto Sana Arabic",useMaterial3: true, colorScheme: MaterialTheme.lightMediumContrastScheme().toColorScheme(),),
-    darkTheme: ThemeData(fontFamily: "Noto Sana Arabic",useMaterial3: true, colorScheme: MaterialTheme.darkMediumContrastScheme().toColorScheme(),),
+        fontFamily: "IBM Plex Sans Arabic",useMaterial3: true, colorScheme: MaterialTheme.lightMediumContrastScheme().toColorScheme(),),
+    darkTheme: ThemeData(fontFamily: "IBM Plex Sans Arabic",useMaterial3: true, colorScheme: MaterialTheme.darkMediumContrastScheme().toColorScheme(),),
       home: const SplashPage(),
     );
   }

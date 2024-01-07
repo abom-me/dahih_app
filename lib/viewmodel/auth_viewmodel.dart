@@ -1,7 +1,11 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel  {
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final bool _isLogin = false;
 
@@ -12,7 +16,12 @@ class AuthViewModel  {
      return true;
 
   }else{
-    return true;
+    return false;
   }
+  }
+
+
+  Future register() async {
+
   }
 }

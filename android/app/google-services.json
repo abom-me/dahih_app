@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "262060048933",
+    "project_id": "khlfan-shtayn",
+    "storage_bucket": "khlfan-shtayn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262060048933:android:0c02fa07cf1e7354bab5cc",
+        "android_client_info": {
+          "package_name": "com.khlfan.shtain.abom.khlfan_shtain"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh_3NMIPz0vHowNrWNK6Vm0cz0J2zdWQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

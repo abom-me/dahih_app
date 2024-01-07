@@ -20,8 +20,12 @@ Future<List<Course>> getTodayCourses() async {
 List<Course> todayCourses = [];
 //make Future delay to simulate network call
 await Future.delayed(const Duration(seconds: 2));
-
-return courses;
+  courses.forEach((element) {
+    if (element.days!.contains(DateTime.now().weekday)){
+      todayCourses.add(element);
+    }
+  });
+  return todayCourses;
 }
 
 double getCourseProgress(DateTime startTime,DateTime endTime) {
@@ -87,6 +91,8 @@ Future<List<Tasks>> getTasks() async {
   //make Future delay to simulate network call
   await Future.delayed(const Duration(seconds: 2));
   tasksList=tasks;
+  // order tasks by date
+  tasksList.sort((a, b) => a.date!.compareTo(b.date!));
   return tasksList;
 }
 
@@ -94,24 +100,50 @@ Map<String,dynamic>countTaskTimeLeft(DateTime endTime) {
 var now = DateTime.now();
 
 
-int differenceInDays = endTime.difference(now).inDays.abs();
-int totalDays = DateTime(now.year, 12, 31).difference(DateTime(now.year, 1, 1)).inDays;
-
-double percentage = (totalDays / differenceInDays) * 100;
-
-var progress=percentage*0.0001;
-
 // if have more then 24 hours show in days else show in hours and minutes
-  if(endTime.difference(now).inHours > 24){
-    var totalDuration = endTime.difference(now).inDays;
-    return {"time":totalDuration,"unit":"يوم","progress":progress};
-  }else if(endTime.difference(now).inHours < 1){
-    var totalDuration = endTime.difference(now).inMinutes;
-    return {"time":totalDuration,"unit":"دقيقة","progress":progress};
+  if(endTime.isBefore(now)){
+
+    var totalDuration = 0;
+    return {"time":totalDuration,"unit":"دقيقة","progress":1.0};
+
   }else{
-    var totalDuration = endTime.difference(now).inHours;
-    return {"time":totalDuration,"unit":"ساعة","progress":progress};
+
+
+    if(endTime.difference(now).inHours > 24){
+
+      int differenceInDays = endTime.difference(now).inDays.abs();
+      int totalDays = DateTime(now.year, 12, 31).difference(DateTime(now.year, 1, 1)).inDays;
+
+      double percentage = (totalDays / differenceInDays) * 100;
+
+      var progress=percentage*0.0001;
+      var totalDuration = endTime.difference(now).inDays;
+      return {"time":totalDuration,"unit":"يوم","progress":progress};
+    }else if(endTime.difference(now).inHours < 1){
+
+      int differenceInDays = endTime.difference(now).inMinutes.abs();
+      int totalDays = DateTime(now.year, 12, 31).difference(DateTime(now.year, 1, 1)).inMinutes;
+
+      double percentage = (totalDays / differenceInDays) * 100;
+
+      var progress=percentage*0.0001;
+      var totalDuration = endTime.difference(now).inMinutes;
+      return {"time":totalDuration,"unit":"دقيقة","progress":progress};
+    } else{
+
+      int differenceInDays = endTime.difference(now).inSeconds.abs();
+      int totalDays = DateTime(now.year, 12, 31).difference(DateTime(now.year, 1, 1)).inSeconds;
+
+      double percentage = (totalDays / differenceInDays) * 100;
+
+      var progress=percentage*0.0001;
+      var totalDuration = endTime.difference(now).inHours;
+
+
+      return {"time":totalDuration,"unit":"ساعة","progress":progress};
+    }
   }
+
   }
 
 

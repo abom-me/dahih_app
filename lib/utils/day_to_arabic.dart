@@ -24,4 +24,27 @@ extension convertDayToArabic on String {
 
    }
  }
+
+ String get shortDayToArabic{
+   switch (this){
+     case "Sun":
+       return "الأحد";
+      case "Mon":
+        return "الأثنين";
+      case "Tue":
+        return "الثلاثاء";
+      case "Wed":
+        return "الأربعاء";
+      case "Thu":
+        return "الخميس";
+      case "Fri":
+        return "الجمعة";
+      case "Sat":
+        return "السبت";
+      default:
+        return "الأحد";
+
+
+   }
+ }
 }

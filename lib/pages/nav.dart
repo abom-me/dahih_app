@@ -66,7 +66,31 @@ Padding(
                         color: Theme.of(context).colorScheme.secondary,
                       )
                     ),
+                    IconButton(
+                      onPressed: () {
+                        ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.tasks);
+                      },
+                      icon: currentIndex ==ScreensEnum.tasks?Icon(
+                        FluentIcons.task_list_square_ltr_16_filled,
+                        color: Theme.of(context).colorScheme.primary,
+                      ):Icon(
+                        FluentIcons.task_list_square_ltr_16_regular,
+                        color: Theme.of(context).colorScheme.secondary,
+                      )
+                    ),
 FloatingActionButton(onPressed: (){},child: Icon(FluentIcons.add_24_filled,color: Theme.of(context).colorScheme.background,),backgroundColor: Theme.of(context).colorScheme.primary,),
+                    IconButton(
+                        onPressed: () {
+                          ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.profile);
+                        },
+                        icon: currentIndex ==ScreensEnum.profile?Icon(
+                          FluentIcons.timeline_20_filled,
+                          color: Theme.of(context).colorScheme.primary,
+                        ):Icon(
+                          FluentIcons.timeline_20_regular,
+                          color: Theme.of(context).colorScheme.secondary,
+                        )
+                    ),
                     IconButton(
                       onPressed: () {
                         ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.profile);
