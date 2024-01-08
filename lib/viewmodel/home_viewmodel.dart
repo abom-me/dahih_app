@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
 import 'package:khlfan_shtain/repo/courses.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
@@ -146,7 +147,7 @@ var now = DateTime.now();
   if(endTime.isBefore(now)){
 
     var totalDuration = 0;
-    return {"time":totalDuration,"unit":"دقيقة","progress":1.0};
+    return {"time":totalDuration,"unit":LangKey.minute,"progress":1.0};
 
   }else{
 
@@ -160,7 +161,7 @@ var now = DateTime.now();
 
       var progress=percentage*0.0001;
       var totalDuration = endTime.difference(now).inDays;
-      return {"time":totalDuration,"unit":"يوم","progress":progress};
+      return {"time":totalDuration,"unit":LangKey.day,"progress":progress};
     }else if(endTime.difference(now).inHours < 1){
 
       int differenceInDays = endTime.difference(now).inMinutes.abs();
@@ -170,7 +171,7 @@ var now = DateTime.now();
 
       var progress=percentage*0.0001;
       var totalDuration = endTime.difference(now).inMinutes;
-      return {"time":totalDuration,"unit":"دقيقة","progress":progress};
+      return {"time":totalDuration,"unit":LangKey.minute,"progress":progress};
     } else{
 
       int differenceInDays = endTime.difference(now).inSeconds.abs();
@@ -182,7 +183,7 @@ var now = DateTime.now();
       var totalDuration = endTime.difference(now).inHours;
 
 
-      return {"time":totalDuration,"unit":"ساعة","progress":progress};
+      return {"time":totalDuration,"unit":LangKey.hours,"progress":progress};
     }
   }
 

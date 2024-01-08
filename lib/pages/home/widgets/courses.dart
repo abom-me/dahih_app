@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 import 'package:khlfan_shtain/utils/string_to_time.dart';
 
@@ -38,7 +39,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("محاضراتك اليوم:",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
+           Text(Lang.get(context, key: LangKey.yourLecturesToday),style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
           const SizedBox(height: 15,),
           SizedBox(
             width: Sizes.width(context),
@@ -57,7 +58,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                         Course course = courses[index];
                         CourseStatusEnum isActive= ref.watch(homeProvider).isCourseInProgress(course.from!.toTimeOfDay as TimeOfDay, course.to!.toTimeOfDay as TimeOfDay);
                         final colorbg=isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background;
-                        final textColor= isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.background:Color(0xff002055);
+                        final textColor= isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.onBackground;
                         if(isActive==CourseStatusEnum.inProgress)   scrollToActiveCourse(index);
 
                         return Container(
@@ -112,12 +113,12 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                         builder: (context, snapshot) {
                                           return Column(
                                             children: [
-                                              Text("الوقت المتبقي",style: TextStyle(color: textColor,fontSize: 17,fontWeight: FontWeight.w500),),
+                                              Text(Lang.get(context, key: LangKey.remainingTime),style: TextStyle(color: textColor,fontSize: 17,fontWeight: FontWeight.w500),),
                                               const SizedBox(height: 5,),
                                               Row(
                                                 children: [
                                                   Text(snapshot.data.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w800),),
-                                                  Text(" دقيقة",style: TextStyle(color: textColor,fontSize: 17,fontWeight: FontWeight.w500),),
+                                                  Text(Lang.get(context, key: LangKey.minute),style: TextStyle(color: textColor,fontSize: 17,fontWeight: FontWeight.w500),),
 
                                                 ],
                                               ),
@@ -127,11 +128,11 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                     ):isActive==CourseStatusEnum.finished?Container(
 
 
-                                      child: Text("منتهية 🥳"),
+                                      child: Text("${Lang.get(context, key: LangKey.finished)} 🥳",style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
                                     ):Container(
 
 
-                                      child: Text("لم تبدأ بعد🥶"),
+                                      child: Text("${Lang.get(context, key: LangKey.notStartedYet)}🥶",style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
                                     )
 
                                   ],
@@ -166,8 +167,8 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                     ):Container(
                       width: Sizes.width(context),
                       height: 200,
-                      child: const Center(
-                        child: Text("لا يوجد محاضرات اليوم 🥳",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500),),
+                      child:  Center(
+                        child: Text("${Lang.get(context, key: LangKey.noLecturesToday)} 🥳",style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w500),),
                       ),
                     );
                   }else if(snapshot.hasError){
@@ -175,7 +176,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                       ref.read(homeProvider).getTodayCourses();
                     });
                   }else{
-                    return CourseCardShimmer();
+                    return const CourseCardShimmer();
                   }
                 }
             ),

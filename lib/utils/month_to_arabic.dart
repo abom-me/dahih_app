@@ -1,34 +1,36 @@
 
 
+import 'package:khlfan_shtain/auto_local/lang.dart';
+
 extension ConvertMonths on String{
-  String get toArabicMonth {
+  LangKey get toMonthLangKey {
     switch (this) {
       case "January":
-        return "يناير";
+        return LangKey.january;
       case "February":
-        return "فبراير";
+        return LangKey.february;
       case "March":
-        return "مارس";
+        return LangKey.march;
       case "April":
-        return "أبريل";
+        return  LangKey.april;
       case "May":
-        return "مايو";
+        return LangKey.may;
       case "June":
-        return "يونيو";
+        return LangKey.june;
       case "July":
-        return "يوليو";
+        return LangKey.july;
       case "August":
-        return "أغسطس";
+        return LangKey.august;
       case "September":
-        return "سبتمبر";
+        return LangKey.september;
       case "October":
-        return "أكتوبر";
+        return LangKey.october;
       case "November":
-        return "نوفمبر";
+        return LangKey.november;
       case "December":
-        return "ديسمبر";
+        return LangKey.december;
       default:
-        return "يناير";
+        return  LangKey.january;
     }
   }
 }

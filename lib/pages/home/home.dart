@@ -47,7 +47,7 @@ class HomePage extends ConsumerWidget {
             ),
           ),
           Text(
-            "${DateFormat('EEEE').format(DateTime.now()).dayToArabic} ، ${DateFormat('d').format(DateTime.now())} / ${DateFormat('MM').format(DateTime.now())}",
+            "${Lang.get(context, key: DateFormat('EEEE').format(DateTime.now()).dayToLangKey)} ، ${DateFormat('d').format(DateTime.now())} / ${DateFormat('MM').format(DateTime.now())}",
             style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).colorScheme.secondary,

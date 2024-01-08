@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 
 import '../settings/sizes.dart';
@@ -379,7 +380,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                                 height: 120,
                                 decoration:  BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
-                                    color: fullCurrentDate==days[i]['fullDateString']? widget.currentDateColor??Theme.of(context).colorScheme.primary:selectedDate==days[i]['fullDateString']?widget.selectedDateColor??Colors.black45:Colors.white,
+                                    color: fullCurrentDate==days[i]['fullDateString']? widget.currentDateColor??Theme.of(context).colorScheme.primary:selectedDate==days[i]['fullDateString']?widget.selectedDateColor??Colors.black45:Theme.of(context).colorScheme.background,
                                     boxShadow: [
                                       BoxShadow(
                                           color: Colors.grey.withOpacity(0.1),
@@ -395,7 +396,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
                                     Text(days[i]['dayNumberString'].toString(),textAlign: TextAlign.center,style:fullCurrentDate==days[i]['fullDateString']?widget.currentDateTextStyle: widget.dateTextStyle,),
 
-                                    Text(days[i]['dayString'].toString().shortDayToArabic,textAlign: TextAlign.center,style: fullCurrentDate==days[i]['fullDateString']?widget.currentDateTextStyle?.copyWith(fontSize: 15): widget.dateTextStyle?.copyWith(fontSize: 15),),
+                                    Text(Lang.get(context, key: days[i]['dayString'].toString().shortDayToLangKey),textAlign: TextAlign.center,style: fullCurrentDate==days[i]['fullDateString']?widget.currentDateTextStyle?.copyWith(fontSize: 15): widget.dateTextStyle?.copyWith(fontSize: 15),),
 
                                     event.isEmpty?const SizedBox.shrink():Container(decoration: BoxDecoration(color: widget.dotEventsColor??Colors.red.withOpacity(0.5),borderRadius: BorderRadius.circular(100)),width: 5,height: 5,)
                                   ],

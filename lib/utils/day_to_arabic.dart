@@ -1,48 +1,51 @@
 
 
+import 'package:khlfan_shtain/auto_local/lang.dart';
+
 import 'enum/days_enum.dart';
 
 extension convertDayToArabic on String {
- String get dayToArabic{
+ LangKey get dayToLangKey{
    switch (this){
      case "Sunday":
-       return "الأحد";
+       return LangKey.sunday;
       case "Monday":
-        return "الأثنين";
+        return LangKey.monday;
       case "Tuesday":
-        return "الثلاثاء";
+        return LangKey.tuesday;
       case "Wednesday":
-        return "الأربعاء";
+        return  LangKey.wednesday;
       case "Thursday":
-        return "الخميس";
+        return LangKey.thursday;
       case "Friday":
-        return "الجمعة";
+        return LangKey.friday;
       case "Saturday":
-        return "السبت";
+        return LangKey.saturday;
       default:
-        return "الأحد";
+        return LangKey.sunday;
 
    }
  }
 
- String get shortDayToArabic{
+ LangKey get shortDayToLangKey{
    switch (this){
      case "Sun":
-       return "الأحد";
+       return LangKey.sun;
       case "Mon":
-        return "الأثنين";
+        return LangKey.mon;
       case "Tue":
-        return "الثلاثاء";
+        return LangKey.tue;
       case "Wed":
-        return "الأربعاء";
-      case "Thu":
-        return "الخميس";
+        return LangKey.wed;
+      case "Thur":
+        return LangKey.thu;
       case "Fri":
-        return "الجمعة";
+        return LangKey.fri;
       case "Sat":
-        return "السبت";
+        return LangKey.sat;
       default:
-        return "الأحد";
+        print(this);
+        return LangKey.sun;
 
 
    }

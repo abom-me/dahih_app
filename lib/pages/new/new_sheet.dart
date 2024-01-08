@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/pages/new/task/new_task.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
@@ -24,7 +25,7 @@ child: Column(
           NewSheetButtons(
             duration: Duration(milliseconds: 100),
             icon: FluentIcons.task_list_square_add_20_regular,
-            text: "اضافة مهمة",
+            text: Lang.get(context, key: LangKey.addTasks),
             onTap: () {
               Navigator.of(context).pop();
 bottomSheetBlur(context, widget: NewTaskPage(), height: 700, color: Theme.of(context).colorScheme.background);
@@ -33,14 +34,15 @@ bottomSheetBlur(context, widget: NewTaskPage(), height: 700, color: Theme.of(con
           NewSheetButtons(
             duration: Duration(milliseconds: 300),
             icon: FluentIcons.alert_12_regular,
-            text: "اضافة تذكير",
+            text: Lang.get(context, key: LangKey.addReminder),
             onTap: () {
 
             }, ),
           NewSheetButtons(
             duration: Duration(milliseconds: 500),
             icon: FluentIcons.note_add_28_regular,
-            text: "اضافة ملاحظة",
+    text: Lang.get(context, key: LangKey.addNote),
+
             onTap: () {
 
           }, ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
+import 'package:khlfan_shtain/components/task_card.dart';
 import 'package:khlfan_shtain/providers/tasks_provider.dart';
 import 'package:khlfan_shtain/settings/sizes.dart';
 import 'package:khlfan_shtain/test.dart';
@@ -25,7 +27,7 @@ class TasksScreen extends ConsumerWidget {
     DateTime selectedDate = DateTime.now();
     return  Scaffold(
       appBar: AppBar(
-        title: const Text("المهام"),
+        title:  Text(Lang.get(context, key: LangKey.tasks,),style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
       ),
       body: Container(
         width: Sizes.width(context),
@@ -40,9 +42,9 @@ child: Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
 
-    Text("${DateFormat("dd").format(DateTime.now())} ، ${DateFormat("MMMM").format(DateTime.now()).toArabicMonth} ✍️",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
+    Text("${DateFormat("dd").format(DateTime.now())} ، ${Lang.get(context, key: DateFormat("MMMM").format(DateTime.now()).toMonthLangKey)} ✍️",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
   SizedBox(height: 5,),
-    Text("5 مهام عندك اليوم",style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.primary),),
+    // Text("5 مهام عندك اليوم",style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.primary),),
   ],
 ),
 ),
@@ -89,7 +91,7 @@ selectedDateColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(50),
                                   color: Colors.redAccent,
                                 ),
-                                child: Icon(Icons.delete,color: Colors.white,),
+                                child: const Icon(Icons.delete,color: Colors.white,),
                               ),
                               SizedBox(width: 10,),
                               InkWell(
@@ -118,71 +120,7 @@ ref.read(tasksProvider.notifier).changeTaskStatus(task, TaskStatusEnum.completed
                                 child: Icon(Icons.edit,color: Colors.white,),
                               ),
                            ], onDismissed: (s){}, actionExtentRatio: 0.5,
-                            child:  Container(
-                          margin: const EdgeInsets.only(bottom: 15),
-                          width: Sizes.width(context),
-                          height: 120,
-                          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Theme.of(context).colorScheme.background,
-                            border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 0.1),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: task.task.toString().isArabic?CrossAxisAlignment.start:CrossAxisAlignment.end,
-                                children: [
-                                  Text(task.category!,textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w200,color: Theme.of(context).colorScheme.secondary),),
-                                  const SizedBox(height: 5,),
-                                  Text(task.task!,textAlign: TextAlign.left,style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
-                                  const SizedBox(height: 5,),
-
-                                  Text(DateFormat("dd/MM/yy - hh:mm a").format(DateTime.parse(task.date!)).replaceAll("AM", "صباحًا").replaceAll("PM", "مساءًا"),textAlign: TextAlign.left,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
-                                ],
-                              ),
-                              Stack(
-                                children: [
-                                  Container(
-                                      margin: const EdgeInsets.only(left: 20),
-                                      height: 70,
-                                      width: 70,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50),
-                                          color: Theme.of(context).colorScheme.background,
-                                          border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 0.1)
-                                      ),
-                                      child:Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text("المتبقي",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(remainingTime['time'].toString(),style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
-                                              SizedBox(width: 5,),
-                                              Text(remainingTime['unit'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                  ),
-                                  Container(
-                                    height: 70,
-                                    width: 70,
-                                    child: CircularProgressIndicator(
-                                      value: remainingTime['progress'],
-                                      strokeWidth: 2,
-                                      color: remainingTime['progress']>=1?Colors.redAccent:Theme.of(context).colorScheme.primary,
-                                      backgroundColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ));
+                            child:  TaskCard(task: task, remainingTime: remainingTime));
                       },
                     );
                   }else if(snapshot.hasError){

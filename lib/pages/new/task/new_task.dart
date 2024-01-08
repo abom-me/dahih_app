@@ -7,6 +7,7 @@ import 'package:khlfan_shtain/components/text_field.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../auto_local/lang.dart';
 import '../../../providers/tasks_provider.dart';
 import '../../../settings/sizes.dart';
 
@@ -40,7 +41,7 @@ TimeOfDay? time;
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "اسم المهمة",
+                  Lang.get(context, key: LangKey.taskName),
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -52,7 +53,7 @@ TimeOfDay? time;
                 TextFieldWidget(
                   controller: taskName,
                   focusNode: taskNameFocus,
-                  hint: "اسم المهمة",
+                  hint:  Lang.get(context, key: LangKey.taskName),
                   keyboardType: TextInputType.text,
                 ),
 
@@ -60,7 +61,7 @@ TimeOfDay? time;
                   height: 20,
                 ),
                 Text(
-                  "تفاصيل المهمة (اختياري)",
+                  "${ Lang.get(context, key: LangKey.taskDetails)} (${ Lang.get(context, key: LangKey.optional)})",
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -73,7 +74,7 @@ TimeOfDay? time;
                   multiLine: true,
                   controller: taskDetails,
                   focusNode: FocusNode(),
-                  hint: "تفاصيل المهمة",
+                  hint:  Lang.get(context, key: LangKey.taskDetails),
                   keyboardType: TextInputType.multiline,
                 ),
 Row(
@@ -86,7 +87,7 @@ Row(
             height: 20,
           ),
           Text(
-            "تاريخ انتهاء المهمة",
+            Lang.get(context, key: LangKey.taskExpirationDate),
             style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
@@ -112,7 +113,7 @@ onTap: (){
             controller: taskDate,
             focusNode: FocusNode(),
             readOnly: true,
-            hint: "تاريخ انتهاء  المهمة",
+            hint:  Lang.get(context, key: LangKey.taskExpirationDate),
             keyboardType: TextInputType.multiline,
           ),
         ],
@@ -168,7 +169,7 @@ onTap: (){
                   height: 20,
                 ),
                 Text(
-                  "التصنيف",
+                  Lang.get(context, key: LangKey.category),
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -185,11 +186,11 @@ onTap: (){
                   controller: taskTime,
                   focusNode: FocusNode(),
                   readOnly: true,
-                  hint: "التصنيف",
+                  hint:  Lang.get(context, key: LangKey.category),
                   keyboardType: TextInputType.multiline,
                 ),
 
-                MainButton(text: "اضافة", width: Sizes.width(context), height: 60, onPressed: (){
+                MainButton(text:  Lang.get(context, key: LangKey.add), width: Sizes.width(context), height: 60, onPressed: (){
                   //
                   // final String task;
                   // final String? description;
