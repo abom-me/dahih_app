@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/pages/nav.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
 
+import '../auto_local/lang.dart';
 import '../providers/auth_provider.dart';
 import 'home/home.dart';
 import 'login.dart';
@@ -39,7 +41,7 @@ GoPage.pushF(page: LoginPage(), context: context);
     return Scaffold(
       body: Center(
         child: Text(
-          "سبلاش سكرين",
+          Lang.get(context, key: LangKey.appS),
           style: Theme.of(context).textTheme.headline4,
         ),
       ),

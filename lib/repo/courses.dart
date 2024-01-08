@@ -1,4 +1,6 @@
 
+import 'package:flutter/material.dart';
+
 import '../models/course_model.dart';
 
 List<Course> courses=[
@@ -7,8 +9,8 @@ List<Course> courses=[
     description: 'Mathematics',
     room: 'A209',
     teacher: 'دكتور سالم',
-    from: DateTime.parse('2024-01-06 06:00:00'),
-    to: DateTime.parse('2024-01-06 07:00:00'),
+    from: "8:00",
+    to: "10:00",
     days: ['Monday','Wednesday','Friday'],
     id: '1',
     color: '#FFC107',
@@ -17,9 +19,9 @@ List<Course> courses=[
     name: 'داتابيس',
     description: 'Mathematics',
     room: 'A208',
-    teacher: 'دكتور احمد',
-    from: DateTime.parse('2024-01-06 08:00:00'),
-    to: DateTime.parse('2024-01-06 11:00:00'),
+      teacher: 'دكتور احمد',
+      from: "10:00",
+      to: "12:00",
     days: ['Monday','Wednesday','Friday'],
     id: '1',
     color: '#FFC107',
@@ -29,8 +31,8 @@ List<Course> courses=[
     description: 'وصف',
     room: 'A110',
     teacher: 'استاذ خالد',
-    from: DateTime.parse('2024-01-06 12:00:00'),
-    to: DateTime.parse('2024-01-06 13:00:00'),
+    from: "12:00",
+    to: "14:00",
     days: ['Monday','Wednesday','Friday'],
     id: '2',
     color: '#FF5722',

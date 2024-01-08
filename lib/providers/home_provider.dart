@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
 import 'package:khlfan_shtain/viewmodel/home_viewmodel.dart';
@@ -21,15 +22,15 @@ class HomeProvider{
     return await homeViewModel.getTodayCourses();
   }
 
-  double getCourseProgress(DateTime startTime,DateTime endTime) {
+  double getCourseProgress(TimeOfDay startTime,TimeOfDay endTime) {
     return homeViewModel.getCourseProgress(startTime, endTime);
   }
 
-  CourseStatusEnum isCourseInProgress(DateTime startTime,DateTime endTime) {
+  CourseStatusEnum isCourseInProgress(TimeOfDay startTime,TimeOfDay endTime) {
     return homeViewModel.isCourseInProgress(startTime, endTime);
   }
 
-  Stream<int> getCourseTimeLeft(DateTime endTime) {
+  Stream<int> getCourseTimeLeft(TimeOfDay endTime) {
     return homeViewModel.getCourseTimeLeft(endTime);
   }
 

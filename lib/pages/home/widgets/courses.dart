@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
+import 'package:khlfan_shtain/utils/string_to_time.dart';
 
 import '../../../components/try_again_widget.dart';
 import '../../../models/course_model.dart';
@@ -54,7 +55,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         Course course = courses[index];
-                        CourseStatusEnum isActive= ref.watch(homeProvider).isCourseInProgress(course.from!, course.to!);
+                        CourseStatusEnum isActive= ref.watch(homeProvider).isCourseInProgress(course.from!.toTimeOfDay as TimeOfDay, course.to!.toTimeOfDay as TimeOfDay);
                         final colorbg=isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background;
                         final textColor= isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.background:Color(0xff002055);
                         if(isActive==CourseStatusEnum.inProgress)   scrollToActiveCourse(index);
@@ -107,7 +108,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                       ],),
 
                                     isActive==CourseStatusEnum.inProgress?StreamBuilder<int>(
-                                        stream: ref.watch(homeProvider).getCourseTimeLeft(course.to!),
+                                        stream: ref.watch(homeProvider).getCourseTimeLeft(course.to!.toTimeOfDay as TimeOfDay),
                                         builder: (context, snapshot) {
                                           return Column(
                                             children: [
@@ -141,7 +142,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(DateFormat('hh:mm').format(course.from!),style: TextStyle(color: textColor),),
+                                    Text(course.from!,style: TextStyle(color: textColor),),
                                     SizedBox(width: 15,),
                                     Expanded(
                                       child: LinearProgressIndicator(
@@ -149,12 +150,12 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                         color: Theme.of(context).colorScheme.secondary,
                                         minHeight: 10,
                                         borderRadius: BorderRadius.circular(15),
-                                        value: ref.watch(homeProvider).getCourseProgress(course.from!, course.to!),
+                                        value: ref.watch(homeProvider).getCourseProgress(course.from!.toTimeOfDay, course.to!.toTimeOfDay),
                                       ),
                                     ),
                                     const SizedBox(width: 15,),
 
-                                    Text(DateFormat('hh:mm').format(course.to!),style: TextStyle(color: textColor),),
+                                    Text(course.to!,style: TextStyle(color: textColor),),
 
                                   ],
                                 ),

@@ -4,7 +4,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
 import 'package:khlfan_shtain/repo/courses.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
@@ -22,40 +24,54 @@ Future<List<Course>> getTodayCourses() async {
 List<Course> todayCourses = [];
 //make Future delay to simulate network call
 await Future.delayed(const Duration(seconds: 2));
+
   courses.forEach((element) {
-    if (element.days!.contains(DateTime.now().weekday)){
+    if (element.days!.contains(DateFormat('EEEE').format(DateTime.now()))){
       todayCourses.add(element);
     }
   });
   return todayCourses;
 }
 
-double getCourseProgress(DateTime startTime,DateTime endTime) {
-  var now = DateTime.now();
-  var start = startTime;
-  var end = endTime;
-  var totalDuration = end
-      .difference(start)
-      .inMinutes;
-  var passedDuration = now
-      .difference(start)
-      .inMinutes;
-  var progress = passedDuration / totalDuration;
+// double getCourseProgress(DateTime startTime,DateTime endTime) {
+//   var now = DateTime.now();
+//   var start = startTime;
+//   var end = endTime;
+//   var totalDuration = end
+//       .difference(start)
+//       .inMinutes;
+//   var passedDuration = now
+//       .difference(start)
+//       .inMinutes;
+//   var progress = passedDuration / totalDuration;
+//
+//   return progress;
+// }
 
-  return progress;
-}
 
-CourseStatusEnum isCourseInProgress(DateTime startTime,DateTime endTime) {
-  var now = DateTime.now();
-  var start = startTime;
-  var end = endTime;
-  var totalDuration = end
-      .difference(start)
-      .inMinutes;
-  var passedDuration = now
-      .difference(start)
-      .inMinutes;
-  var progress = passedDuration / totalDuration;
+  double getCourseProgress(TimeOfDay startTime, TimeOfDay endTime) {
+    TimeOfDay now = TimeOfDay.fromDateTime(DateTime.now());
+    int startMinutes = startTime.hour * 60 + startTime.minute;
+    int endMinutes = endTime.hour * 60 + endTime.minute;
+    int nowMinutes = now.hour * 60 + now.minute;
+
+    int totalDuration = endMinutes - startMinutes;
+    int passedDuration = nowMinutes - startMinutes;
+
+    double progress = passedDuration / totalDuration;
+    return progress;
+  }
+
+CourseStatusEnum isCourseInProgress(TimeOfDay startTime,TimeOfDay endTime) {
+  TimeOfDay now = TimeOfDay.fromDateTime(DateTime.now());
+  int startMinutes = startTime.hour * 60 + startTime.minute;
+  int endMinutes = endTime.hour * 60 + endTime.minute;
+  int nowMinutes = now.hour * 60 + now.minute;
+
+  int totalDuration = endMinutes - startMinutes;
+  int passedDuration = nowMinutes - startMinutes;
+
+  double progress = passedDuration / totalDuration;
 
   if (progress < 0) {
     return CourseStatusEnum.notStarted;
@@ -67,25 +83,46 @@ CourseStatusEnum isCourseInProgress(DateTime startTime,DateTime endTime) {
 }
 
 
-Stream<int> getCourseTimeLeft(DateTime endTime) {
-  var controller = StreamController<int>();
+// Stream<int> getCourseTimeLeft(DateTime endTime) {
+//   var controller = StreamController<int>();
+//
+//   void updateTime() {
+//     var now = DateTime.now();
+//     var totalDuration = endTime.difference(now).inMinutes;
+//     controller.add(totalDuration);
+//   }
+//
+//
+//   Timer.periodic(const Duration(seconds: 1), (timer) {
+//     updateTime();
+//   });
+//
+//
+//   updateTime();
+//
+//   return controller.stream;
+// }
 
-  void updateTime() {
-    var now = DateTime.now();
-    var totalDuration = endTime.difference(now).inMinutes;
-    controller.add(totalDuration);
-  }
+  Stream<int> getCourseTimeLeft(TimeOfDay endTime) {
+    StreamController<int> controller = StreamController<int>();
 
+    void updateTime() {
+      TimeOfDay now = TimeOfDay.fromDateTime(DateTime.now());
+      int endMinutes = endTime.hour * 60 + endTime.minute;
+      int nowMinutes = now.hour * 60 + now.minute;
 
-  Timer.periodic(const Duration(seconds: 1), (timer) {
+      int totalDuration = endMinutes - nowMinutes;
+      controller.add(totalDuration);
+    }
+
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      updateTime();
+    });
+
     updateTime();
-  });
 
-
-  updateTime();
-
-  return controller.stream;
-}
+    return controller.stream;
+  }
 
 
 Future<List<Tasks>> getTasks() async {

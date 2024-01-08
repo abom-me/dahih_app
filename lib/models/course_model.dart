@@ -1,11 +1,13 @@
 
+import 'package:flutter/material.dart';
+
 class Course{
   final String? name;
   final String? description;
   final String? room;
   final String? teacher;
-  final DateTime? from;
-  final DateTime? to;
+  final String? from;
+  final String? to;
   final List<String>? days;
   final String? id;
   final String? color;

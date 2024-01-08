@@ -1,8 +1,10 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/pages/home/widgets/courses.dart';
 import 'package:khlfan_shtain/pages/home/widgets/tasks.dart';
 import 'package:khlfan_shtain/repo/courses.dart';
@@ -66,7 +68,12 @@ class HomePage extends ConsumerWidget {
             child: IconButton(
 
               onPressed: () {
+if(Locales.lang=="ar"){
+  Locales.change(context, "en");
 
+}else{
+  Locales.change(context, "ar");
+}
               },
               icon: const Icon(Icons.notifications_none_outlined),
             ),
@@ -117,7 +124,7 @@ class HomeHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("مرحبا بعودتك ${userData.name} 🤩",style: TextStyle(
+            Text("${Lang.get(context, key: LangKey.welcomeBack)} ${userData.name} 🤩",style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.w800,
@@ -125,7 +132,7 @@ class HomeHeader extends StatelessWidget {
             ),),
             const SizedBox(height: 5,),
 
-            Text("يالله نتحقق من مهامك 📝",style: TextStyle(
+            Text("${Lang.get(context, key: LangKey.letsCheckYourTasks)} 📝",style: TextStyle(
               fontSize: 18,
               color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.w800,
