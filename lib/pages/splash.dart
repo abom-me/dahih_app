@@ -5,6 +5,7 @@ import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/pages/nav.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
+import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 
 import '../auto_local/lang.dart';
 import '../providers/auth_provider.dart';
@@ -20,6 +21,7 @@ class SplashPage extends ConsumerStatefulWidget {
 
 class _SplashPageState extends ConsumerState<SplashPage> {
 getData() async {
+  ref.read(settingsViewModelProvider.notifier).getTheme();
   final auth = ref.watch(authProvider);
 if(await auth.isLogin()){
 GoPage.pushF(page: BottomNavigator(), context: context);

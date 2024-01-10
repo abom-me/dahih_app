@@ -6,6 +6,7 @@ import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/pages/splash.dart';
 import 'package:khlfan_shtain/settings/theme.dart';
+import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 
 import 'firebase_options.dart';
 
@@ -19,12 +20,12 @@ Future<void> main() async {
       .then((value) => {runApp(const ProviderScope(child: MyApp()))});
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-
+  Widget build(BuildContext context, WidgetRef ref) {
+ref.read(settingsViewModelProvider).getTheme();
     return LocaleBuilder(builder: (locale){
       return MaterialApp(
         locale: locale,
@@ -40,19 +41,20 @@ class MyApp extends StatelessWidget {
 
         title: 'Flutter Demo',
 
+        themeMode: ref.watch(settingsViewModelProvider).theme,
         theme: ThemeData(
           textTheme:const TextTheme(
             /// all text style have this color 002055
-            bodyLarge: TextStyle(color: Color(0xff002055)),
-            bodyMedium: TextStyle(color: Color(0xff002055)),
-            labelLarge: TextStyle(color: Color(0xff002055)),
-            bodySmall: TextStyle(color: Color(0xff002055)),
-            displayLarge: TextStyle(color: Color(0xff002055)),
-            displayMedium: TextStyle(color: Color(0xff002055)),
-            displaySmall: TextStyle(color: Color(0xff002055)),
-            headlineMedium: TextStyle(color: Color(0xff002055)),
-            headlineSmall: TextStyle(color: Color(0xff002055)),
-            titleLarge: TextStyle(color: Color(0xff002055)),
+            // bodyLarge: TextStyle(color: Color(0xff002055)),
+            // bodyMedium: TextStyle(color: Color(0xff002055)),
+            // labelLarge: TextStyle(color: Color(0xff002055)),
+            // bodySmall: TextStyle(color: Color(0xff002055)),
+            // displayLarge: TextStyle(color: Color(0xff002055)),
+            // displayMedium: TextStyle(color: Color(0xff002055)),
+            // displaySmall: TextStyle(color: Color(0xff002055)),
+            // headlineMedium: TextStyle(color: Color(0xff002055)),
+            // headlineSmall: TextStyle(color: Color(0xff002055)),
+            // titleLarge: TextStyle(color: Color(0xff002055)),
 
 
 
