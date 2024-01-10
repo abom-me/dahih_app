@@ -118,7 +118,7 @@ events: ref.watch(tasksProvider).tasksDates(),
                         },
                       );
                     }else if(snapshot.hasError){
-                      return tryAgainWidget(onPressed: (){
+                      return tryAgainWidget(context,onPressed: (){
                         ref.read(homeProvider).getTodayCourses();
                       });
                     }else{
@@ -159,7 +159,7 @@ statBtn(title: Lang.get(context, key: LangKey.all), currentStatus: TaskStatusEnu
                           },
                         );
                       }else if(snapshot.hasError){
-                        return tryAgainWidget(onPressed: (){
+                        return tryAgainWidget(context,onPressed: (){
                           ref.read(homeProvider).getTodayCourses();
                         });
                       }else{

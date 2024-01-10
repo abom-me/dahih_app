@@ -57,7 +57,7 @@ class _SwipeableWidgetState extends State<SwipeableWidget> {
       children: [
         AnimatedPositioned(
 
-          duration: Duration(milliseconds: 10),
+          duration: const Duration(milliseconds: 10),
           curve: Curves.easeOut,
           height: 120,
           right: _actionsVisible?0:-100,

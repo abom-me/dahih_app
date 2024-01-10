@@ -105,15 +105,24 @@ class TasksViewModel with ChangeNotifier {
     }
   }
 
-  changeTaskStatus({required Tasks task, required TaskStatusEnum status}) {
+  changeTaskStatus({required Tasks task, required TaskStatusEnum status}) async {
 
 
-    firebaseFirestore
+  await  firebaseFirestore
         .collection("tasks")
         .doc(userData.uid)
         .collection("tasks")
         .doc(task.id)
         .update({"status": status.status});
+
+  firebaseFirestore.collection("doneTasks").doc(userData.uid).set({
+    "id": task.id,
+    "name": task.task,
+    "endDate": task.date,
+    "doneIn": DateTime.now().toString(),
+    "type": task.category,
+    "userId": userData.uid,
+  });
   }
 
   addTask(BuildContext context, {required Tasks task}) async {
@@ -173,15 +182,15 @@ class TasksViewModel with ChangeNotifier {
 
   deleteTask({required BuildContext context , required Tasks task}) async {
     try {
-      Alert.loading(context, Lang.get(context, key: LangKey.deletingTask));
+      // Alert.loading(context, Lang.get(context, key: LangKey.deletingTask));
       await firebaseFirestore
           .collection('tasks')
           .doc(userData.uid)
           .collection("tasks")
           .doc("${task.id}")
           .delete();
-      Alert.close(context);
-      notifyListeners();
+      // Alert.close(context);
+      // notifyListeners();
     } catch (e) {
       Alert.msg(context, Lang.get(context, key: LangKey.error), e.toString());
       print(e);

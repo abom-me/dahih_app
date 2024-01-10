@@ -35,7 +35,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height,req
                  color: Colors.grey[300],
                ),
              ),
-              widget
+              Expanded(child: widget)
             ],
           ),
         ),

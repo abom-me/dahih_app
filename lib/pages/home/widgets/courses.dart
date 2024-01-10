@@ -172,7 +172,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                       ),
                     );
                   }else if(snapshot.hasError){
-                    return tryAgainWidget(onPressed: (){
+                    return tryAgainWidget(context,onPressed: (){
                       ref.read(homeProvider).getTodayCourses();
                     });
                   }else{

@@ -53,7 +53,7 @@ class _HomeTasksState extends ConsumerState<HomeTasks> {
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return tryAgainWidget(onPressed: () {
+                  return tryAgainWidget(context,onPressed: () {
                     ref.read(homeProvider).getTodayCourses();
                   });
                 } else {

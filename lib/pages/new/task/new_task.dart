@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/components/buttons.dart';
 import 'package:khlfan_shtain/components/text_field.dart';
@@ -10,6 +11,7 @@ import 'package:uuid/uuid.dart';
 import '../../../auto_local/lang.dart';
 import '../../../providers/tasks_provider.dart';
 import '../../../settings/sizes.dart';
+import '../../tasks/components/categorys.dart';
 
 class NewTaskPage extends ConsumerStatefulWidget {
   const NewTaskPage({super.key});
@@ -23,10 +25,11 @@ class _NewTaskPageState extends ConsumerState<NewTaskPage> {
   TextEditingController taskDetails = TextEditingController();
   TextEditingController taskDate = TextEditingController();
   TextEditingController taskTime = TextEditingController();
+  TextEditingController category= TextEditingController();
 DateTime? date;
 TimeOfDay? time;
   FocusNode taskNameFocus = FocusNode();
-  GlobalKey<FormState> _form = GlobalKey<FormState>();
+   GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +54,13 @@ TimeOfDay? time;
                   height: 10,
                 ),
                 TextFieldWidget(
+                  valid: (value){
+                    if(value!.isEmpty){
+                      return Lang.get(context, key: LangKey.taskExdateRequired);
+                    }else{
+                      return null;
+                    }
+                  },
                   controller: taskName,
                   focusNode: taskNameFocus,
                   hint:  Lang.get(context, key: LangKey.taskName),
@@ -97,6 +107,13 @@ Row(
             height: 10,
           ),
           TextFieldWidget(
+            valid: (value){
+              if(value!.isEmpty || date==null){
+                return Lang.get(context, key: LangKey.taskNameRequired);
+              }else{
+                return null;
+              }
+            },
 onTap: (){
 
   showDatePicker(
@@ -106,8 +123,10 @@ onTap: (){
       lastDate: DateTime(2025),
     initialEntryMode: DatePickerEntryMode.calendar,
   ).then((value) {
-    taskDate.text=value.toString();
-    date=value;
+    if(value != null) {
+      taskDate.text = DateFormat("dd/MM/yyyy").format(value!);
+      date = value;
+    }
   });
 },
             controller: taskDate,
@@ -130,7 +149,7 @@ onTap: (){
             height: 20,
           ),
           Text(
-            "الوقت (اختياري)",
+            "${Lang.get(context, key: LangKey.time)} (${Lang.get(context, key: LangKey.optional)})",
             style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
@@ -145,14 +164,18 @@ onTap: (){
       context: context,
       initialTime: TimeOfDay.now(),
   ).then((value) {
-    taskTime.text=value.toString();
+    if (value != null) {
+      taskTime.text = value!.format(context);
+      time = value;
+    }
   });
+
 
 },
             controller: taskTime,
             focusNode: FocusNode(),
             readOnly: true,
-            hint: "وقت انتهاء  المهمة",
+            hint: Lang.get(context, key: LangKey.taskCompletionTime),
             keyboardType: TextInputType.multiline,
           ),
         ],
@@ -179,11 +202,20 @@ onTap: (){
                   height: 10,
                 ),
                 TextFieldWidget(
+                  valid: (value){
+                    if(value!.isEmpty){
+                      return Lang.get(context, key: LangKey.categoryRequired);
+                    }else{
+                      return null;
+                    }
+                  },
 onTap: (){
 
-  bottomSheetBlur(context, widget: widget, height: 200, color: Colors.white);
+  bottomSheetBlur(context, widget:Categories(onSelectedCategory: (String selectedCategory) {
+    category.text=selectedCategory;
+  },), height: 500, color: Theme.of(context).colorScheme.background);
 },
-                  controller: taskTime,
+                  controller: category,
                   focusNode: FocusNode(),
                   readOnly: true,
                   hint:  Lang.get(context, key: LangKey.category),
@@ -191,26 +223,24 @@ onTap: (){
                 ),
 
                 MainButton(text:  Lang.get(context, key: LangKey.add), width: Sizes.width(context), height: 60, onPressed: (){
-                  //
-                  // final String task;
-                  // final String? description;
-                  // final DateTime? date;
-                  // final int? time;
-                  // final int? duration;
-                  // final String? status;
-                  // final String? category;
-                  // final String? id;
-                final  taskId= const Uuid().v4();
+                if(_form.currentState!.validate()){
+
+                  DateTime? dateTime=  time !=null?  date?.add(Duration(hours: time!.hour,minutes: time!.minute)):date;
+                  final  taskId= const Uuid().v4();
                   Tasks task= Tasks(
                     id: taskId,
                     task: taskName.text,
                     description: taskDetails.text,
-                    date: date.toString(),
+                    date: dateTime.toString(),
                     status: "inProgress",
                     // duration: 0,
-                    category: "category",
+                    category: category.text,
                   );
                   ref.read(tasksProvider.notifier).addTask(context, task);
+
+                }else{
+
+                }
 
                 })
               ],
