@@ -397,7 +397,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                                     Text(days[i]['dayNumberString'].toString(),textAlign: TextAlign.center,style:fullCurrentDate==days[i]['fullDateString']?widget.currentDateTextStyle: widget.dateTextStyle,),
 
                                     Text(Lang.get(context, key: days[i]['dayString'].toString().shortDayToLangKey),textAlign: TextAlign.center,style: fullCurrentDate==days[i]['fullDateString']?widget.currentDateTextStyle?.copyWith(fontSize: 15): widget.dateTextStyle?.copyWith(fontSize: 15),),
-
+const SizedBox(height: 10,),
                                     event.isEmpty?const SizedBox.shrink():Container(decoration: BoxDecoration(color: widget.dotEventsColor??Colors.red.withOpacity(0.5),borderRadius: BorderRadius.circular(100)),width: 5,height: 5,)
                                   ],
                                 )

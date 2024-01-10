@@ -15,6 +15,7 @@ import 'package:khlfan_shtain/utils/global_keys.dart';
 import '../models/course_model.dart';
 import '../repo/tasks.dart';
 import '../utils/enum/course_status_enum.dart';
+import '../utils/enum/task_status_enum.dart';
 
 final homeViewModelProvider = Provider<HomeViewModel>((ref) {
   return HomeViewModel();
@@ -131,11 +132,14 @@ Future<List<Tasks>> getTasks() async {
  final data=await firebaseFirestore.collection("tasks").doc(userData.uid).collection('tasks').get();
 
   data.docs.forEach((element) {
+// only in progress tasks
+    if(element.data()['status']==TaskStatusEnum.inProgress.status){
+      tasksList.add(Tasks.fromJson(element.data()));
+    }
 
-    tasksList.add(Tasks.fromJson(element.data()));
   });
-  // tasksList.sort((a, b) => a.date!.compareTo(b.date!));
-  // print(tasksList.length);
+  tasksList.sort((a, b) => a.date!.compareTo(b.date!));
+
   return tasksList;
 }
 

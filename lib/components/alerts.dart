@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../auto_local/lang.dart';
 import '../settings/sizes.dart';
 
 
 
 
 class Alert {
-  static msg(context, title, msg) {
+  static msg(context, title, msg, {bool? action,GestureTapCallback? onOk, GestureTapCallback? onCancel}) {
     return showDialog(
       context: context,
       builder: (ctx) => Stack(
@@ -51,19 +52,40 @@ class Alert {
                           ),
                         ],
                       )),
-                  Container(
-                    width: Sizes.width(context),
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text(
-                        "حسنا",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w800, fontSize: 17),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: Sizes.width(context),
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed:action==true?onOk: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text(
+                              Lang.get(context, key: LangKey.ok),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w800, fontSize: 17),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      if(action==true) Expanded(
+                        child: Container(
+                          width: Sizes.width(context),
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed:onCancel,
+                            child: Text(
+                              Lang.get(context, key: LangKey.cancel),
+                              style:  TextStyle(
+                                  fontWeight: FontWeight.w800, fontSize: 17, color: Theme.of(context).colorScheme.secondary),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
