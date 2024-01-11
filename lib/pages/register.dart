@@ -98,7 +98,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         valid: (text){
                           if(text!.isEmpty){
                             return "كيف بتسجل بدون بريد؟🤓";
-                          }else if(!text!.contains("@")){
+                          }else if(!text.contains("@")){
                             return "هذا البريد غير صالح 🤨";
                           }else{
                             return null;
@@ -138,7 +138,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       BoxSize.height(30),
                       GestureDetector(
                           onTap: () {
-                            GoPage.push(page: LoginPage(), context: context);
+                            GoPage.push(page: const LoginPage(), context: context);
                           },
                           child: Column(
                             children: [

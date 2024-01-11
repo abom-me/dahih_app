@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:khlfan_shtain/settings/sizes.dart';
 
 
 
@@ -18,7 +17,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height,req
         child: Container(
           // width: Sizes.width(context),
           height: height,
-          padding: EdgeInsets.only(top: 10,left: 20,right: 20),
+          padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
           decoration:  BoxDecoration(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
             color: color,

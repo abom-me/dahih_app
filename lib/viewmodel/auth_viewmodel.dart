@@ -7,7 +7,6 @@ import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/models/user_model.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
 import 'package:khlfan_shtain/utils/enum/firebase_auth_errors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../pages/nav.dart';
 import '../utils/global_keys.dart';
@@ -52,7 +51,7 @@ await FirebaseFirestore.instance.collection('users').doc(uid).set({
   "email":email
 });
 Navigator.pop(context);
-GoPage.pushF(page: BottomNavigator(), context: context);
+GoPage.pushF(page: const BottomNavigator(), context: context);
 
    } on FirebaseAuthException catch (e){
      Navigator.pop(context);
@@ -75,7 +74,7 @@ print(e.code);
       Map<String,dynamic>userMap =  data.data()!;
       userData=UserModel.fromJson(userMap);
       Navigator.pop(context);
-      GoPage.pushF(page: BottomNavigator(), context: context);
+      GoPage.pushF(page: const BottomNavigator(), context: context);
 
     } on FirebaseAuthException catch (e){
       Navigator.pop(context);

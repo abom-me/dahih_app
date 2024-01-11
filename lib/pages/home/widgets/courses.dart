@@ -1,7 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 import 'package:khlfan_shtain/utils/string_to_time.dart';
@@ -22,7 +21,7 @@ class TodayCourses extends ConsumerStatefulWidget {
 }
 
 class _TodayCoursesState extends ConsumerState<TodayCourses> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   scrollToActiveCourse(int index){
     final activeCourseIndex = index;
@@ -39,7 +38,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text(Lang.get(context, key: LangKey.yourLecturesToday),style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
+           Text(Lang.get(context, key: LangKey.yourLecturesToday),style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
           const SizedBox(height: 15,),
           SizedBox(
             width: Sizes.width(context),
@@ -56,7 +55,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         Course course = courses[index];
-                        CourseStatusEnum isActive= ref.watch(homeProvider).isCourseInProgress(course.from!.toTimeOfDay as TimeOfDay, course.to!.toTimeOfDay as TimeOfDay);
+                        CourseStatusEnum isActive= ref.watch(homeProvider).isCourseInProgress(course.from!.toTimeOfDay, course.to!.toTimeOfDay);
                         final colorbg=isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background;
                         final textColor= isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.onBackground;
                         if(isActive==CourseStatusEnum.inProgress)   scrollToActiveCourse(index);
@@ -109,7 +108,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                       ],),
 
                                     isActive==CourseStatusEnum.inProgress?StreamBuilder<int>(
-                                        stream: ref.watch(homeProvider).getCourseTimeLeft(course.to!.toTimeOfDay as TimeOfDay),
+                                        stream: ref.watch(homeProvider).getCourseTimeLeft(course.to!.toTimeOfDay),
                                         builder: (context, snapshot) {
                                           return Column(
                                             children: [
@@ -117,7 +116,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                               const SizedBox(height: 5,),
                                               Row(
                                                 children: [
-                                                  Text(snapshot.data.toString(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w800),),
+                                                  Text(snapshot.data.toString(),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w800),),
                                                   Text(Lang.get(context, key: LangKey.minute),style: TextStyle(color: textColor,fontSize: 17,fontWeight: FontWeight.w500),),
 
                                                 ],
@@ -144,7 +143,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(course.from!,style: TextStyle(color: textColor),),
-                                    SizedBox(width: 15,),
+                                    const SizedBox(width: 15,),
                                     Expanded(
                                       child: LinearProgressIndicator(
 
@@ -164,7 +163,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                             )
                         );
                       },
-                    ):Container(
+                    ):SizedBox(
                       width: Sizes.width(context),
                       height: 200,
                       child:  Center(

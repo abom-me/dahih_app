@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -29,7 +28,7 @@ class _NewTaskPageState extends ConsumerState<NewTaskPage> {
 DateTime? date;
 TimeOfDay? time;
   FocusNode taskNameFocus = FocusNode();
-   GlobalKey<FormState> _form = GlobalKey<FormState>();
+   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ TimeOfDay? time;
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFieldWidget(
@@ -67,7 +66,7 @@ TimeOfDay? time;
                   keyboardType: TextInputType.text,
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
@@ -77,7 +76,7 @@ TimeOfDay? time;
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFieldWidget(
@@ -93,7 +92,7 @@ Row(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -103,7 +102,7 @@ Row(
                 fontWeight: FontWeight.w500,
                 color: Theme.of(context).colorScheme.primary),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFieldWidget(
@@ -124,7 +123,7 @@ onTap: (){
     initialEntryMode: DatePickerEntryMode.calendar,
   ).then((value) {
     if(value != null) {
-      taskDate.text = DateFormat("dd/MM/yyyy").format(value!);
+      taskDate.text = DateFormat("dd/MM/yyyy").format(value);
       date = value;
     }
   });
@@ -138,14 +137,14 @@ onTap: (){
         ],
       ),
     ),
-    SizedBox(
+    const SizedBox(
       width: 20,
     ),
     Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -155,7 +154,7 @@ onTap: (){
                 fontWeight: FontWeight.w500,
                 color: Theme.of(context).colorScheme.primary),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFieldWidget(
@@ -165,7 +164,7 @@ onTap: (){
       initialTime: TimeOfDay.now(),
   ).then((value) {
     if (value != null) {
-      taskTime.text = value!.format(context);
+      taskTime.text = value.format(context);
       time = value;
     }
   });
@@ -188,7 +187,7 @@ onTap: (){
 
 
 
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
@@ -198,7 +197,7 @@ onTap: (){
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFieldWidget(

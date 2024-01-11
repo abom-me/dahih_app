@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../settings/sizes.dart';
 
 
 class MainButton extends StatelessWidget {

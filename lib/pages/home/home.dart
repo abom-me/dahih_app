@@ -1,4 +1,3 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,16 +7,10 @@ import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/pages/home/widgets/courses.dart';
 import 'package:khlfan_shtain/pages/home/widgets/drawer.dart';
 import 'package:khlfan_shtain/pages/home/widgets/tasks.dart';
-import 'package:khlfan_shtain/repo/courses.dart';
-import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 
-import '../../components/try_again_widget.dart';
-import '../../models/course_model.dart';
-import '../../providers/home_provider.dart';
 import '../../settings/sizes.dart';
-import '../../utils/enum/course_status_enum.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -32,12 +25,12 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context, ) {
 
     return Scaffold(
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(),
+              const SizedBox(),
               // Container(
               //
               //   height: 40,
@@ -94,15 +87,15 @@ class _HomePageState extends ConsumerState<HomePage> {
         height: Sizes.height(context),
         width: Sizes.width(context),
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20,),
-              const HomeHeader(),
-              const SizedBox(height: 20,),
+              SizedBox(height: 20,),
+              HomeHeader(),
+              SizedBox(height: 20,),
               TodayCourses(),
-              const SizedBox(height: 20,),
+              SizedBox(height: 20,),
               HomeTasks()
             ],
           ),
@@ -119,7 +112,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
     width: Sizes.width(context),
        height: 100,
       child: Stack(

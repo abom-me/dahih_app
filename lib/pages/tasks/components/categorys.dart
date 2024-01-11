@@ -6,7 +6,6 @@ import 'package:khlfan_shtain/models/category_model.dart';
 import 'package:khlfan_shtain/providers/category_provider.dart';
 
 import '../../../components/try_again_widget.dart';
-import '../../../settings/sizes.dart';
 
 class Categories extends ConsumerStatefulWidget {
   const Categories({super.key, required this.onSelectedCategory});
@@ -73,12 +72,12 @@ class _CategoriesState extends ConsumerState<Categories> {
                         Icon(Icons.add,
                             size: 25,
                             color: Theme.of(context).colorScheme.primary),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
                           Lang.get(context, key: LangKey.addCategory),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
@@ -109,7 +108,7 @@ class _CategoriesState extends ConsumerState<Categories> {
                            widget.onSelectedCategory(categories[i].name!);
                             Navigator.pop(context);
                          },
-                         title: Text(categories[i].name!,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
+                         title: Text(categories[i].name!,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                        ),
                      );
                    });
@@ -119,7 +118,7 @@ class _CategoriesState extends ConsumerState<Categories> {
                });
 
              }else{
-               return Center(child: CircularProgressIndicator());
+               return const Center(child: CircularProgressIndicator());
              }
             }
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../settings/sizes.dart';
 
@@ -9,7 +8,7 @@ class SwipeableWidget extends StatefulWidget {
   final List<Widget> actions;
   final double actionExtentRatio;
 
-  const SwipeableWidget({
+  const SwipeableWidget({super.key, 
     required this.child,
     required this.onDismissed,
     this.actions = const [],
@@ -42,7 +41,7 @@ class _SwipeableWidgetState extends State<SwipeableWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       getSizes();
     });
 
@@ -66,7 +65,7 @@ class _SwipeableWidgetState extends State<SwipeableWidget> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: AnimatedOpacity(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               opacity: _actionsVisible ? 1.0 : 0.0,
               child: Container(
                 key: mywidgetkey,
@@ -126,7 +125,7 @@ class _SwipeableWidgetState extends State<SwipeableWidget> {
           child: AnimatedContainer(
             // margin: EdgeInsets.only(bottom: 5),
 
-              duration: Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 100),
               curve: Curves.easeOut,
               transform: Matrix4.translationValues( _swipeOffset, 0, 0),
               child: widget.child

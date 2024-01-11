@@ -48,6 +48,7 @@ dependencies:
   cloud_firestore: ^4.14.0
   firebase_storage: ^11.6.0
   uuid: ^4.2.2
+  color_hex: ^0.0.1
 
 dev_dependencies:
   build_runner: ^2.1.4

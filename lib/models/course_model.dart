@@ -1,9 +1,7 @@
 
-import 'package:flutter/material.dart';
-
 class Course{
   final String? name;
-  final String? description;
+  // final String? description;
   final String? room;
   final String? teacher;
   final String? from;
@@ -13,7 +11,7 @@ class Course{
   final String? color;
   Course({
     this.name,
-    this.description,
+    // this.description,
     this.room,
     this.teacher,
     this.from,
@@ -26,7 +24,7 @@ class Course{
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
       name: json['name'],
-      description: json['description'],
+      // description: json['description'],
       room: json['room'],
       teacher: json['teacher'],
       from: json['from'],
@@ -40,7 +38,7 @@ class Course{
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'description': description,
+      // 'description': description,
       'room': room,
       'teacher': teacher,
       'from': from,

@@ -13,7 +13,6 @@ import 'package:khlfan_shtain/repo/courses.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 
 import '../models/course_model.dart';
-import '../repo/tasks.dart';
 import '../utils/enum/course_status_enum.dart';
 import '../utils/enum/task_status_enum.dart';
 
@@ -27,11 +26,12 @@ List<Course> todayCourses = [];
 //make Future delay to simulate network call
 await Future.delayed(const Duration(seconds: 2));
 
-  courses.forEach((element) {
+  for (var element in courses) {
     if (element.days!.contains(DateFormat('EEEE').format(DateTime.now()))){
       todayCourses.add(element);
+      // print(element.name);
     }
-  });
+  }
   return todayCourses;
 }
 
@@ -131,13 +131,13 @@ Future<List<Tasks>> getTasks() async {
   List<Tasks> tasksList = [];
  final data=await firebaseFirestore.collection("tasks").doc(userData.uid).collection('tasks').get();
 
-  data.docs.forEach((element) {
+  for (var element in data.docs) {
 // only in progress tasks
     if(element.data()['status']==TaskStatusEnum.inProgress.status){
       tasksList.add(Tasks.fromJson(element.data()));
     }
 
-  });
+  }
   tasksList.sort((a, b) => a.date!.compareTo(b.date!));
 
   return tasksList;

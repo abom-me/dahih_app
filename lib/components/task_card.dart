@@ -1,11 +1,9 @@
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
-import 'package:khlfan_shtain/utils/enum/screens_enum.dart';
 import '../auto_local/lang.dart';
 import '../models/tasks_model.dart';
 import '../providers/tasks_provider.dart';
@@ -102,7 +100,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                     height: 5,
                   ),
                   Text(
-                    task.task!,
+                    task.task,
                     // textAlign: TextAlign.left,
                     style: TextStyle(
                         fontSize: 17,
@@ -111,7 +109,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                             .colorScheme
                             .secondary),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
@@ -175,7 +173,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                                         .colorScheme
                                         .secondary),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
@@ -192,7 +190,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                           ),
                         ],
                       )),
-                  Container(
+                  SizedBox(
                     height: 80,
                     width: 80,
                     child: CircularProgressIndicator(

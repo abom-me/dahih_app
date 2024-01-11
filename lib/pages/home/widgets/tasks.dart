@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
-import 'package:khlfan_shtain/models/tasks_model.dart';
-import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 
 import '../../../components/task_card.dart';
 import '../../../components/try_again_widget.dart';
 import '../../../providers/home_provider.dart';
-import '../../../settings/sizes.dart';
 import 'courses_loading.dart';
 
 class HomeTasks extends ConsumerStatefulWidget {
@@ -57,7 +53,7 @@ class _HomeTasksState extends ConsumerState<HomeTasks> {
                     ref.read(homeProvider).getTodayCourses();
                   });
                 } else {
-                  return CourseCardShimmer();
+                  return const CourseCardShimmer();
                 }
               })
         ],

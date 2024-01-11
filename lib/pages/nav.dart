@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class _BottomNavigatorState extends ConsumerState<BottomNavigator> {
 
     ];
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: Sizes.height(context),
         width: Sizes.width(context),
 

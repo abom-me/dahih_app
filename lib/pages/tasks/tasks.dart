@@ -6,17 +6,12 @@ import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/components/task_card.dart';
 import 'package:khlfan_shtain/providers/tasks_provider.dart';
 import 'package:khlfan_shtain/settings/sizes.dart';
-import 'package:khlfan_shtain/test.dart';
 import 'package:khlfan_shtain/utils/calander.dart';
-import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 import 'package:khlfan_shtain/utils/month_to_arabic.dart';
-import 'package:khlfan_shtain/utils/time_line.dart';
 
 import '../../components/try_again_widget.dart';
 import '../../providers/home_provider.dart';
-import '../../repo/tasks.dart';
 import '../../utils/enum/task_status_enum.dart';
-import '../../utils/swipe_able_widget.dart';
 import '../home/widgets/courses_loading.dart';
 
 
@@ -46,7 +41,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
    TaskStatusEnum status= ref.watch(tasksProvider).getSelectedStatus();
     return  Scaffold(
       appBar: AppBar(
-        title:  Text(Lang.get(context, key: LangKey.tasks,),style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
+        title:  Text(Lang.get(context, key: LangKey.tasks,),style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
       ),
       body: Container(
         width: Sizes.width(context),
@@ -64,7 +59,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("${DateFormat("dd").format(DateTime.now())} ، ${Lang.get(context, key: DateFormat("MMMM").format(DateTime.now()).toMonthLangKey)} ✍️",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
+                      Text("${DateFormat("dd").format(DateTime.now())} ، ${Lang.get(context, key: DateFormat("MMMM").format(DateTime.now()).toMonthLangKey)} ✍️",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
                      GestureDetector(onTap: (){
                         setState(() {
                           calender=!calender;
@@ -72,7 +67,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                       },child:  calender? Icon(FluentIcons.column_triple_20_regular,color: Theme.of(context).colorScheme.primary,size: 30,):Icon(FluentIcons.calendar_rtl_12_regular,color: Theme.of(context).colorScheme.primary,size: 30,))
                     ],
                   ),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   // Text("5 مهام عندك اليوم",style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.primary),),
                 ],
               ),
@@ -122,7 +117,7 @@ events: ref.watch(tasksProvider).tasksDates(),
                         ref.read(homeProvider).getTodayCourses();
                       });
                     }else{
-                      return CourseCardShimmer();
+                      return const CourseCardShimmer();
                     }
                   }
 
@@ -136,7 +131,7 @@ statBtn(title: Lang.get(context, key: LangKey.completed), currentStatus: TaskSta
 statBtn(title: Lang.get(context, key: LangKey.all), currentStatus: TaskStatusEnum.all),
                 ],
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Expanded(
 
                 child:   FutureBuilder(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 final settingsViewModelProvider = ChangeNotifierProvider.autoDispose<SettingsViewModel>((ref) {
   return SettingsViewModel();

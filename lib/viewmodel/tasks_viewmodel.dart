@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:khlfan_shtain/repo/tasks.dart';
 import 'package:khlfan_shtain/utils/enum/task_status_enum.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 
@@ -38,13 +37,13 @@ class TasksViewModel with ChangeNotifier {
         .collection("tasks")
         .get();
     tasks.clear();
-    value.docs.forEach((element) {
+    for (var element in value.docs) {
 
       tasks.add(Tasks.fromJson(element.data()));
 
       notifyListeners();
       todayTasks.add(Tasks.fromJson(element.data()));
-    });
+    }
 
     notifyListeners();
     return todayTasks;
@@ -54,26 +53,26 @@ class TasksViewModel with ChangeNotifier {
   Future<List<Tasks>> getSelectedTasks() async {
     List<Tasks> allTasks = await getTodayTasks();
     List<Tasks> filteredTasks = [];
-    allTasks.forEach((element) {
+    for (var element in allTasks) {
 
       if (element.date == selectedDate.toString() &&
           element.status == TaskStatusEnum.inProgress.status) {
         filteredTasks.add(element);
       }
-    });
+    }
     return filteredTasks;
   }
 
   List<String> tasksDates() {
     List<String> dates = [];
 
-    tasks.forEach((element) {
+    for (var element in tasks) {
       if (!dates.contains(element.date)) {
         final date = DateTime.parse(element.date!);
 
         dates.add(DateFormat("yyyy/MM/dd").format(date));
       }
-    });
+    }
 
     return dates;
   }

@@ -13,7 +13,7 @@ class CategoryViewModel extends ChangeNotifier {
 
 final firebaseFirestore = FirebaseFirestore.instance;
   Future<void> addCategories(String name) async {
-    String id=Uuid().v4();
+    String id=const Uuid().v4();
     categories.add(CategoryModel(id: id, name: name));
  firebaseFirestore.collection("categories").doc(id).set({
       "id":id,
@@ -26,10 +26,10 @@ final firebaseFirestore = FirebaseFirestore.instance;
   Future<List<CategoryModel>> getCategories() async {
     final value = await firebaseFirestore.collection("categories").get();
     categories.clear();
-    value.docs.forEach((element) {
+    for (var element in value.docs) {
       categories.add(CategoryModel.fromJson(element.data()));
       notifyListeners();
-    });
+    }
   return categories;
   }
 }

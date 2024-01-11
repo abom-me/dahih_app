@@ -20,7 +20,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   TextEditingController password = TextEditingController();
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
-  GlobalKey<FormState> _login = GlobalKey<FormState>();
+  final GlobalKey<FormState> _login = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context,) {
@@ -78,7 +78,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     valid: (text){
                       if(text!.isEmpty){
                         return "كيف بتسجل بدون بريد؟🤓";
-                      }else if(!text!.contains("@")){
+                      }else if(!text.contains("@")){
                         return "هذا البريد غير صالح 🤨";
                       }else{
                         return null;
@@ -126,7 +126,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 BoxSize.height(30),
                   GestureDetector(
                       onTap: () {
-                        GoPage.push(page: RegisterPage(), context: context);
+                        GoPage.push(page: const RegisterPage(), context: context);
                       },
                       child: Column(
                         children: [

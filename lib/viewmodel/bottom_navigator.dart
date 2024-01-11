@@ -18,7 +18,7 @@ class BottomNavigatorViewModel extends ChangeNotifier {
   Widget showScreen() {
     switch (currentIndex) {
       case ScreensEnum.home:
-        return HomePage();
+        return const HomePage();
       case ScreensEnum.profile:
         return const Center(
           child: Text(
@@ -27,7 +27,7 @@ class BottomNavigatorViewModel extends ChangeNotifier {
           ),
         );
         case ScreensEnum.tasks:
-        return TasksScreen();
+        return const TasksScreen();
 
       default:
         return const Center(

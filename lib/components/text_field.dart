@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
-import 'package:khlfan_shtain/viewmodel/textfield_viewmodel.dart';
 
-import '../providers/textfield_provider.dart';
 
 class TextFieldWidget extends ConsumerStatefulWidget {
   const TextFieldWidget( {
