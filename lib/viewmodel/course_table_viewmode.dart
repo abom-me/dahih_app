@@ -20,6 +20,7 @@ final value=await firebaseFirestore.collection('courses').doc(userData.uid).coll
     todayCourses.add(Course.fromJson(element.data()));
   }
 
+
   return todayCourses;
 
 

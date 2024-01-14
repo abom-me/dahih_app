@@ -38,6 +38,7 @@ class _AddCourseState extends ConsumerState<AddCourse> {
       DaysEnum.wednesday.name,
       DaysEnum.thursday.name,
       DaysEnum.friday.name,
+      DaysEnum.saturday.name,
     ];
     FocusNode taskNameFocus = FocusNode();
     final GlobalKey<FormState> _form = GlobalKey<FormState>();
@@ -261,9 +262,9 @@ class _AddCourseState extends ConsumerState<AddCourse> {
                      },
                      child: AnimatedContainer(
                        duration: const Duration(milliseconds: 300),
-                       height: 50,
-                       width: 50,
-                       margin: const EdgeInsets.only(left: 5,right: 5),
+width: 40,
+                        height: 40,
+                       margin: const EdgeInsets.only(left: 2,right: 2),
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.circular(100),
                          color: days.contains(day)?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background,

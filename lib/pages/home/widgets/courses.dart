@@ -44,7 +44,7 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
             width: Sizes.width(context),
             height: 200,
             child: FutureBuilder(
-                future: ref.read(homeProvider).getTodayCourses(),
+                future: ref.watch(homeProvider).getTodayCourses(),
                 builder: (context, snapshot) {
 
                   if(snapshot.hasData){
@@ -54,11 +54,11 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
 
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        Course course = courses[index];
+                        Course course = snapshot.data![index];
                         CourseStatusEnum isActive= ref.watch(homeProvider).isCourseInProgress(course.from!.toTimeOfDay, course.to!.toTimeOfDay);
                         final colorbg=isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background;
                         final textColor= isActive==CourseStatusEnum.inProgress?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.onBackground;
-                        if(isActive==CourseStatusEnum.inProgress)   scrollToActiveCourse(index);
+                        if(isActive==CourseStatusEnum.inProgress && snapshot.data!.length>1)   scrollToActiveCourse(index);
 
                         return Container(
                             width: 300,
@@ -86,14 +86,14 @@ class _TodayCoursesState extends ConsumerState<TodayCourses> {
                                           children: [
                                             Icon(FluentIcons.home_person_20_filled,color: textColor,size: 20,),
                                             const SizedBox(width: 10,),
-                                            Text(course.room!,textAlign: TextAlign.left,style: TextStyle(fontSize: 17,fontWeight: FontWeight.w100,color: textColor),),
+                                            Text(course.room!,textAlign: TextAlign.left,style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500,color: textColor),),
 
 
                                           ],
                                         ),
                                         const SizedBox(height: 10,),
 
-                                        Row(
+                                        if(course.teacher !=null && course.teacher !='')Row(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           mainAxisAlignment: course.name.toString().isArabic?MainAxisAlignment.start:MainAxisAlignment.end,
                                           children: [

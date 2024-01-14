@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
+import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/components/buttons.dart';
 import 'package:khlfan_shtain/components/text_field.dart';
-import 'package:khlfan_shtain/pages/register.dart';
+import 'package:khlfan_shtain/pages/auth/components/repassword.dart';
+import 'package:khlfan_shtain/pages/auth/register.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
 import 'package:khlfan_shtain/settings/sizes.dart';
 
-import '../providers/auth_provider.dart';
+import '../../providers/auth_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -31,8 +34,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text(
-          'تسجيل دخول',
+        title:  Text(
+          Lang.get(context, key: LangKey.login),
         ),
       ),
       body: Container(
@@ -46,15 +49,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             children: <Widget>[
               SizedBox(
                 width: Sizes.width(context),
-                child: const Text(
-                  "مرحبا بعودتك 👋",
+                child:  Text(
+                  "${Lang.get(context, key: LangKey.welcomeBack)} 👋",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(
                 width: Sizes.width(context) * 0.7,
                 child: Text(
-                  "من فضلك ادخل البريد الالكتروني و كلمة المرور لتسجيل الدخول",
+                  Lang.get(context, key: LangKey.pleaseEnterYourEmailPassweord),
                   style: TextStyle(
                       color: Theme.of(context)
                           .colorScheme
@@ -72,14 +75,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   TextFieldWidget(
                     focusNode: emailFocus,
                     controller: email,
-                    hint: "البريد الإلكتروني",
+                    hint: Lang.get(context, key: LangKey.email),
                     keyboardType: TextInputType.emailAddress,
                     isPassword: false,
                     valid: (text){
                       if(text!.isEmpty){
-                        return "كيف بتسجل بدون بريد؟🤓";
+                        return "${Lang.get(context, key: LangKey.emailEmpty)} 🤓";
                       }else if(!text.contains("@")){
-                        return "هذا البريد غير صالح 🤨";
+                        return "${Lang.get(context, key: LangKey.emailNotValid)} 🤨";
                       }else{
                         return null;
                       }
@@ -92,12 +95,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     child: TextFieldWidget(
                       focusNode: passwordFocus,
                       controller: password,
-                      hint: "كلمة المرور",
+                      hint: Lang.get(context, key: LangKey.password),
                       keyboardType: TextInputType.visiblePassword,
                       isPassword: true,
                       valid: (text){
                         if(text!.isEmpty){
-                          return "معقول حسابك بدون كلمة مرور؟ 😒";
+                          return "${Lang.get(context, key: LangKey.passwordEmpty)} 😒";
                         }else{
                           return null;
                         }
@@ -105,11 +108,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
                   ),
                   BoxSize.height(10),
-                  SizedBox(
-                    width: Sizes.width(context),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    // width: Sizes.width(context),
                     child: InkWell(
+                      onTap: () {
+                        bottomSheetBlur(context, widget: ResetPasswordScreen(), height: 400, color: Colors.white);
+                      },
                         child: Text(
-                      "نسيت كلمة المرور؟",
+                      Lang.get(context, key: LangKey.forgotPassword),
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
                           fontSize: 17,
@@ -117,9 +124,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     )),
                   ),
 
-                 MainButton(text: "تسجيل دخول", width: Sizes.width(context), height: 50, onPressed: (){
+                 MainButton(text:  Lang.get(context, key: LangKey.login), width: Sizes.width(context), height: 50, onPressed: (){
                     if(_login.currentState!.validate()){
-                      print("login");
                       ref.read(authProvider).login(email:email.text, password:password.text, context:context);
                     }
                  }),
@@ -131,14 +137,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       child: Column(
                         children: [
                           Text(
-                            " ليس لديك حساب؟ ",
+                            Lang.get(context, key: LangKey.dontHaveAccount),
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.onBackground,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500),
                           ),
                           Text(
-                            "سجل الان ",
+                            Lang.get(context, key: LangKey.registerNow),
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
                                 fontSize: 17,

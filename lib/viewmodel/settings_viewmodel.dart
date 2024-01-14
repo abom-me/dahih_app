@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/pages/auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../settings/routes.dart';
 final settingsViewModelProvider = ChangeNotifierProvider.autoDispose<SettingsViewModel>((ref) {
   return SettingsViewModel();
 });
@@ -32,6 +36,14 @@ class SettingsViewModel extends ChangeNotifier {
   changeLang(BuildContext context,String lang) {
     notifyListeners();
     Locales.change(context, lang);
+  }
+
+  logout(BuildContext context) {
+    FirebaseAuth.instance.signOut();
+    SharedPreferences.getInstance().then((value) => value.clear());
+    GoPage.pushR(page: const LoginPage(), context: context);
+    notifyListeners();
+    //logout
   }
 
 

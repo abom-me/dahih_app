@@ -5,6 +5,7 @@ import 'package:khlfan_shtain/auto_local/lang.dart';
 import '../../../components/task_card.dart';
 import '../../../components/try_again_widget.dart';
 import '../../../providers/home_provider.dart';
+import '../../../settings/sizes.dart';
 import 'courses_loading.dart';
 
 class HomeTasks extends ConsumerStatefulWidget {
@@ -32,7 +33,13 @@ class _HomeTasksState extends ConsumerState<HomeTasks> {
               future: ref.read(homeProvider).getTasks(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
+                  return snapshot.data!.isEmpty?SizedBox(
+                    width: Sizes.width(context),
+                    height: 200,
+                    child:  Center(
+                      child: Text("${Lang.get(context, key: LangKey.youDontHaveTasks)} 🤩",style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w500),),
+                    ),
+                  ):ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,

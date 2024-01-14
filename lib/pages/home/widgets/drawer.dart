@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/pages/courses/courses_table.dart';
+import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 
@@ -16,13 +18,23 @@ class DrawerWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       child: ListView(
-
+padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              // color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+          Container(
+            padding: const EdgeInsets.only(top: 120),
+              clipBehavior: Clip.hardEdge,
+            alignment: Alignment.bottomCenter,
+            // height: 210,
+            decoration:  BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
               border: Border(
                 bottom: BorderSide.none
               )
@@ -31,23 +43,34 @@ class DrawerWidget extends ConsumerWidget {
               child: Container(
             // width: Sizes.width(context),
             // height: 210,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: Icon(FluentIcons.person_20_regular,color: Theme.of(context).colorScheme.background,size: 50,),
+                userData.profileImage=="" || userData.profileImage==null ? userData.gender==GenderEnum.male.gender?Image.asset(
+
+                  "assets/avatars/i5.png",
+                  width: 130,
+                  height: 130,
+                  fit: BoxFit.cover,
+                ):Image.asset(
+
+                  "assets/avatars/i43.png",
+                  width: 130,
+                  height: 130,
+                  fit: BoxFit.cover,
+                ): Image.asset(
+                  userData.profileImage!,
+                  fit: BoxFit.cover,
+                  width: 130,
+                  height: 130,
                 ),
                 const SizedBox(height: 10,),
-                Text(userData.name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.secondary),)
+                Text(userData.name,style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.secondary),)
               ],
             ),
           )),
+
 
 ListTile(
   onTap: (){
@@ -103,6 +126,9 @@ title: Text(Lang.get(context, key: LangKey.studySchedule),style: const TextStyle
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
           ),
           ListTile(
+            onTap: (){
+            ref.read(settingsViewModelProvider.notifier).logout(context);
+            },
             leading: Icon(FluentIcons.sign_out_20_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
             title: Text(Lang.get(context, key: LangKey.logout),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
           ),

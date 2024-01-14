@@ -2,12 +2,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/models/user_model.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
 import 'package:khlfan_shtain/utils/enum/firebase_auth_errors.dart';
+import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
 
+import '../auto_local/lang.dart';
 import '../pages/nav.dart';
 import '../utils/global_keys.dart';
 
@@ -37,10 +40,11 @@ userData=UserModel.fromJson(user);
     required String name,
     required String email,
     required String password,
+    required GenderEnum gender,
 
 
   }) async {
-   Alert.loading(context, "يتم فتح حساب الان");
+   Alert.loading(context, Lang.get(context, key: LangKey.registering));
    try{
 
      UserCredential user=await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -56,17 +60,18 @@ GoPage.pushF(page: const BottomNavigator(), context: context);
    } on FirebaseAuthException catch (e){
      Navigator.pop(context);
 print(e.code);
-     Alert.msg(context, "خطأ", FirebaseAuthError.create(e.code));
+
+     Alert.msg(context, Lang.get(context, key: LangKey.error), FirebaseAuthError.create(e.code,Locales.lang));
    }catch(e){
      Navigator.pop(context);
 
-     Alert.msg(context, "خطأ", e.toString());
+     Alert.msg(context, Lang.get(context, key: LangKey.error), e.toString());
    }
   }
 
 
   login({required BuildContext context,required String email,required String password}) async {
-    Alert.loading(context, "يتم تسجيل الدخول");
+    Alert.loading(context, Lang.get(context, key: LangKey.login));
     try{
       UserCredential user=await _auth.signInWithEmailAndPassword(email: email, password: password);
       String uid=user.user!.uid;
@@ -79,11 +84,30 @@ print(e.code);
     } on FirebaseAuthException catch (e){
       Navigator.pop(context);
       print(e.code);
-      Alert.msg(context, "خطأ", FirebaseAuthError.login(e.code));
+      Alert.msg(context,Lang.get(context, key: LangKey.error), FirebaseAuthError.login(e.code,Locales.lang));
     }catch(e){
       Navigator.pop(context);
 
-      Alert.msg(context, "خطأ", e.toString());
+      Alert.msg(context, Lang.get(context, key: LangKey.error), e.toString());
     }
+  }
+
+ Future resetPassword(BuildContext context,String email) async{
+    Alert.loading(context, Lang.get(context, key: LangKey.resetPassword));
+   try{
+    await _auth.sendPasswordResetEmail(email: email);
+     Navigator.pop(context);
+
+      Alert.msg(context, Lang.get(context, key: LangKey.done), Lang.get(context, key: LangKey.resetPasswordLinkSent));
+
+    }on FirebaseAuthException catch (e){
+     Navigator.pop(context);
+     print(e.code);
+     Alert.msg(context,Lang.get(context, key: LangKey.error), FirebaseAuthError.login(e.code,Locales.lang));
+   }catch(e){
+     Navigator.pop(context);
+
+     Alert.msg(context, Lang.get(context, key: LangKey.error), e.toString());
+   }
   }
 }

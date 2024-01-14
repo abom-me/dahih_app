@@ -16,6 +16,7 @@ class BottomNavigatorViewModel extends ChangeNotifier {
   }
 
   Widget showScreen() {
+
     switch (currentIndex) {
       case ScreensEnum.home:
         return const HomePage();

@@ -23,15 +23,17 @@ class HomeViewModel{
 FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
 Future<List<Course>> getTodayCourses() async {
 List<Course> todayCourses = [];
-//make Future delay to simulate network call
-await Future.delayed(const Duration(seconds: 2));
+// if (element.days!.contains(DateFormat('EEEE').format(DateTime.now()))){
+//   todayCourses.add(element);
+//   // print(element.name);
+// }
 
-  for (var element in courses) {
-    if (element.days!.contains(DateFormat('EEEE').format(DateTime.now()))){
-      todayCourses.add(element);
-      // print(element.name);
-    }
+final value=await firebaseFirestore.collection('courses').doc(userData.uid).collection('courses').get();
+for (var element in value.docs) {
+  if (element.data()['days'].contains(DateFormat('EEEE').format(DateTime.now()))){
+    todayCourses.add(Course.fromJson(element.data()));
   }
+}
   return todayCourses;
 }
 

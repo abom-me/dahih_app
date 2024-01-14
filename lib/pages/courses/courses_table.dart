@@ -26,6 +26,7 @@ class _CoursesTableState extends ConsumerState<CoursesTable> {
     DaysEnum.wednesday.name,
     DaysEnum.thursday.name,
     DaysEnum.friday.name,
+    DaysEnum.saturday.name
   ];
 
 
@@ -143,7 +144,7 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
                     '${coursesByDay[day]![i].name}\n${coursesByDay[day]![i].room}'),
                 Text(
                   coursesByDay[day]?[i].from!.toTimeOfDay.format(context)
-                      ?? 'null',
+                      ??"",
                 ),
                             ],
                           ),

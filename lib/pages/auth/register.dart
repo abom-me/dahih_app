@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:khlfan_shtain/pages/login.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
+import 'package:khlfan_shtain/pages/auth/login.dart';
 import 'package:khlfan_shtain/providers/auth_provider.dart';
 
-import '../components/buttons.dart';
-import '../components/text_field.dart';
-import '../settings/routes.dart';
-import '../settings/sizes.dart';
+import '../../components/buttons.dart';
+import '../../components/text_field.dart';
+import '../../settings/routes.dart';
+import '../../settings/sizes.dart';
+import '../../utils/enum/gender_enum.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -18,7 +20,7 @@ class RegisterPage extends ConsumerStatefulWidget {
 
 class _RegisterPageState extends ConsumerState<RegisterPage> {
   TextEditingController email = TextEditingController();
-
+GenderEnum? gender;
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   final GlobalKey<FormState> _register = GlobalKey<FormState>();
@@ -32,8 +34,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'تسجيل جديد',
+        title:  Text(
+          Lang.get(context, key: LangKey.newRegistration),
         ),
       ),
       body: Container(
@@ -47,15 +49,15 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             children: <Widget>[
               SizedBox(
                 width: Sizes.width(context),
-                child: const Text(
-                  "إنشاء حساب",
+                child:  Text(
+                  Lang.get(context, key: LangKey.createAnAccount),
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(
                 width: Sizes.width(context) * 0.7,
                 child: Text(
-                  "من فضلك ادخل بياناتك لفتح حساب جديد",
+                  Lang.get(context, key: LangKey.enterYourData),
                   style: TextStyle(
                       color: Theme.of(context)
                           .colorScheme
@@ -73,22 +75,99 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       TextFieldWidget(
                         focusNode: nameFocus,
                         controller: name,
-                        hint: "الاسم",
+                        hint: Lang.get(context, key: LangKey.name),
                         keyboardType: TextInputType.name,
                         isPassword: false,
                         valid: (text){
                           if(text!.isEmpty){
-                            return "كيف راح نناديك بدون اسم؟ 😀";
+                            return "${Lang.get(context, key: LangKey.nameEmpty)} 😀";
                           }else{
                             return null;
                           }
                         },
                       ),
+                      // BoxSize.height(30),
+
+                        Container(
+                          width: Sizes.width(context),
+                          height: 96,
+                          child:Row(
+                            children: [
+
+                              Row(
+                                children: [
+                                  Text(Lang.get(context, key: LangKey.selectGender,),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                                  Row(
+                                    children: [
+                                      Radio(
+                                        value: GenderEnum.male,
+                                        groupValue: gender,
+                                        onChanged: ( value) {
+                                          gender=value;
+                                          setState(() {
+
+                                          });
+
+
+                                        },
+                                      ),
+                              Text(Lang.get(context, key: LangKey.male),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio(
+
+                                        value: GenderEnum.female,
+                                        groupValue: gender,
+                                        onChanged: ( value) {
+                                          gender=value;
+                                          setState(() {
+
+                                          });
+
+
+                                        },
+                                      ),
+                              Text(Lang.get(context, key: LangKey.female),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                              Expanded(
+                                // flex: 1,
+                                child: TextFormField(
+
+                                  readOnly: true,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.zero,
+                                    disabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    focusedErrorBorder: InputBorder.none,
+
+                                  ),
+                                  validator: (v){
+                                    if(gender ==null){
+                                      return Lang.get(context, key: LangKey.genderEmpty);
+                                    }else{
+                                      return null;
+                                    }
+                                  },
+                                ),
+                              )
+
+                            ],
+                          ) ,
+                        ),
                       BoxSize.height(30),
                       TextFieldWidget(
                         focusNode: emailFocus,
                         controller: email,
-                        hint: "البريد الإلكتروني",
+                        hint: Lang.get(context, key: LangKey.email),
                         keyboardType: TextInputType.emailAddress,
                         isPassword: false,
                         inputFormatters: [
@@ -97,9 +176,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         ],
                         valid: (text){
                           if(text!.isEmpty){
-                            return "كيف بتسجل بدون بريد؟🤓";
+                            return "${Lang.get(context, key: LangKey.emailEmpty)} 🤓";
                           }else if(!text.contains("@")){
-                            return "هذا البريد غير صالح 🤨";
+                            return "${Lang.get(context, key: LangKey.emailNotValid)} 🤨";
                           }else{
                             return null;
                           }
@@ -109,7 +188,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       TextFieldWidget(
                         focusNode: passwordFocus,
                         controller: password,
-                        hint: "كلمة المرور",
+                        hint: Lang.get(context, key: LangKey.password),
                         keyboardType: TextInputType.visiblePassword,
                         isPassword: true,
                         inputFormatters: [
@@ -118,9 +197,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         ],
                         valid: (text){
                           if(text!.isEmpty){
-                            return "معقول حسابك بدون كلمة مرور؟ 😒";
+                            return "${Lang.get(context, key: LangKey.passwordEmpty)} 😒";
                           }else if(text.length<6){
-                            return "كلمة المرور سهلة مررة كل احد يتوقعها 👻";
+                            return "${Lang.get(context, key: LangKey.passwordEasy)} 👻";
                           }else{
                             return null;
                           }
@@ -129,9 +208,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
 
 
-                      MainButton(text: "تسجيل", width: Sizes.width(context), height: 50, onPressed: (){
+                      MainButton(text: Lang.get(context, key: LangKey.register), width: Sizes.width(context), height: 50, onPressed: (){
            if(_register.currentState!.validate()){
-             ref.read(authProvider).register(context: context, email: email.text, password: password.text,name: name.text);
+             ref.read(authProvider).register(context: context, email: email.text, password: password.text,name: name.text, gender: gender!);
 
            }
                       }),
@@ -143,14 +222,14 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           child: Column(
                             children: [
                               Text(
-                                " هل لديك حساب؟ ",
+                                Lang.get(context, key: LangKey.dontHaveAccount),
                                 style: TextStyle(
                                     color: Theme.of(context).colorScheme.onBackground,
                                     fontSize: 17,
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                "تسجيل دخول ",
+                                Lang.get(context, key: LangKey.login),
                                 style: TextStyle(
                                     color: Theme.of(context).colorScheme.primary,
                                     fontSize: 17,

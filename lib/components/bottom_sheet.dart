@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 
-bottomSheetBlur(BuildContext context,{required widget,required double height,required Color color}){
+bottomSheetBlur(BuildContext context,{required widget,required double height, Color? color}){
 
   showModalBottomSheet(
         barrierColor: Colors.black.withOpacity(0.2),
@@ -20,7 +20,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height,req
           padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
           decoration:  BoxDecoration(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-            color: color,
+            color: Theme.of(context).colorScheme.background,
 
           ),
           child: Column(
