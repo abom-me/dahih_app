@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,9 +38,9 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   logout(BuildContext context) {
-    FirebaseAuth.instance.signOut();
+    // FirebaseAuth.instance.signOut();
     SharedPreferences.getInstance().then((value) => value.clear());
-    GoPage.pushR(page: const LoginPage(), context: context);
+    // GoPage.pushR(page: const LoginPage(), context: context);
     notifyListeners();
     //logout
   }

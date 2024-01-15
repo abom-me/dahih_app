@@ -2,142 +2,164 @@
 // import 'package:khlfan_shtain/repo/courses.dart';
 // import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 // import 'package:khlfan_shtain/utils/enum/days_enum.dart';
+// import 'package:localstorage/localstorage.dart';
 //
-// import 'auto_local/lang.dart';
-// import 'models/course_model.dart';
+// class HomePage extends StatefulWidget {
+//   HomePage({Key? key}) : super(key: key);
 //
-//
-//
-// enum DaysEnum {
-//   monday('Monday'),
-//   tuesday('Tuesday'),
-//   wednesday('Wednesday'),
-//   thursday('Thursday'),
-//   friday('Friday'),
-//   saturday('Saturday'),
-//   sunday('Sunday');
-//   const DaysEnum(this.name);
-//   final String name;
-// }
-//
-// class TimetableScreen extends StatefulWidget {
 //   @override
-//   _TimetableScreenState createState() => _TimetableScreenState();
+//   _MyHomePageState createState() => new _MyHomePageState();
 // }
 //
-// class _TimetableScreenState extends State<TimetableScreen> {
-//   List<String> daysOfWeek = [
-//     DaysEnum.sunday.name,
-//     DaysEnum.monday.name,
-//     DaysEnum.tuesday.name,
-//     DaysEnum.wednesday.name,
-//     DaysEnum.thursday.name,
-//     DaysEnum.friday.name,
-//   ];
+// class TodoItem {
+//   String title;
+//   bool done;
 //
+//   TodoItem({required this.title, required this.done});
 //
+//   toJSONEncodable() {
+//     Map<String, dynamic> m =  {};
+//
+//     m['title'] = title;
+//     m['done'] = done;
+//
+//     return m;
+//   }
+// }
+//
+// class TodoList {
+//   List<TodoItem> items = [];
+//
+//   toJSONEncodable() {
+//     return items.map((item) {
+//       return item.toJSONEncodable();
+//     }).toList();
+//   }
+// }
+//
+// class _MyHomePageState extends State<HomePage> {
+//   final TodoList list =  TodoList();
+//   final LocalStorage storage =  LocalStorage('todo_app.json');
+//   bool initialized = false;
+//   TextEditingController controller =  TextEditingController();
+//
+//   _toggleItem(TodoItem item) {
+//     setState(() {
+//       item.done = !item.done;
+//       _saveToStorage();
+//     });
+//   }
+//
+//   _addItem(String title) {
+//
+//     setState(() {
+//       final item = new TodoItem(title: title, done: false);
+//       list.items.add(item);
+//       _saveToStorage();
+//     });
+//   }
+//
+//   _saveToStorage() {
+//     storage.setItem('todos', list.toJSONEncodable());
+//   }
+//
+//   _clearStorage() async {
+//     await storage.clear();
+//
+//     setState(() {
+//       list.items = storage.getItem('todos') ?? [];
+//     });
+//   }
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Timetable'),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Column(
-//           children: [
-//             Table(
 //
-//               // defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-//               // border: TableBorder.all(),
-//               children: [
-//                 // Header row with day names
-//                 TableRow(
-//                   decoration: BoxDecoration(
-//                     color: Theme.of(context).primaryColor,
-//                   ),
-//                   children: daysOfWeek
-//                       .where((day) =>
-//                       courses.any((course) => course.days!.contains(day)))
-//                       .map((day) {
-//                     return TableCell(
-//                       child: Container(
-//                         padding: EdgeInsets.all(8.0),
-//                         child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(color: Theme.of(context).colorScheme.background),)
+//     return new Scaffold(
+//       appBar: new AppBar(
+//         title: new Text('Localstorage demo'),
+//       ),
+//       body: Container(
+//           padding: EdgeInsets.all(10.0),
+//           constraints: BoxConstraints.expand(),
+//           child: FutureBuilder(
+//             future: storage.ready,
+//             builder: (BuildContext context, AsyncSnapshot snapshot) {
+//               if (snapshot.data == null) {
+//                 return Center(
+//                   child: CircularProgressIndicator(),
+//                 );
+//               }
+//
+//               if (!initialized) {
+//                 var items = storage.getItem('todos');
+//
+//                 if (items != null) {
+//                   list.items = List<TodoItem>.from(
+//                     (items as List).map(
+//                           (item) => TodoItem(
+//                         title: item['title'],
+//                         done: item['done'],
 //                       ),
-//                     );
-//                   }).toList(),
-//                 ),
+//                     ),
+//                   );
+//                 }
 //
-//                 // Data rows
-//                 ..._buildDataRows(),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
+//                 initialized = true;
+//               }
+//
+//               List<Widget> widgets = list.items.map((item) {
+//                 return CheckboxListTile(
+//                   value: item.done,
+//                   title: Text(item.title),
+//                   selected: item.done,
+//                   onChanged: (_) {
+//                     _toggleItem(item);
+//                   },
+//                 );
+//               }).toList();
+//
+//               return Column(
+//                 children: <Widget>[
+//                   Expanded(
+//                     flex: 1,
+//                     child: ListView(
+//                       children: widgets,
+//                       itemExtent: 50.0,
+//                     ),
+//                   ),
+//                   ListTile(
+//                     title: TextField(
+//                       controller: controller,
+//                       decoration: InputDecoration(
+//                         labelText: 'What to do?',
+//                       ),
+//                       onEditingComplete: _save,
+//                     ),
+//                     trailing: Row(
+//                       mainAxisSize: MainAxisSize.min,
+//                       children: <Widget>[
+//                         IconButton(
+//                           icon: Icon(Icons.save),
+//                           onPressed: _save,
+//                           tooltip: 'Save',
+//                         ),
+//                         IconButton(
+//                           icon: Icon(Icons.delete),
+//                           onPressed: _clearStorage,
+//                           tooltip: 'Clear storage',
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               );
+//             },
+//           )),
 //     );
 //   }
 //
-//   List<TableRow> _buildDataRows() {
-//     Map<String, List<Course>> coursesByDay = {};
-//
-//     for (var day in daysOfWeek
-//         .where((day) => courses.any((course) => course.days!.contains(day)))) {
-//       coursesByDay[day] =
-//           courses.where((course) => course.days!.contains(day)).toList();
-//     }
-//
-//     // Sort courses within each day based on start time
-//     for (var entry in coursesByDay.entries) {
-//       entry.value.sort(
-//             (a, b) => a.from!.compareTo(b.from!),
-//       );
-//     }
-//
-//     int maxCourses = 0;
-//     for (var entry in coursesByDay.entries) {
-//       maxCourses = entry.value.length > maxCourses
-//           ? entry.value.length
-//           : maxCourses;
-//     }
-//
-//     List<TableRow> dataRows = [];
-//     for (int i = 0; i < maxCourses; i++) {
-//       List<Widget> cells = daysOfWeek
-//           .where((day) => courses.any((course) => course.days!.contains(day)))
-//           .map((day) => TableCell(
-//         verticalAlignment: TableCellVerticalAlignment.top,
-//         child: Container(
-//           decoration: BoxDecoration(
-//             border: Border(
-//               bottom: BorderSide(
-//                 color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-//                 width: 1,
-//               ),
-//             ),
-//           ),
-//             alignment: AlignmentDirectional.topStart,
-//           padding: EdgeInsets.all(8.0),
-//           child: i < coursesByDay[day]!.length
-//               ? Column(
-//                 children: [
-//                   Text(
-//                   '${coursesByDay[day]![i].name}\n${coursesByDay[day]![i].room}'),
-//                   Text(
-//                     coursesByDay[day]?[i].from
-//                         ?? 'null',
-//                   ),
-//                 ],
-//               )
-//               : Container(),
-//         ),
-//       ))
-//           .toList();
-//
-//       dataRows.add(TableRow(children: cells));
-//     }
-//
-//     return dataRows;
+//   void _save() {
+//     _addItem(controller.value.text);
+//     controller.clear();
 //   }
 // }

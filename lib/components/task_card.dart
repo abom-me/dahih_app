@@ -10,42 +10,51 @@ import '../providers/tasks_provider.dart';
 import '../settings/sizes.dart';
 import '../utils/enum/task_status_enum.dart';
 import '../utils/swipe_able_widget.dart';
+import 'axction_card.dart';
 
 
 class TaskCard extends ConsumerStatefulWidget {
-  const TaskCard({super.key, required this.task, required this.remainingTime});
+  const TaskCard( {super.key, required this.task, required this.remainingTime, required this.controller,});
   final Tasks task;
   final Map<String, dynamic> remainingTime;
+  final SwipeAbleController controller;
 
   @override
   ConsumerState createState() => _TaskCardState();
 }
 
 class _TaskCardState extends ConsumerState<TaskCard> {
+  SwipeAbleController  controller = SwipeAbleController();
   @override
   Widget build(BuildContext context) {
     final task = widget.task;
     final remainingTime = widget.remainingTime;
 
     return SwipeableWidget(
+      controller: controller,
     actions: [
-      actionButton(onTap: (){
+      actionButton(context,onTap: (){
         Alert.msg(context, Lang.get(context, key: LangKey.deleteTask), Lang.get(context, key: LangKey.areYouSureDeleteTask),action: true,
             onOk: (){
-          Alert.close(context);
-          ref.read(tasksProvider.notifier).deleteTask(context: context,task: task);
 
+          Alert.close(context);
+
+          ref.read(tasksProvider.notifier).deleteTask(context: context,task: task);
+          controller.close();
         },
         onCancel: (){
+
+
           Alert.close(context);
         });
+
       }, icon: Icons.delete),
       if(task.status==TaskStatusEnum.inProgress.status)...{
 
         const SizedBox(width: 10,),
-        actionButton(onTap: () {
-          ref.read(tasksProvider.notifier).changeTaskStatus(
-              task, TaskStatusEnum.completed);
+        actionButton(context,onTap: () {
+ref.read(tasksProvider.notifier).changeTaskStatus( task, TaskStatusEnum.completed);
+          controller.close();
         }, icon: Icons.done),
       }
     ], onDismissed: (s){}, actionExtentRatio: 0.5,
@@ -219,22 +228,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
       ),
     );
   }
-  Widget actionButton({required GestureTapCallback onTap,required IconData icon}){
-    return  InkWell(
-      borderRadius: BorderRadius.circular(50),
-      onTap: onTap,
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).colorScheme.primary,width: 0.5),
-          borderRadius: BorderRadius.circular(50),
-          color: Theme.of(context).colorScheme.background,
-        ),
-        child: Icon(icon,color: Theme.of(context).colorScheme.primary,),
-      ),
-    );
-  }
+
 }
 
 

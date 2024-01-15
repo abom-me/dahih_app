@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
@@ -13,9 +12,9 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Locales.init(['ar','en']);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
  await  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => {runApp(const ProviderScope(child: MyApp()))});
 }

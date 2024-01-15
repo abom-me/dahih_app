@@ -8,6 +8,7 @@ import 'package:khlfan_shtain/settings/sizes.dart';
 import 'package:khlfan_shtain/utils/enum/screens_enum.dart';
 
 import '../providers/bottom_nav_provider.dart';
+import '../utils/global_keys.dart';
 
 class BottomNavigator extends ConsumerStatefulWidget {
   const BottomNavigator({super.key});
@@ -28,6 +29,7 @@ class _BottomNavigatorState extends ConsumerState<BottomNavigator> {
 
     ];
     return Scaffold(
+      key: scaffoldKey,
       body: SizedBox(
         height: Sizes.height(context),
         width: Sizes.width(context),

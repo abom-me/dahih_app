@@ -9,6 +9,7 @@ class TextFieldWidget extends ConsumerStatefulWidget {
     this.multiLine,
     this.readOnly,
     this.onTap,
+    this.onChange,
     required this.controller,
      this.maxline,
     required this.focusNode,
@@ -28,6 +29,7 @@ class TextFieldWidget extends ConsumerStatefulWidget {
   final bool?multiLine;
   final int?maxline;
   final bool? readOnly;
+  final  void Function(String data)?  onChange;
   final GestureTapCallback ?onTap;
  final FormFieldValidator<String>? valid;
 final List<TextInputFormatter>? inputFormatters;
@@ -55,7 +57,9 @@ class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
       inputFormatters: widget.inputFormatters,
       controller: widget.controller,
       onChanged: (value) {
+
         setState(() {});
+      widget.onChange !=null? widget.onChange!(value):null;
       },
       onFieldSubmitted: (value) {
         widget.focusNode.unfocus();

@@ -113,7 +113,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     // width: Sizes.width(context),
                     child: InkWell(
                       onTap: () {
-                        bottomSheetBlur(context, widget: ResetPasswordScreen(), height: 400, color: Colors.white);
                       },
                         child: Text(
                       Lang.get(context, key: LangKey.forgotPassword),
@@ -126,32 +125,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                  MainButton(text:  Lang.get(context, key: LangKey.login), width: Sizes.width(context), height: 50, onPressed: (){
                     if(_login.currentState!.validate()){
-                      ref.read(authProvider).login(email:email.text, password:password.text, context:context);
+                      // ref.read(authProvider).login(email:email.text, password:password.text, context:context);
                     }
                  }),
-                BoxSize.height(30),
-                  GestureDetector(
-                      onTap: () {
-                        GoPage.push(page: const RegisterPage(), context: context);
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            Lang.get(context, key: LangKey.dontHaveAccount),
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.onBackground,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            Lang.get(context, key: LangKey.registerNow),
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ],
-                      )),
+
+
 
                 ],
               )),

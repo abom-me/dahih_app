@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/pages/courses/courses_table.dart';
+import 'package:khlfan_shtain/pages/exams/exams_screen.dart';
 import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
@@ -60,7 +60,7 @@ padding: EdgeInsets.zero,
                   height: 130,
                   fit: BoxFit.cover,
                 ): Image.asset(
-                  userData.profileImage!,
+                  "assets/avatars/${userData.profileImage}",
                   fit: BoxFit.cover,
                   width: 130,
                   height: 130,
@@ -85,6 +85,9 @@ title: Text(Lang.get(context, key: LangKey.studySchedule),style: const TextStyle
           ListTile(
             leading: Icon(FluentIcons.calendar_agenda_20_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
             title: Text(Lang.get(context, key: LangKey.examsTable),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+            onTap: (){
+              GoPage.push(page: const ExamsScreen(), context: context);
+            },
           ),
           Divider(
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),

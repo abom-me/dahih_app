@@ -3,7 +3,6 @@
 
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -15,24 +14,27 @@ import 'package:khlfan_shtain/utils/global_keys.dart';
 import '../models/course_model.dart';
 import '../utils/enum/course_status_enum.dart';
 import '../utils/enum/task_status_enum.dart';
+import 'local_storage_viewmodel.dart';
 
 final homeViewModelProvider = Provider<HomeViewModel>((ref) {
   return HomeViewModel();
 });
 class HomeViewModel{
-FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
-Future<List<Course>> getTodayCourses() async {
-List<Course> todayCourses = [];
-// if (element.days!.contains(DateFormat('EEEE').format(DateTime.now()))){
-//   todayCourses.add(element);
-//   // print(element.name);
-// }
+  LocalStorageViewModel local=LocalStorageViewModel();
 
-final value=await firebaseFirestore.collection('courses').doc(userData.uid).collection('courses').get();
-for (var element in value.docs) {
-  if (element.data()['days'].contains(DateFormat('EEEE').format(DateTime.now()))){
-    todayCourses.add(Course.fromJson(element.data()));
-  }
+  Future<List<Course>> getTodayCourses() async {
+List<Course> todayCourses = [];
+
+
+final Map<String,dynamic>value=await local.getData(collectionName: 'courses');
+if(value['status'] != 'empty'){
+
+  value.forEach((key, value) {
+    Course course=Course.fromJson(value);
+    if(value==DateFormat('EEEE').format(DateTime.now())){
+      todayCourses.add(course);
+    }
+  });
 }
   return todayCourses;
 }
@@ -131,14 +133,14 @@ CourseStatusEnum isCourseInProgress(TimeOfDay startTime,TimeOfDay endTime) {
 
 Future<List<Tasks>> getTasks() async {
   List<Tasks> tasksList = [];
- final data=await firebaseFirestore.collection("tasks").doc(userData.uid).collection('tasks').get();
+ final Map<String,dynamic>data=await local.getData(collectionName: 'tasks');
 
-  for (var element in data.docs) {
-// only in progress tasks
-    if(element.data()['status']==TaskStatusEnum.inProgress.status){
-      tasksList.add(Tasks.fromJson(element.data()));
-    }
-
+  if(data['status'] != 'empty'){
+    data.forEach((key, value) {
+      if(data['status']==TaskStatusEnum.inProgress.status){
+        tasksList.add(Tasks.fromJson(data));
+      }
+    });
   }
   tasksList.sort((a, b) => a.date!.compareTo(b.date!));
 

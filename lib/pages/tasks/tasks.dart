@@ -12,6 +12,7 @@ import 'package:khlfan_shtain/utils/month_to_arabic.dart';
 import '../../components/try_again_widget.dart';
 import '../../providers/home_provider.dart';
 import '../../utils/enum/task_status_enum.dart';
+import '../../utils/swipe_able_widget.dart';
 import '../home/widgets/courses_loading.dart';
 
 
@@ -106,10 +107,11 @@ events: ref.watch(tasksProvider).tasksDates(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
+                          SwipeAbleController controller = SwipeAbleController();
 
                           final task = snapshot.data![index];
                           final remainingTime = ref.read(homeProvider).countTaskTimeLeft(DateTime.parse(task.date!));
-                          return TaskCard(task: task, remainingTime: remainingTime);
+                          return TaskCard(controller: controller,task: task, remainingTime: remainingTime);
                         },
                       );
                     }else if(snapshot.hasError){
@@ -135,7 +137,7 @@ statBtn(title: Lang.get(context, key: LangKey.all), currentStatus: TaskStatusEnu
               Expanded(
 
                 child:   FutureBuilder(
-                    future:ref.watch(tasksProvider.notifier).getTasksByType(status) ,
+                    future:ref.read(tasksProvider).getTasksByType(status) ,
 
                     builder: (context, snapshot) {
                       if(snapshot.hasData){
@@ -147,10 +149,14 @@ statBtn(title: Lang.get(context, key: LangKey.all), currentStatus: TaskStatusEnu
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-
+                            SwipeAbleController controller = SwipeAbleController();
                             final task = snapshot.data![index];
                             final remainingTime = ref.read(homeProvider).countTaskTimeLeft(DateTime.parse(task.date!));
-                            return TaskCard(task: task, remainingTime: remainingTime);
+                            return TaskCard(
+                                controller: controller,
+                                task: task,
+                                remainingTime: remainingTime
+                            );
                           },
                         );
                       }else if(snapshot.hasError){

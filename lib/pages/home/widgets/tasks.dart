@@ -6,6 +6,7 @@ import '../../../components/task_card.dart';
 import '../../../components/try_again_widget.dart';
 import '../../../providers/home_provider.dart';
 import '../../../settings/sizes.dart';
+import '../../../utils/swipe_able_widget.dart';
 import 'courses_loading.dart';
 
 class HomeTasks extends ConsumerStatefulWidget {
@@ -19,7 +20,9 @@ class _HomeTasksState extends ConsumerState<HomeTasks> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       child: Column(
+
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -45,11 +48,14 @@ class _HomeTasksState extends ConsumerState<HomeTasks> {
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
+                      SwipeAbleController controller = SwipeAbleController();
+
                       final task = snapshot.data![index];
                       final remainingTime = ref
                           .read(homeProvider)
                           .countTaskTimeLeft(DateTime.parse(task.date!));
                       return TaskCard(
+                        controller: controller,
                         task: task,
                         remainingTime: remainingTime,
                       );

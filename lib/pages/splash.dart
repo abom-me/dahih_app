@@ -9,6 +9,7 @@ import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 import '../auto_local/lang.dart';
 import '../providers/auth_provider.dart';
 import 'auth/login.dart';
+import 'auth/register.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
@@ -24,7 +25,7 @@ getData() async {
 if(await auth.isLogin()){
 GoPage.pushF(page: const BottomNavigator(), context: context);
 }else{
-GoPage.pushF(page: const LoginPage(), context: context);
+GoPage.pushF(page: const RegisterPage(), context: context);
 }
 }
 @override

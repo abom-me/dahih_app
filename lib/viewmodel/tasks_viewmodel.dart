@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -8,13 +7,15 @@ import 'package:khlfan_shtain/utils/global_keys.dart';
 import '../auto_local/lang.dart';
 import '../components/alerts.dart';
 import '../models/tasks_model.dart';
+import 'local_storage_viewmodel.dart';
 
 final tasksViewModelProvider = ChangeNotifierProvider<TasksViewModel>((ref) {
   return TasksViewModel();
 });
 
 class TasksViewModel with ChangeNotifier {
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+  LocalStorageViewModel local = LocalStorageViewModel();
   DateTime selectedDate = DateTime.now();
   TaskStatusEnum selectedStatus = TaskStatusEnum.inProgress;
 
@@ -31,18 +32,15 @@ class TasksViewModel with ChangeNotifier {
 
   Future<List<Tasks>> getTodayTasks() async {
     List<Tasks> todayTasks = [];
-    final value = await firebaseFirestore
-        .collection("tasks")
-        .doc(userData.uid)
-        .collection("tasks")
-        .get();
+    final Map<String,dynamic >value = await local.getData(collectionName: 'tasks');
     tasks.clear();
-    for (var element in value.docs) {
+    if (value['status'] != 'empty') {
+      value.forEach((key, value) {
+        tasks.add(Tasks.fromJson(value));
 
-      tasks.add(Tasks.fromJson(element.data()));
-
-      notifyListeners();
-      todayTasks.add(Tasks.fromJson(element.data()));
+        notifyListeners();
+        todayTasks.add(Tasks.fromJson(value));
+      });
     }
 
     notifyListeners();
@@ -106,15 +104,21 @@ class TasksViewModel with ChangeNotifier {
 
   changeTaskStatus({required Tasks task, required TaskStatusEnum status}) async {
 
+    final newData= task.toJson();
+    newData.update("status", (value) => status.status);
 
-  await  firebaseFirestore
-        .collection("tasks")
-        .doc(userData.uid)
-        .collection("tasks")
-        .doc(task.id)
-        .update({"status": status.status});
+  await local.updateData(
+      collectionName: "tasks",
+      docId: "${task.id}",
+      data: newData,
+     );
 
-  firebaseFirestore.collection("doneTasks").doc(userData.uid).set({
+
+  local.addData(
+      collectionName: "doneTasks",
+
+      docID: "${task.id}"
+  ,data: {
     "id": task.id,
     "name": task.task,
     "endDate": task.date,
@@ -122,17 +126,18 @@ class TasksViewModel with ChangeNotifier {
     "type": task.category,
     "userId": userData.uid,
   });
+
+
+
   }
 
   addTask(BuildContext context, {required Tasks task}) async {
     try {
-      Alert.loading(context, "جاري اضافة المهمة");
-      await firebaseFirestore
-          .collection('tasks')
-          .doc(userData.uid)
-          .collection("tasks")
-          .doc("${task.id}")
-          .set(task.toJson());
+      Alert.loading(context, Lang.get(context, key: LangKey.saving));
+      local.addData(
+          collectionName: "tasks",
+          data: task.toJson(),
+          docID: "${task.id}");
       Alert.close(context);
       Alert.close(context);
       notifyListeners();
@@ -182,12 +187,8 @@ class TasksViewModel with ChangeNotifier {
   deleteTask({required BuildContext context , required Tasks task}) async {
     try {
       // Alert.loading(context, Lang.get(context, key: LangKey.deletingTask));
-      await firebaseFirestore
-          .collection('tasks')
-          .doc(userData.uid)
-          .collection("tasks")
-          .doc("${task.id}")
-          .delete();
+      await
+      local.deleteData(collectionName: "tasks", docId: "${task.id}");
       // Alert.close(context);
       // notifyListeners();
     } catch (e) {

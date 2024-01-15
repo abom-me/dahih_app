@@ -50,7 +50,8 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
           builder: (context,snapshot){
       if(snapshot.hasData){
         List<Course>   courses=snapshot.data!;
-        return  Table(
+       print(courses[0].days);
+        return  courses.isNotEmpty? Table(
 
           // defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
           // border: TableBorder.all(),
@@ -76,7 +77,7 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
             // Data rows
             ..._buildDataRows(courses),
           ],
-        );
+        ):Container();
       }
       return Container();
           },

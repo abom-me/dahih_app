@@ -119,7 +119,7 @@ class _AddCourseState extends ConsumerState<AddCourse> {
                   ),
                   TextFieldWidget(
                     multiLine: true,
-                    controller: roomNo,
+                    controller: teacherName,
                     focusNode: FocusNode(),
                     hint:  Lang.get(context, key: LangKey.roomNo),
                     keyboardType: TextInputType.multiline,

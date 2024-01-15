@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../utils/global_keys.dart';
+
 
 
 bottomSheetBlur(BuildContext context,{required widget,required double height, Color? color}){
@@ -10,7 +12,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height, Co
         barrierColor: Colors.black.withOpacity(0.2),
         isScrollControlled: true,
         elevation: 0,
-        context: context, builder: (d){
+        context: scaffoldKey.currentContext!, builder: (d){
       return BackdropFilter(
 
         filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
@@ -20,7 +22,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height, Co
           padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
           decoration:  BoxDecoration(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(d).colorScheme.background,
 
           ),
           child: Column(
