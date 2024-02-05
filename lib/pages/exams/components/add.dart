@@ -6,12 +6,10 @@ import 'package:khlfan_shtain/models/exam_model.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../auto_local/lang.dart';
-import '../../../components/bottom_sheet.dart';
 import '../../../components/buttons.dart';
 import '../../../components/text_field.dart';
 import '../../../providers/exams_provider.dart';
 import '../../../settings/sizes.dart';
-import '../../tasks/components/categorys.dart';
 
 
 class AddExam extends ConsumerStatefulWidget {
@@ -149,7 +147,7 @@ class _AddExamState extends ConsumerState<AddExam> {
                             height: 20,
                           ),
                           Text(
-                            "${Lang.get(context, key: LangKey.time)} (${Lang.get(context, key: LangKey.optional)})",
+                            Lang.get(context, key: LangKey.time),
                             style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500,
@@ -159,6 +157,13 @@ class _AddExamState extends ConsumerState<AddExam> {
                             height: 10,
                           ),
                           TextFieldWidget(
+
+                            valid: (value){
+                              if(value!.isEmpty || date==null){
+                                return "${Lang.get(context, key: LangKey.fieldRequired)} 😶";                              }else{
+                                return null;
+                              }
+                            },
                             onTap: (){
                               showTimePicker(
                                 context: context,
@@ -239,7 +244,7 @@ inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                             height: 20,
                           ),
                           Text(
-                            "${Lang.get(context, key: LangKey.examRoom)}",
+                            Lang.get(context, key: LangKey.examRoom),
                             style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500,

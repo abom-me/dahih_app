@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:khlfan_shtain/pages/home/home.dart';
 import 'package:khlfan_shtain/utils/enum/screens_enum.dart';
 
+import '../pages/notes/notes.dart';
+import '../pages/profile/profile.dart';
 import '../pages/tasks/tasks.dart';
 
 class BottomNavigatorViewModel extends ChangeNotifier {
@@ -20,15 +22,12 @@ class BottomNavigatorViewModel extends ChangeNotifier {
     switch (currentIndex) {
       case ScreensEnum.home:
         return const HomePage();
-      case ScreensEnum.profile:
-        return const Center(
-          child: Text(
-            "الرسائل",
-            style: TextStyle(fontSize: 30),
-          ),
-        );
+      case ScreensEnum.notes:
+        return const NotesScreen();
         case ScreensEnum.tasks:
         return const TasksScreen();
+        case ScreensEnum.profile:
+        return const ProfileScreen();
 
       default:
         return const Center(

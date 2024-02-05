@@ -319,7 +319,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
     var index=days.indexWhere((element) => element['fullDateString']==date)  ;
 
-    controller.animateTo( (widget.size+10)*index, duration: const Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+    controller.animateTo( (widget.size+20)*index, duration: const Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
   }
   @override
   void initState() {

@@ -2,6 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/pages/courses/courses_table.dart';
 import 'package:khlfan_shtain/pages/exams/exams_screen.dart';
 import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
@@ -35,7 +36,7 @@ padding: EdgeInsets.zero,
             // height: 210,
             decoration:  BoxDecoration(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-              border: Border(
+              border: const Border(
                 bottom: BorderSide.none
               )
             ),
@@ -89,17 +90,18 @@ title: Text(Lang.get(context, key: LangKey.studySchedule),style: const TextStyle
               GoPage.push(page: const ExamsScreen(), context: context);
             },
           ),
+          // ListTile(
+          //   leading: Icon(FluentIcons.book_16_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
+          //   title: Text(Lang.get(context, key: LangKey.notes),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+          // ),
           Divider(
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
           ),
           ListTile(
-            leading: Icon(FluentIcons.book_16_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
-            title: Text(Lang.get(context, key: LangKey.notes),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
-          ),
-          Divider(
-            color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-          ),
-          ListTile(
+            onTap: (){
+            Navigator.pop(context);
+            Alert.snackbar(context, text: Lang.get(context, key: LangKey.soon));
+            },
             leading: Icon(FluentIcons.home_add_20_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
             title: Text(Lang.get(context, key: LangKey.homeLayout),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
           ),
@@ -132,8 +134,12 @@ title: Text(Lang.get(context, key: LangKey.studySchedule),style: const TextStyle
             onTap: (){
             ref.read(settingsViewModelProvider.notifier).logout(context);
             },
-            leading: Icon(FluentIcons.sign_out_20_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
-            title: Text(Lang.get(context, key: LangKey.logout),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+            leading: Switch(value: ref.read(settingsViewModelProvider.notifier).getDailyNotifications(), onChanged: (value) {
+
+    ref.watch(settingsViewModelProvider.notifier).dailyNotifications(value, context);
+
+    }),
+            title: Text(Lang.get(context, key: LangKey.dailyMessages),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
           ),
         ],
       ),

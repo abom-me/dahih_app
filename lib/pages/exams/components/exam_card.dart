@@ -6,10 +6,8 @@ import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/components/axction_card.dart';
 import 'package:khlfan_shtain/models/exam_model.dart';
 
-import '../../../components/bottom_sheet.dart';
 import '../../../providers/exams_provider.dart';
 import '../../../utils/swipe_able_widget.dart';
-import 'details.dart';
 
 class ExamCard extends ConsumerStatefulWidget {
   const ExamCard({super.key,required this.exam});

@@ -1,16 +1,23 @@
+// import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/pages/splash.dart';
 import 'package:khlfan_shtain/settings/theme.dart';
+import 'package:khlfan_shtain/utils/notification/notification_config.dart';
 import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
+// tz.getLocation("Asia/Muscat");
+
+  NotificationConfig().initialize();
+
   await Locales.init(['ar','en']);
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,

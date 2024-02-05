@@ -121,7 +121,7 @@ class _AddCourseState extends ConsumerState<AddCourse> {
                     multiLine: true,
                     controller: teacherName,
                     focusNode: FocusNode(),
-                    hint:  Lang.get(context, key: LangKey.roomNo),
+                    hint:  Lang.get(context, key: LangKey.teacherName),
                     keyboardType: TextInputType.multiline,
                   ),
 

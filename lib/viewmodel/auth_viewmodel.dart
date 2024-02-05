@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/models/user_model.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
-import 'package:khlfan_shtain/utils/enum/firebase_auth_errors.dart';
 import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
 import 'package:uuid/uuid.dart';
 

@@ -46,7 +46,7 @@ class _CategoriesState extends ConsumerState<Categories> {
                       setState(() {});
                       if(categoryController.text.isNotEmpty){
                         ref.read(categoryProvider.notifier).addCategories(categoryController.text);
-                        categoryController.clear();
+
                         widget.onSelectedCategory(categoryController.text);
                         Navigator.pop(context);
                       }

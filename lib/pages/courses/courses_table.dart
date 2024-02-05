@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/pages/courses/widget/add_course.dart';
+import 'package:khlfan_shtain/pages/courses/widget/course_bottom.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/string_to_time.dart';
 
@@ -44,19 +45,21 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
         title: Text(Lang.get(context, key: LangKey.studySchedule),style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
 
       ),
-      body: SingleChildScrollView(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.read(courseTableProvider).getCourseTable();
+        },
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
         child: FutureBuilder(
-          future: ref.read(courseTableProvider).getCourseTable(),
+          future: ref.watch(courseTableProvider).getCourseTable(),
           builder: (context,snapshot){
       if(snapshot.hasData){
         List<Course>   courses=snapshot.data!;
-       print(courses[0].days);
+
         return  courses.isNotEmpty? Table(
 
-          // defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-          // border: TableBorder.all(),
+
           children: [
-            // Header row with day names
             TableRow(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
@@ -75,7 +78,7 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
             ),
 
             // Data rows
-            ..._buildDataRows(courses),
+            ..._buildDataRows(courses,ref,context),
           ],
         ):Container();
       }
@@ -86,7 +89,7 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
     );
   }
 
-  List<TableRow> _buildDataRows(List<Course> courses) {
+  List<TableRow> _buildDataRows(List<Course> courses, WidgetRef ref, BuildContext context) {
     Map<String, List<Course>> coursesByDay = {};
   courses.sort((a, b) {
     // convert to DateTime objects
@@ -130,25 +133,32 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
         child: Container(
 
           child: i < coursesByDay[day]!.length
-              ? Container(
-            margin: const EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            alignment: AlignmentDirectional.center,
-            padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                Text(
-                    '${coursesByDay[day]![i].name}\n${coursesByDay[day]![i].room}'),
-                Text(
-                  coursesByDay[day]?[i].from!.toTimeOfDay.format(context)
-                      ??"",
+              ? InkWell(
+            onTap: () {
+           // ref.read(courseTableProvider).deleteCourse(context,);
+           bottomSheetBlur(context, widget: CourseDetailsBottomSheet(course: coursesByDay[day]![i],), height: 300);
+
+            },
+                child: Container(
+                            margin: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            alignment: AlignmentDirectional.center,
+                            padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                  Text(
+                      '${coursesByDay[day]![i].name}\n${coursesByDay[day]![i].room}'),
+                  Text(
+                    coursesByDay[day]?[i].from!.toTimeOfDay.format(context)
+                        ??"",
+                  ),
+                              ],
+                            ),
                 ),
-                            ],
-                          ),
               )
               : Container(),
         ),

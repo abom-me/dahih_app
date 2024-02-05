@@ -22,7 +22,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height, Co
           padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
           decoration:  BoxDecoration(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-            color: Theme.of(d).colorScheme.background,
+            color:color?? Theme.of(d).colorScheme.background,
 
           ),
           child: Column(

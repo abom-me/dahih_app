@@ -8,7 +8,6 @@ import 'package:khlfan_shtain/utils/string_to_time.dart';
 import '../../../components/try_again_widget.dart';
 import '../../../models/course_model.dart';
 import '../../../providers/home_provider.dart';
-import '../../../repo/courses.dart';
 import '../../../settings/sizes.dart';
 import '../../../utils/enum/course_status_enum.dart';
 import 'courses_loading.dart';

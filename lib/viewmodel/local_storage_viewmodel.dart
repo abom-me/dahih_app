@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:khlfan_shtain/utils/global_keys.dart';
 import 'package:localstore/localstore.dart';
 
 class LocalStorageViewModel extends ChangeNotifier {
@@ -36,9 +35,9 @@ if(data != null){
 
   }
 
-  streamData({required String collectionName})  {
+ Stream streamData({required String collectionName})  {
+ return  db.collection(collectionName).stream;
 
-    return  db.collection(collectionName).stream;
 
   }
 

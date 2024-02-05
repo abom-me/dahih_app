@@ -1,0 +1,87 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color run --machine --track-widget-creation --device-id=00008103-001554D83C60801E --start-paused --dart-define=flutter.inspector.structuredErrors=true lib/main.dart
+
+## exception
+
+SocketException: SocketException: Send failed (OS Error: No buffer space available, errno = 55), address = 0.0.0.0, port = 5353
+
+```
+#0      _NativeSocket.send (dart:io-patch/socket_patch.dart:1269:34)
+#1      _RawDatagramSocket.send (dart:io-patch/socket_patch.dart:2582:15)
+#2      MDnsClient.lookup (package:multicast_dns/multicast_dns.dart:225:14)
+#3      MDnsVmServiceDiscovery._pollingVmService (package:flutter_tools/src/mdns_discovery.dart:228:66)
+<asynchronous suspension>
+#4      MDnsVmServiceDiscovery.firstMatchingVmService (package:flutter_tools/src/mdns_discovery.dart:184:56)
+<asynchronous suspension>
+#5      MDnsVmServiceDiscovery.getVMServiceUriForLaunch (package:flutter_tools/src/mdns_discovery.dart:429:50)
+<asynchronous suspension>
+#6      Future.any.onValue (dart:async/future.dart:613:5)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[!] Flutter (Channel stable, 3.16.9, on macOS 14.2.1 23C71 darwin-arm64, locale en-OM)
+    • Flutter version 3.16.9 on channel stable at /Users/nasr/fvm/versions/stable
+    ! Warning: `dart` on your path resolves to /opt/homebrew/Cellar/dart/3.2.4/libexec/bin/dart, which is not inside your current Flutter SDK checkout at /Users/nasr/fvm/versions/stable. Consider adding /Users/nasr/fvm/versions/stable/bin to the front of your path.
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision 41456452f2 (11 days ago), 2024-01-25 10:06:23 -0800
+    • Engine revision f40e976bed
+    • Dart version 3.2.6
+    • DevTools version 2.28.5
+    • If those were intentional, you can disregard the above warnings; however it is recommended to use "git" directly to perform update checks and upgrades.
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+    • Android SDK at /Users/nasr/Library/Android/sdk
+    • Platform android-34, build-tools 34.0.0
+    • Java binary at: /Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/java
+    • Java version OpenJDK Runtime Environment (build 17.0.6+0-17.0.6b829.9-10027231)
+    • All Android licenses accepted.
+
+[✓] Xcode - develop for iOS and macOS (Xcode 15.1)
+    • Xcode at /Applications/Xcode.app/Contents/Developer
+    • Build 15C65
+    • CocoaPods version 1.14.3
+
+[✓] Chrome - develop for the web
+    • Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+[✓] Android Studio (version 2022.3)
+    • Android Studio at /Applications/Android Studio.app/Contents
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    • Java version OpenJDK Runtime Environment (build 17.0.6+0-17.0.6b829.9-10027231)
+
+[✓] IntelliJ IDEA Ultimate Edition (version 2023.3.2)
+    • IntelliJ at /Applications/IntelliJ IDEA.app
+    • Flutter plugin version 77.0.1
+    • Dart plugin version 233.13135.65
+
+[✓] VS Code (version 1.85.2)
+    • VS Code at /Applications/Visual Studio Code.app/Contents
+    • Flutter extension version 3.80.0
+
+[✓] Connected device (4 available)
+    • 👨‍💻 (mobile)   • 00008130-001E583604298D3A • ios            • iOS 17.2.1 21C66
+    • 📱👨‍💻 (mobile) • 00008103-001554D83C60801E • ios            • iOS 17.1 21B74
+    • macOS (desktop)  • macos                     • darwin-arm64   • macOS 14.2.1 23C71 darwin-arm64
+    • Chrome (web)     • chrome                    • web-javascript • Google Chrome 121.0.6167.139
+    ! Error: Browsing on the local area network for iPhone. Ensure the device is unlocked and attached with a cable or associated with the same local area network as this Mac.
+      The device must be opted into Developer Mode to connect wirelessly. (code -27)
+
+[!] Network resources
+    ✗ A network error occurred while checking "https://pub.dev/": Failed host lookup: 'pub.dev'
+    ✗ A network error occurred while checking "https://storage.googleapis.com/": Failed host lookup: 'storage.googleapis.com'
+    ✗ A network error occurred while checking "https://maven.google.com/": Failed host lookup: 'maven.google.com'
+    ✗ A network error occurred while checking "https://cocoapods.org/": Failed host lookup: 'cocoapods.org'
+    ✗ A network error occurred while checking "https://github.com/": Failed host lookup: 'github.com'
+
+! Doctor found issues in 2 categories.
+```

@@ -8,8 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
-import 'package:khlfan_shtain/repo/courses.dart';
-import 'package:khlfan_shtain/utils/global_keys.dart';
 
 import '../models/course_model.dart';
 import '../utils/enum/course_status_enum.dart';
@@ -27,15 +25,20 @@ List<Course> todayCourses = [];
 
 
 final Map<String,dynamic>value=await local.getData(collectionName: 'courses');
-if(value['status'] != 'empty'){
 
-  value.forEach((key, value) {
-    Course course=Course.fromJson(value);
-    if(value==DateFormat('EEEE').format(DateTime.now())){
-      todayCourses.add(course);
-    }
+if(value['status'] != 'empty'){
+  value.forEach((key, value2) {
+
+    Course course=Course.fromJson(value2);
+
+      if(course.days!.contains(DateFormat("EEEE").format(DateTime.now()))){
+        todayCourses.add(course);
+      }
+
   });
+
 }
+
   return todayCourses;
 }
 
@@ -136,10 +139,13 @@ Future<List<Tasks>> getTasks() async {
  final Map<String,dynamic>data=await local.getData(collectionName: 'tasks');
 
   if(data['status'] != 'empty'){
+
     data.forEach((key, value) {
-      if(data['status']==TaskStatusEnum.inProgress.status){
-        tasksList.add(Tasks.fromJson(data));
-      }
+
+      tasksList.add(Tasks.fromJson(value));
+
+     tasksList.removeWhere((element) => element.status==TaskStatusEnum.completed.status);
+
     });
   }
   tasksList.sort((a, b) => a.date!.compareTo(b.date!));

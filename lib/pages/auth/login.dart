@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
-import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/components/buttons.dart';
 import 'package:khlfan_shtain/components/text_field.dart';
-import 'package:khlfan_shtain/pages/auth/components/repassword.dart';
-import 'package:khlfan_shtain/pages/auth/register.dart';
-import 'package:khlfan_shtain/settings/routes.dart';
 import 'package:khlfan_shtain/settings/sizes.dart';
 
-import '../../providers/auth_provider.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -51,7 +46,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 width: Sizes.width(context),
                 child:  Text(
                   "${Lang.get(context, key: LangKey.welcomeBack)} 👋",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(

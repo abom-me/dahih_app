@@ -33,7 +33,7 @@ final int i;
                       children: [
                         Icon(FluentIcons.book_open_16_filled,color: Theme.of(context).colorScheme.primary,size: 30,),
                         const SizedBox(width: 10,),
-                        Text("المادة ${i}",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 20),),
+                        Text("المادة $i",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 20),),
                       ],
                     ),
                     const SizedBox(height: 20,),
@@ -44,7 +44,7 @@ final int i;
                           children: [
                             Icon(FluentIcons.calendar_rtl_12_regular,color: Theme.of(context).colorScheme.primary,size: 25,),
                             const SizedBox(width: 10,),
-                            Text("التاريخ ${i}",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
+                            Text("التاريخ $i",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
                           ],
                         ),
 
@@ -52,7 +52,7 @@ final int i;
                           children: [
                             Icon(FluentIcons.home_12_regular,color: Theme.of(context).colorScheme.primary,size: 25,),
                             const SizedBox(width: 10,),
-                            Text("التاريخ ${i}",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
+                            Text("التاريخ $i",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
                           ],
                         ),
 
@@ -66,7 +66,7 @@ final int i;
                           children: [
                             Icon(FluentIcons.clock_12_regular,color: Theme.of(context).colorScheme.primary,size: 25,),
                             const SizedBox(width: 10,),
-                            Text("التاريخ ${i}",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
+                            Text("التاريخ $i",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
                           ],
                         ),
 
@@ -74,7 +74,7 @@ final int i;
                           children: [
                             Icon(FluentIcons.timer_12_regular,color: Theme.of(context).colorScheme.primary,size: 25,),
                             const SizedBox(width: 10,),
-                            Text("التاريخ ${i}",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
+                            Text("التاريخ $i",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold,fontSize: 17),),
                           ],
                         ),
 

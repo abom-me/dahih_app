@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
-import 'package:khlfan_shtain/pages/auth/login.dart';
 import 'package:khlfan_shtain/providers/auth_provider.dart';
 
 import '../../components/buttons.dart';
 import '../../components/text_field.dart';
-import '../../settings/routes.dart';
 import '../../settings/sizes.dart';
 import '../../utils/enum/gender_enum.dart';
 
@@ -34,7 +31,7 @@ GenderEnum? gender;
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text(
+        title:  const Text(
           // Lang.get(context, key: LangKey.newRegistration),
           ""
         ),
@@ -52,10 +49,10 @@ GenderEnum? gender;
                 width: Sizes.width(context),
                 child:  Text(
                   "${Lang.get(context, key: LangKey.welcomeWithUs)}\n ${name.text.replaceAll(" ", "").isEmpty?" 🤔":"${name.text} 👋"}",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               SizedBox(
                 width: Sizes.width(context) * 0.7,
                 child: Text(
@@ -97,7 +94,7 @@ GenderEnum? gender;
                       ),
                       // BoxSize.height(30),
 
-                        Container(
+                        SizedBox(
                           width: Sizes.width(context),
                           height: 96,
                           child:Row(
@@ -105,7 +102,7 @@ GenderEnum? gender;
 
                               Row(
                                 children: [
-                                  Text(Lang.get(context, key: LangKey.selectGender,),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                                  Text(Lang.get(context, key: LangKey.selectGender,),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
                                   Row(
                                     children: [
                                       Radio(
@@ -120,7 +117,7 @@ GenderEnum? gender;
 
                                         },
                                       ),
-                              Text(Lang.get(context, key: LangKey.male),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                              Text(Lang.get(context, key: LangKey.male),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
                                     ],
                                   ),
                                   Row(
@@ -138,7 +135,7 @@ GenderEnum? gender;
 
                                         },
                                       ),
-                              Text(Lang.get(context, key: LangKey.female),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                              Text(Lang.get(context, key: LangKey.female),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
                                     ],
                                   ),
 

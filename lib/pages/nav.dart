@@ -79,21 +79,27 @@ Padding(
                       )
                     ),
 FloatingActionButton(onPressed: (){
+  // NotificationConfig().getScheduledNotification();
+  // NotificationConfig().deleteAllNotifications();
 
+// NotificationConfig().scheduleNotification(title: "فثسف", body: "شسيمت", id: 1, scheduledDate: DateTime.now().add(const Duration(seconds: 5)))  ;
+//   NotificationConfig().showNotification(title: Lang.get(context, key: LangKey.yourCourseWillStart), body: "body", id: 2);
+// NotificationConfig().scheduleNotification2();
   bottomSheetBlur(context, widget: const NewSheet(), height: 300,  color: Theme.of(context).colorScheme.background,);
 
 
-},backgroundColor: Theme.of(context).colorScheme.primary,child: Icon(FluentIcons.add_24_filled,color: Theme.of(context).colorScheme.background,),),
+},backgroundColor: Theme.of(context).colorScheme.primary,
+  child: Icon(FluentIcons.add_24_filled,color: Theme.of(context).colorScheme.background,),),
                     IconButton(
                         onPressed: () {
 
-                          ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.profile);
+                          ref.read(bottomNavProvider.notifier).changeIndex(ScreensEnum.notes);
                         },
-                        icon: currentIndex ==ScreensEnum.profile?Icon(
-                          FluentIcons.timeline_20_filled,
+                        icon: currentIndex ==ScreensEnum.notes?Icon(
+                          FluentIcons.note_24_filled,
                           color: Theme.of(context).colorScheme.primary,
                         ):Icon(
-                          FluentIcons.timeline_20_regular,
+                          FluentIcons.note_24_regular,
                           color: Theme.of(context).colorScheme.secondary,
                         )
                     ),

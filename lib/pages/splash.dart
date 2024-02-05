@@ -8,7 +8,6 @@ import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 
 import '../auto_local/lang.dart';
 import '../providers/auth_provider.dart';
-import 'auth/login.dart';
 import 'auth/register.dart';
 
 class SplashPage extends ConsumerStatefulWidget {

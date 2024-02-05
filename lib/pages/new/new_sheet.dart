@@ -6,7 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/pages/new/task/new_task.dart';
+import 'package:khlfan_shtain/pages/timer/timer.dart';
+import 'package:khlfan_shtain/settings/routes.dart';
 
+import '../notes/component/addnote.dart';
 import 'new_sheet_btns.dart';
 
 class NewSheet extends ConsumerWidget {
@@ -30,10 +33,12 @@ bottomSheetBlur(context, widget: const NewTaskPage(), height: 700, color: Theme.
           }, ),
           NewSheetButtons(
             duration: const Duration(milliseconds: 300),
-            icon: FluentIcons.alert_12_regular,
-            text: Lang.get(context, key: LangKey.addReminder),
+            icon: FluentIcons.timer_16_regular,
+            text: Lang.get(context, key: LangKey.pomodoroTechnique),
             onTap: () {
+              Navigator.of(context).pop();
 
+GoPageAnimated.push(page: const PomodoroTimer(), context: context);
             }, ),
           NewSheetButtons(
             duration: const Duration(milliseconds: 500),
@@ -41,6 +46,9 @@ bottomSheetBlur(context, widget: const NewTaskPage(), height: 700, color: Theme.
     text: Lang.get(context, key: LangKey.addNote),
 
             onTap: () {
+              Navigator.of(context).pop();
+
+              GoPageAnimated.push(page: const AddNote(), context: context);
 
           }, ),
         ],

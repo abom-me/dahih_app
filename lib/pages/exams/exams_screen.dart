@@ -2,7 +2,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
-import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/pages/exams/components/add.dart';
 import 'package:khlfan_shtain/pages/exams/components/exam_card.dart';
@@ -11,10 +10,7 @@ import 'package:khlfan_shtain/utils/swipe_able_widget.dart';
 import '../../components/try_again_widget.dart';
 import '../../models/exam_model.dart';
 import '../../providers/exams_provider.dart';
-import '../../settings/routes.dart';
 import '../../settings/sizes.dart';
-import '../../viewmodel/exams_viewmodel.dart';
-import 'components/details.dart';
 
 class ExamsScreen extends ConsumerStatefulWidget {
   const ExamsScreen({super.key});
@@ -31,9 +27,9 @@ class _ExamsScreenState extends ConsumerState<ExamsScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          bottomSheetBlur(context, widget: AddExam(), height: 600);
+          bottomSheetBlur(context, widget: const AddExam(), height: 600);
         },
-        child: Icon(FluentIcons.document_add_20_regular,size: 30,),
+        child: const Icon(FluentIcons.document_add_20_regular,size: 30,),
       ),
       appBar: AppBar(
         title: Text(Lang.get(context, key: LangKey.examsTable)),

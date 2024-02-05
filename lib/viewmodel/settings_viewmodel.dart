@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:khlfan_shtain/pages/auth/login.dart';
+import 'package:khlfan_shtain/utils/notification/notification_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../settings/routes.dart';
 final settingsViewModelProvider = ChangeNotifierProvider.autoDispose<SettingsViewModel>((ref) {
   return SettingsViewModel();
 });
 class SettingsViewModel extends ChangeNotifier {
+ bool dailyNotification =true;
+  NotificationConfig notificationConfig = NotificationConfig();
   ThemeMode theme=  ThemeMode.light;
   final pref=  SharedPreferences.getInstance();
   ThemeMode getThemeMode() {
     notifyListeners();
     return theme;
   }
+
+
   changeTheme(bool light) async {
    final save= await pref;
    save.setBool("theme", light?true:false);
@@ -44,6 +47,27 @@ class SettingsViewModel extends ChangeNotifier {
     notifyListeners();
     //logout
   }
+
+ dailyNotifications(bool value,BuildContext context) async {
+    final save= await pref;
+    save.setBool("dailyNotification", value);
+    if(value){
+
+      notificationConfig.scheduleRandomNotification(context);
+// notificationConfig.getScheduledNotification();
+    }else{
+notificationConfig.cancelNotification(91437237);
+    }
+    dailyNotification = value;
+    Navigator.of(context).pop();
+  getDailyNotifications();
+
+  }
+  bool getDailyNotifications() {
+
+    return dailyNotification;
+  }
+
 
 
 }
