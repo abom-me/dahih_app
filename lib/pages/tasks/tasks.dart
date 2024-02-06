@@ -36,11 +36,12 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
     // TODO: implement initState
     super.initState();
   }
-  bool calender=true;
+  bool calender=false;
   @override
   Widget build(BuildContext context) {
    TaskStatusEnum status= ref.watch(tasksProvider).getSelectedStatus();
     return  Scaffold(
+
       appBar: AppBar(
         title:  Text(Lang.get(context, key: LangKey.tasks,),style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
       ),
@@ -83,6 +84,9 @@ events: ref.watch(tasksProvider).tasksDates(),
                 onSelected: (a,s,v){
 
                   ref.read(tasksProvider.notifier).changeSelectedDate(v);
+                  setState(() {
+                    // tasksDates=ref.read(tasksProvider).tasksDates();
+                  });
                 },
                 startDate: DateTime(2024),
                 size: 50,
@@ -110,7 +114,7 @@ events: ref.watch(tasksProvider).tasksDates(),
                           SwipeAbleController controller = SwipeAbleController();
 
                           final task = snapshot.data![index];
-                          final remainingTime = ref.read(homeProvider).countTaskTimeLeft(DateTime.parse(task.date!));
+                          final remainingTime = ref.watch(homeProvider).countTaskTimeLeft(DateTime.parse(task.date!));
                           return TaskCard(controller: controller,task: task, remainingTime: remainingTime);
                         },
                       );

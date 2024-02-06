@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/pages/courses/widget/add_course.dart';
 import 'package:khlfan_shtain/pages/courses/widget/course_bottom.dart';
+import 'package:khlfan_shtain/pages/courses/widget/export.dart';
+import 'package:khlfan_shtain/settings/routes.dart';
+import 'package:khlfan_shtain/utils/convert_widget_to_image.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/string_to_time.dart';
 
@@ -34,9 +37,13 @@ class _CoursesTableState extends ConsumerState<CoursesTable> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () async {
+
+
+        // GoPage.push(page: CourseExport(), context: context);
 bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of(context).colorScheme.background,);
         },
         child: const Icon(Icons.add),
@@ -56,29 +63,34 @@ bottomSheetBlur(context, widget: const AddCourse(), height: 600, color: Theme.of
       if(snapshot.hasData){
         List<Course>   courses=snapshot.data!;
 
-        return  courses.isNotEmpty? Table(
-
-
+        return  courses.isNotEmpty? Column(
           children: [
-            TableRow(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              children: daysOfWeek
-                  .where((day) =>
-                  courses.any((course) => course.days!.contains(day)))
-                  .map((day) {
-                return TableCell(
-                  child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(color: Theme.of(context).colorScheme.background),)
-                  ),
-                );
-              }).toList(),
-            ),
 
-            // Data rows
-            ..._buildDataRows(courses,ref,context),
+            Table(
+
+
+              children: [
+                TableRow(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  children: daysOfWeek
+                      .where((day) =>
+                      courses.any((course) => course.days!.contains(day)))
+                      .map((day) {
+                    return TableCell(
+                      child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(color: Theme.of(context).colorScheme.background),)
+                      ),
+                    );
+                  }).toList(),
+                ),
+
+                // Data rows
+                ..._buildDataRows(courses,ref,context),
+              ],
+            ),
           ],
         ):Container();
       }

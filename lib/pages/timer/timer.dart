@@ -58,7 +58,7 @@ class _PomodoroTimerState extends ConsumerState<PomodoroTimer> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              MainButton( width: 120, height: 50,
+              MainButton( width: 130, height: 50,
 
                 onPressed: () {
 
@@ -75,7 +75,7 @@ class _PomodoroTimerState extends ConsumerState<PomodoroTimer> {
               ),
 const SizedBox(width: 40,),
                 SecButton(text: Lang.get(context, key: LangKey.reset),
-                    width: 120,
+                    width: 130,
                     height: 50,
                     onPressed: (){
                       ref.watch(promoTimerViewModelProvider.notifier).resetTimer();

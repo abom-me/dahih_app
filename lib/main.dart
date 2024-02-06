@@ -12,6 +12,7 @@ import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
 
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
 // tz.getLocation("Asia/Muscat");
@@ -35,6 +36,7 @@ ref.read(settingsViewModelProvider).getTheme();
     return LocaleBuilder(builder: (locale){
       return MaterialApp(
         locale: locale,
+        debugShowCheckedModeBanner: false,
         localizationsDelegates:Locales.delegates,
         supportedLocales: Locales.supportedLocales,
         // builder: (context, child) {

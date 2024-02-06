@@ -2,12 +2,14 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales2/flutter_locales2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/pages/courses/courses_table.dart';
 import 'package:khlfan_shtain/pages/exams/exams_screen.dart';
 import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../auto_local/lang.dart';
 import '../../../settings/routes.dart';
@@ -140,6 +142,32 @@ title: Text(Lang.get(context, key: LangKey.studySchedule),style: const TextStyle
 
     }),
             title: Text(Lang.get(context, key: LangKey.dailyMessages),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+          ),
+          Divider(
+            color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+          ),
+          ListTile(
+            onTap: () async {
+              if (!await launchUrl(Uri.parse("https://twitter.com/abom_me"))){
+              // throw Exception('Could not launch $_url');
+              }
+            },
+        
+            leading: SvgPicture.asset("assets/images/x-twitter.svg",width: 30,color: Theme.of(context).colorScheme.primary,),
+            title: Text(Lang.get(context, key: LangKey.followDevTwitt),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+          ),
+          Divider(
+            color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+          ),
+          ListTile(
+onTap: () async {
+  if (!await launchUrl(Uri.parse("https://instagram.com/abom.me"))){
+    // throw Exception('Could not launch $_url');
+  }
+    },
+            leading: SvgPicture.asset("assets/images/instagram.svg",width: 30,color: Theme.of(context).colorScheme.primary,),
+
+            title: Text(Lang.get(context, key: LangKey.followDevInsta),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
           ),
         ],
       ),
