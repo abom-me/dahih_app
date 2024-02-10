@@ -68,6 +68,15 @@ tuesday('tuesday'),
 wed('wed'),
 wednesday('wednesday'),
 welcomeBack('welcome_back'),
+<<<<<<< Updated upstream
+=======
+welcomeDahih('welcome_dahih'),
+welcomeToBeta('welcome_to_beta'),
+welcomeWithUs('welcome_with_us'),
+yes('yes'),
+youDontHaveTasks('you_dont_have_tasks'),
+yourCourseWillStart('your_course_will_start'),
+>>>>>>> Stashed changes
 yourLecturesToday('your_lectures_today'),
 yourTasks('your_tasks');
   const LangKey(this.key);

@@ -8,9 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
+import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
+<<<<<<< Updated upstream
 import 'package:khlfan_shtain/repo/courses.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
+=======
+import 'package:shared_preferences/shared_preferences.dart';
+>>>>>>> Stashed changes
 
 import '../models/course_model.dart';
 import '../repo/tasks.dart';
@@ -34,6 +39,16 @@ await Future.delayed(const Duration(seconds: 2));
   return todayCourses;
 }
 
+welcomeMessage(BuildContext context) async {
+  var prefs = await SharedPreferences.getInstance();
+ if(prefs.getBool('welcomeMessage') == null){
+ Alert.msg(context, Lang.get(context, key: LangKey.welcomeDahih), Lang.get(context, key: LangKey.welcomeToBeta));
+  prefs.setBool('welcomeMessage', true);
+ }else{
+
+ }
+
+}
 // double getCourseProgress(DateTime startTime,DateTime endTime) {
 //   var now = DateTime.now();
 //   var start = startTime;

@@ -59,6 +59,15 @@
   "wed": "Wed",
   "wednesday": "Wednesday",
   "welcome_back": "Welcome back",
+<<<<<<< Updated upstream
+=======
+  "welcome_dahih": "Welcome To Dahih",
+  "welcome_to_beta": "Welcome to the Beta version of the Dahih application. In this version, there is no feature for sending notifications half an hour before the lecture. You may encounter some problems, so please share with me any problems you face or any suggestions you suggest to improve the application. Finally, thank you for downloading the Dahih application",
+  "welcome_with_us": "Welcome ",
+  "yes": "Yes",
+  "you_dont_have_tasks": "You don't have tasks",
+  "your_course_will_start": "Your lecture will start in 30 min 👀",
+>>>>>>> Stashed changes
   "your_lectures_today": "Your lectures today",
   "your_tasks": "Your tasks"
 }

@@ -1,6 +1,11 @@
 {
+<<<<<<< Updated upstream
     "name": "khlfan_shtain",
     "short_name": "khlfan_shtain",
+=======
+    "name": "app",
+    "short_name": "app",
+>>>>>>> Stashed changes
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -12,8 +12,11 @@ import 'package:khlfan_shtain/utils/check_arabic_text.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 
+<<<<<<< Updated upstream
 import '../../components/try_again_widget.dart';
 import '../../models/course_model.dart';
+=======
+>>>>>>> Stashed changes
 import '../../providers/home_provider.dart';
 import '../../settings/sizes.dart';
 import '../../utils/enum/course_status_enum.dart';
@@ -22,7 +25,22 @@ class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
+<<<<<<< Updated upstream
   Widget build(BuildContext context, WidgetRef ref) {
+=======
+  ConsumerState createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+@override
+  void initState() {
+  ref.read(homeProvider).welcomeMessage(context);
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context, ) {
+>>>>>>> Stashed changes
 
     return Scaffold(
       appBar: AppBar(
@@ -40,6 +58,7 @@ class HomePage extends ConsumerWidget {
             ),
             child: IconButton(
 
+<<<<<<< Updated upstream
               onPressed: () {
 
               },
@@ -80,6 +99,34 @@ if(Locales.lang=="ar"){
           ),
           ],
         )
+=======
+              ),
+              const SizedBox(),
+              // Container(
+              //
+              //   height: 40,
+              //   width: 40,
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(50),
+              //       color: Theme.of(context).colorScheme.background,
+              //       border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 0.1)
+              //   ),
+              //   child: IconButton(
+              //
+              //     onPressed: () {
+              //       if(Locales.lang=="ar"){
+              //         Locales.change(context, "en");
+              //
+              //       }else{
+              //         Locales.change(context, "ar");
+              //       }
+              //     },
+              //     icon: const Icon(Icons.notifications_none_outlined),
+              //   ),
+              // ),
+            ],
+          )
+>>>>>>> Stashed changes
       ),
       body: Container(
         height: Sizes.height(context),

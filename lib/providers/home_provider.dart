@@ -43,5 +43,9 @@ class HomeProvider{
     return homeViewModel.countTaskTimeLeft(endTime);
   }
 
+  Future<void> welcomeMessage(BuildContext context) async {
+    await homeViewModel.welcomeMessage(context);
+  }
+
 
 }
