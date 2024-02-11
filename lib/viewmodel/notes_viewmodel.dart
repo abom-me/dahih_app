@@ -40,14 +40,15 @@ class NotesViewModel with ChangeNotifier{
   }
 
  Future<List<String>> getTags() async {
-   Stream value= local.streamData(collectionName: 'tags');
+   // Map value= local.getData(collectionName: 'tags');
    List<String> tags=[];
    tags.clear();
-   value.listen((event) {
-
-     tags.add(event['tag']);
-
-    });
+   final Map<String,dynamic>value=await local.getData(collectionName: 'tags');
+   if(value['status'] != 'empty'){
+     value.forEach((key, value) {
+       tags.add(value['tag']);
+     });
+   }
 
     return tags;
   }

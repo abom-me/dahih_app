@@ -49,13 +49,17 @@ class TasksViewModel with ChangeNotifier {
 
 
   Future<List<Tasks>> getSelectedTasks() async {
+
     List<Tasks> allTasks = await getTodayTasks();
     List<Tasks> filteredTasks = [];
     for (var element in allTasks) {
-
-      if (element.date == selectedDate.toString() &&
+// print(element.date!.split(" ")[0]);
+// print(selectedDate.toString());
+//     print(element.date == selectedDate.toString());
+if (element.date!.split(" ")[0] == selectedDate.toString().split(" ")[0] &&
           element.status == TaskStatusEnum.inProgress.status) {
         filteredTasks.add(element);
+
       }
     }
     return filteredTasks;

@@ -62,7 +62,7 @@ ref.read(tasksProvider.notifier).changeTaskStatus( task, TaskStatusEnum.complete
       child: GestureDetector(
         onTap: () {
 
-          bottomSheetBlur(context, widget: Container(
+        if(widget.task.description !=null&& widget.task.description!.isNotEmpty )  bottomSheetBlur(context, widget: Container(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
               width: Sizes.width(context),

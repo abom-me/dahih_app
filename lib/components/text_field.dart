@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
+
 
 
 class TextFieldWidget extends ConsumerStatefulWidget {
@@ -46,6 +48,9 @@ class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
 //     // TODO: implement dispose
 //     super.dispose();
 //   }
+
+
+
   @override
   Widget build(BuildContext context) {
 

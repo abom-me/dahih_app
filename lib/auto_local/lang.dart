@@ -8,6 +8,8 @@ import 'package:flutter_locales2/flutter_locales2.dart';
   }
   }
       enum LangKey{
+welcomeDahih('welcome_dahih'),
+welcomeToBeta('welcome_to_beta'),
 add('add'),
 addCategory('add_category'),
 addNote('add_note'),

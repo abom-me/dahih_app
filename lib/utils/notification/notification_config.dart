@@ -186,6 +186,29 @@ class NotificationConfig{
   }
 
 
+  Future<void> repeatNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'Channel_id',
+      'Channel_name',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: false,
+      icon: '@mipmap/ic_launcher',
+      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      channelShowBadge: true,
+    );
+
+    var platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics,);
+    await flutterLocalNotificationsPlugin.periodicallyShow(
+      0,
+      'Repeating Test Title',
+      'Repeating Test Body',
+      RepeatInterval.daily,
+      platformChannelSpecifics,
+      payload: 'Test Payload',
+    );
+  }
   Future<void> scheduleRandomNotification(context) async {
 
 

@@ -1,4 +1,7 @@
 {
+  "welcome_dahih": "Welcome To Dahih",
+  "welcome_to_beta": "Welcome to the Beta version of the Dahih application. In this version, there is no feature for sending notifications half an hour before the lecture. You may encounter some problems, so please share with me any problems you face or any suggestions you suggest to improve the application. Finally, thank you for downloading the Dahih application",
+
   "add": "Add",
   "add_category": "Add Category",
   "add_note": "Add note",

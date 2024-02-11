@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/string_to_time.dart';
@@ -12,6 +13,7 @@ import '../../../models/course_model.dart';
 import '../../../providers/course_table_provider.dart';
 import '../../../settings/sizes.dart';
 import '../../../utils/enum/days_enum.dart';
+import '../../../utils/keyboard_action.dart';
 
 
 class AddCourse extends ConsumerStatefulWidget {
@@ -22,6 +24,11 @@ class AddCourse extends ConsumerStatefulWidget {
 }
 
 class _AddCourseState extends ConsumerState<AddCourse> {
+FocusNode courseNameFocus = FocusNode();
+FocusNode courseStartFocus = FocusNode();
+FocusNode courseEndFocus = FocusNode();
+FocusNode teacherNameFocus = FocusNode();
+FocusNode roomNoFocus = FocusNode();
 
     TextEditingController courseName = TextEditingController();
     TextEditingController courseStart = TextEditingController();
@@ -49,263 +56,269 @@ class _AddCourseState extends ConsumerState<AddCourse> {
 
         // height: 00,
         // padding: const EdgeInsets.only(bottom: 30,top: 10),
+        child:    KeyboardActions(
+        tapOutsideBehavior: TapOutsideBehavior.translucentDismiss,
+
+        config: buildConfig(context, [courseNameFocus,courseStartFocus,courseEndFocus,teacherNameFocus,roomNoFocus]),
+
         child: SingleChildScrollView(
-          child: Form(
-              key: _form,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    Lang.get(context, key: LangKey.courseName),
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFieldWidget(
-                    valid: (value){
-                      if(value!.isEmpty){
-                        return Lang.get(context, key: LangKey.taskExdateRequired);
-                      }else{
-                        return null;
-                      }
-                    },
-                    controller: courseName,
-                    focusNode: taskNameFocus,
-                    hint:  Lang.get(context, key: LangKey.courseName),
-                    keyboardType: TextInputType.text,
-                  ),
+            child: Form(
+                key: _form,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      Lang.get(context, key: LangKey.courseName),
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldWidget(
+                      valid: (value){
+                        if(value!.isEmpty){
+                          return Lang.get(context, key: LangKey.taskExdateRequired);
+                        }else{
+                          return null;
+                        }
+                      },
+                      controller: courseName,
+                      focusNode: courseNameFocus,
+                      hint:  Lang.get(context, key: LangKey.courseName),
+                      keyboardType: TextInputType.text,
+                    ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    Lang.get(context, key: LangKey.roomNo),
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFieldWidget(
-                    multiLine: true,
-                    controller: roomNo,
-                    focusNode: FocusNode(),
-                    hint:  Lang.get(context, key: LangKey.roomNo),
-                    keyboardType: TextInputType.multiline,
-                  ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      Lang.get(context, key: LangKey.roomNo),
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldWidget(
 
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                   '${Lang.get(context, key: LangKey.teacherName)} (${Lang.get(context, key: LangKey.optional)})',
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFieldWidget(
-                    multiLine: true,
-                    controller: teacherName,
-                    focusNode: FocusNode(),
-                    hint:  Lang.get(context, key: LangKey.teacherName),
-                    keyboardType: TextInputType.multiline,
-                  ),
+                      controller: roomNo,
+                      focusNode: roomNoFocus,
+                      hint:  Lang.get(context, key: LangKey.roomNo),
+                      keyboardType: TextInputType.text,
+                    ),
 
 
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                     '${Lang.get(context, key: LangKey.teacherName)} (${Lang.get(context, key: LangKey.optional)})',
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldWidget(
+
+                      controller: teacherName,
+                      focusNode: teacherNameFocus,
+                      hint:  Lang.get(context, key: LangKey.teacherName),
+                      keyboardType: TextInputType.text,
+                    ),
 
 
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              Lang.get(context, key: LangKey.startTime),
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFieldWidget(
-                              valid: (value){
-                                if(value!.isEmpty || courseStartTime==null){
-                                  return Lang.get(context, key: LangKey.taskNameRequired);
-                                }else{
-                                  return null;
-                                }
-                              },
-                              onTap: (){
 
-                                showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                ).then((value) {
-                                  if(value != null) {
-                                    courseStart.text = value.format(context);
-                                    courseStartTime = value;
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                Lang.get(context, key: LangKey.startTime),
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).colorScheme.primary),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFieldWidget(
+                                valid: (value){
+                                  if(value!.isEmpty || courseStartTime==null){
+                                    return Lang.get(context, key: LangKey.taskNameRequired);
+                                  }else{
+                                    return null;
                                   }
-                                });
-                              },
-                              controller: courseStart,
-                              focusNode: FocusNode(),
-                              readOnly: true,
-                              hint:  Lang.get(context, key: LangKey.startTime),
-                              keyboardType: TextInputType.multiline,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              Lang.get(context, key: LangKey.endTime),
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFieldWidget(
-                              onTap: (){
-                                showTimePicker(
-                                  context: context,
-                                  initialTime: courseStartTime??TimeOfDay.now(),
-                                ).then((value) {
-                                  if (value != null) {
-                                    courseEnd.text = value.format(context);
-                                    courseEndTime = value;
-                                    if(courseStartTime!.hour>courseEndTime!.hour){
-                                      courseEnd.text="";
-                                      courseEndTime=null;
-                                     Alert.msg(context, Lang.get(context, key: LangKey.error), Lang.get(context, key: LangKey.endTimeError));
+                                },
+                                onTap: (){
+
+                                  showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  ).then((value) {
+                                    if(value != null) {
+                                      courseStart.text = value.format(context);
+                                      courseStartTime = value;
                                     }
-                                  }
-                                });
-
-
-                              },
-                              controller: courseEnd,
-                              focusNode: FocusNode(),
-                              readOnly: true,
-                              hint: Lang.get(context, key: LangKey.endTime),
-                              keyboardType: TextInputType.multiline,
-                            ),
-                          ],
+                                  });
+                                },
+                                controller: courseStart,
+                                focusNode: courseStartFocus,
+                                readOnly: true,
+                                hint:  Lang.get(context, key: LangKey.startTime),
+                                keyboardType: TextInputType.multiline,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                Lang.get(context, key: LangKey.endTime),
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context).colorScheme.primary),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFieldWidget(
+                                onTap: (){
+                                  showTimePicker(
+                                    context: context,
+                                    initialTime: courseStartTime??TimeOfDay.now(),
+                                  ).then((value) {
+                                    if (value != null) {
+                                      courseEnd.text = value.format(context);
+                                      courseEndTime = value;
+                                      if(courseStartTime!.hour>courseEndTime!.hour){
+                                        courseEnd.text="";
+                                        courseEndTime=null;
+                                       Alert.msg(context, Lang.get(context, key: LangKey.error), Lang.get(context, key: LangKey.endTimeError));
+                                      }
+                                    }
+                                  });
 
 
-                    ],
-                  ),
+                                },
+                                controller: courseEnd,
+                                focusNode: courseEndFocus,
+                                readOnly: true,
+                                hint: Lang.get(context, key: LangKey.endTime),
+                                keyboardType: TextInputType.multiline,
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                      ],
+                    ),
 
 
 
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    Lang.get(context, key: LangKey.days),
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-// Select days
-              Row(
-                children: [
-               for(final day in daysOfWeek)
-                 Expanded(
-                   child: GestureDetector(
-                     onTap: (){
-                       if(days.contains(day)){
-                         days.remove(day);
-                       }else{
-                         days.add(day);
-                       }
-                       setState(() {
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      Lang.get(context, key: LangKey.days),
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+          // Select days
+                Row(
+                  children: [
+                 for(final day in daysOfWeek)
+                   Expanded(
+                     child: GestureDetector(
+                       onTap: (){
+                         if(days.contains(day)){
+                           days.remove(day);
+                         }else{
+                           days.add(day);
+                         }
+                         setState(() {
 
-                       });
-                     },
-                     child: AnimatedContainer(
-                       duration: const Duration(milliseconds: 300),
-width: 40,
-                        height: 40,
-                       margin: const EdgeInsets.only(left: 2,right: 2),
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(100),
-                         color: days.contains(day)?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background,
+                         });
+                       },
+                       child: AnimatedContainer(
+                         duration: const Duration(milliseconds: 300),
+          width: 40,
+                          height: 40,
+                         margin: const EdgeInsets.only(left: 2,right: 2),
+                         decoration: BoxDecoration(
+                           borderRadius: BorderRadius.circular(100),
+                           color: days.contains(day)?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background,
+                         ),
+                         child: Center(child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(fontWeight: FontWeight.w500,color: days.contains(day)?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.primary),)),
                        ),
-                       child: Center(child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(fontWeight: FontWeight.w500,color: days.contains(day)?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.primary),)),
                      ),
-                   ),
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
 
 
 
 
 
-                  MainButton(text:  Lang.get(context, key: LangKey.add), width: Sizes.width(context), height: 60, onPressed: (){
-                    if(_form.currentState!.validate()){
+                    MainButton(text:  Lang.get(context, key: LangKey.add), width: Sizes.width(context), height: 60, onPressed: (){
+                      if(_form.currentState!.validate()){
 
-                      final  courseId= const Uuid().v4();
-                      final course=Course(
-                        id: courseId,
-                        name: courseName.text,
-                        room: roomNo.text,
-                        teacher: teacherName.text,
-                        from: courseStartTime!.toStringTime,
-                        to: courseEndTime!.toStringTime,
-                        days: days,
-                      );
-ref.read(courseTableProvider).addCourse(context, course);
-                      Navigator.pop(context);
+                        final  courseId= const Uuid().v4();
+                        final course=Course(
+                          id: courseId,
+                          name: courseName.text,
+                          room: roomNo.text,
+                          teacher: teacherName.text,
+                          from: courseStartTime!.toStringTime,
+                          to: courseEndTime!.toStringTime,
+                          days: days,
+                        );
+          ref.read(courseTableProvider).addCourse(context, course);
+                        Navigator.pop(context);
 
-                    }else{
+                      }else{
 
-                    }
+                      }
 
-                  }),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                ],
-              )),
+                    }),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                  ],
+                )),
+          ),
         ),
       );
     }

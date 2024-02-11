@@ -36,7 +36,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
     // TODO: implement initState
     super.initState();
   }
-  bool calender=false;
+  bool calender=true;
   @override
   Widget build(BuildContext context) {
    TaskStatusEnum status= ref.watch(tasksProvider).getSelectedStatus();
@@ -85,7 +85,7 @@ events: ref.watch(tasksProvider).tasksDates(),
 
                   ref.read(tasksProvider.notifier).changeSelectedDate(v);
                   setState(() {
-                    // tasksDates=ref.read(tasksProvider).tasksDates();
+                    tasksDates=ref.read(tasksProvider).tasksDates();
                   });
                 },
                 startDate: DateTime(2024),
@@ -100,7 +100,7 @@ events: ref.watch(tasksProvider).tasksDates(),
             Expanded(
 
               child:   FutureBuilder(
-                  future:ref.watch(tasksProvider).getSelectedTasks() ,
+                  future:ref.read(tasksProvider).getSelectedTasks() ,
 
                   builder: (context, snapshot) {
                     if(snapshot.hasData){

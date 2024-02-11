@@ -46,11 +46,11 @@ for(var courseDays in course.days!){
 }
 
 deleteCourse(BuildContext context,String id) async {
-  Alert.close(context);
-  Alert.loading(context, Lang.get(context, key: LangKey.deleting));
+Navigator.pop(context);
   await local.deleteData(collectionName: 'courses', docId: id);
   notf.cancelNotification(extractNumbers(id));
   notifyListeners();
+  Alert.snackbar(context, text: Lang.get(context, key: LangKey.deleted));
   // Alert.close(context);
 }
 

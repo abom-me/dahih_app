@@ -10,6 +10,7 @@ import 'package:khlfan_shtain/pages/home/widgets/tasks.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 
+import '../../providers/home_provider.dart';
 import '../../settings/sizes.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -20,7 +21,12 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-
+@override
+  void initState() {
+  ref.read(homeProvider).welcomeMessage(context);
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context, ) {
 
@@ -58,28 +64,29 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
 
               ),
-              Container(
-
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).colorScheme.background,
-                    border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 0.1)
-                ),
-                child: IconButton(
-
-                  onPressed: () {
-                    if(Locales.lang=="ar"){
-                      Locales.change(context, "en");
-
-                    }else{
-                      Locales.change(context, "ar");
-                    }
-                  },
-                  icon: const Icon(Icons.notifications_none_outlined),
-                ),
-              ),
+              SizedBox(),
+              // Container(
+              //
+              //   height: 40,
+              //   width: 40,
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(50),
+              //       color: Theme.of(context).colorScheme.background,
+              //       border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 0.1)
+              //   ),
+              //   child: IconButton(
+              //
+              //     onPressed: () {
+              //       if(Locales.lang=="ar"){
+              //         Locales.change(context, "en");
+              //
+              //       }else{
+              //         Locales.change(context, "ar");
+              //       }
+              //     },
+              //     icon: const Icon(Icons.notifications_none_outlined),
+              //   ),
+              // ),
             ],
           )
       ),

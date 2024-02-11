@@ -86,7 +86,7 @@ class _CategoriesState extends ConsumerState<Tags> {
         ),
         Expanded(
           child: FutureBuilder(
-              future: ref.watch(notesViewModelProvider.notifier).getTags(),
+              future: ref.read(notesViewModelProvider.notifier).getTags(),
               builder: (context, snapshot) {
                 if(snapshot.hasData){
                   List<String> categories = snapshot.data!;

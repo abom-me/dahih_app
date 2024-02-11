@@ -17,7 +17,7 @@ class RegisterPage extends ConsumerStatefulWidget {
 
 class _RegisterPageState extends ConsumerState<RegisterPage> {
   // TextEditingController email = TextEditingController();
-GenderEnum? gender;
+GenderEnum gender = GenderEnum.male;
   TextEditingController name = TextEditingController();
   // TextEditingController password = TextEditingController();
   final GlobalKey<FormState> _register = GlobalKey<FormState>();
@@ -94,81 +94,81 @@ GenderEnum? gender;
                       ),
                       // BoxSize.height(30),
 
-                        SizedBox(
-                          width: Sizes.width(context),
-                          height: 96,
-                          child:Row(
-                            children: [
-
-                              Row(
-                                children: [
-                                  Text(Lang.get(context, key: LangKey.selectGender,),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
-                                  Row(
-                                    children: [
-                                      Radio(
-                                        value: GenderEnum.male,
-                                        groupValue: gender,
-                                        onChanged: ( value) {
-                                          gender=value;
-                                          setState(() {
-
-                                          });
-
-
-                                        },
-                                      ),
-                              Text(Lang.get(context, key: LangKey.male),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Radio(
-
-                                        value: GenderEnum.female,
-                                        groupValue: gender,
-                                        onChanged: ( value) {
-                                          gender=value;
-                                          setState(() {
-
-                                          });
-
-
-                                        },
-                                      ),
-                              Text(Lang.get(context, key: LangKey.female),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
-                                    ],
-                                  ),
-
-
-                                ],
-                              ),
-                              Expanded(
-                                // flex: 1,
-                                child: TextFormField(
-
-                                  readOnly: true,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.zero,
-                                    disabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    focusedErrorBorder: InputBorder.none,
-
-                                  ),
-                                  validator: (v){
-                                    if(gender ==null){
-                                      return Lang.get(context, key: LangKey.genderEmpty);
-                                    }else{
-                                      return null;
-                                    }
-                                  },
-                                ),
-                              )
-
-                            ],
-                          ) ,
-                        ),
+                        // SizedBox(
+                        //   width: Sizes.width(context),
+                        //   height: 96,
+                        //   child:Row(
+                        //     children: [
+                        //
+                        //       Row(
+                        //         children: [
+                        //           Text(Lang.get(context, key: LangKey.selectGender,),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                        //           Row(
+                        //             children: [
+                        //               Radio(
+                        //                 value: GenderEnum.male,
+                        //                 groupValue: gender,
+                        //                 onChanged: ( value) {
+                        //                   gender=value;
+                        //                   setState(() {
+                        //
+                        //                   });
+                        //
+                        //
+                        //                 },
+                        //               ),
+                        //       Text(Lang.get(context, key: LangKey.male),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                        //             ],
+                        //           ),
+                        //           Row(
+                        //             children: [
+                        //               Radio(
+                        //
+                        //                 value: GenderEnum.female,
+                        //                 groupValue: gender,
+                        //                 onChanged: ( value) {
+                        //                   gender=value;
+                        //                   setState(() {
+                        //
+                        //                   });
+                        //
+                        //
+                        //                 },
+                        //               ),
+                        //       Text(Lang.get(context, key: LangKey.female),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                        //             ],
+                        //           ),
+                        //
+                        //
+                        //         ],
+                        //       ),
+                        //       Expanded(
+                        //         // flex: 1,
+                        //         child: TextFormField(
+                        //
+                        //           readOnly: true,
+                        //           decoration: const InputDecoration(
+                        //             contentPadding: EdgeInsets.zero,
+                        //             disabledBorder: InputBorder.none,
+                        //             errorBorder: InputBorder.none,
+                        //             focusedBorder: InputBorder.none,
+                        //             enabledBorder: InputBorder.none,
+                        //             focusedErrorBorder: InputBorder.none,
+                        //
+                        //           ),
+                        //           validator: (v){
+                        //             if(gender ==null){
+                        //               return Lang.get(context, key: LangKey.genderEmpty);
+                        //             }else{
+                        //               return null;
+                        //             }
+                        //           },
+                        //         ),
+                        //       )
+                        //
+                        //     ],
+                        //   ) ,
+                        // ),
                       // BoxSize.height(30),
                       // TextFieldWidget(
                       //   focusNode: emailFocus,

@@ -8,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/alerts.dart';
 import '../models/course_model.dart';
 import '../utils/enum/course_status_enum.dart';
 import '../utils/enum/task_status_enum.dart';
@@ -41,7 +43,17 @@ if(value['status'] != 'empty'){
 
   return todayCourses;
 }
+  welcomeMessage(BuildContext context) async {
+    var prefs = await SharedPreferences.getInstance();
 
+    if(prefs.getBool('welcomeMessage') == null){
+      Alert.msg(context, Lang.get(context, key: LangKey.welcomeDahih), Lang.get(context, key: LangKey.welcomeToBeta));
+      prefs.setBool('welcomeMessage', true);
+    }else{
+
+    }
+
+  }
 // double getCourseProgress(DateTime startTime,DateTime endTime) {
 //   var now = DateTime.now();
 //   var start = startTime;
