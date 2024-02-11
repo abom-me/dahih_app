@@ -84,83 +84,83 @@ class NotificationConfig{
     required DateTime scheduledDate,
     required Day day,
   }) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'Channel_id',
-      'Channel_name',
-      importance: Importance.max,
-      priority: Priority.high,
-      showWhen: false,
-      icon: '@mipmap/ic_launcher',
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-      channelShowBadge: true,
-    );
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
-    final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
-
-    tz.Location location = tz.getLocation(currentTimeZone);
-    var now = tz.TZDateTime.now(tz.local);
-    var scheduledDateTz = tz.TZDateTime(location, scheduledDate.year, scheduledDate.month, scheduledDate.day,
-        scheduledDate.hour, scheduledDate.minute);
-
-    var notificationTime = scheduledDateTz.subtract(const Duration(minutes: 30));
-
-    while (notificationTime.weekday == day.index) {
-      notificationTime = notificationTime.add(const Duration(days: 1));
-
-      // Check if notificationTime is outside valid range
-      if (notificationTime.isAfter(now.add(const Duration(days: 365)))) {
-        // Avoid infinite loop; stop if the date is too far in the future
-        break;
-      }
-    }
-
-    // Check if notificationTime is within a valid range
-    if (notificationTime.isAfter(now)) {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-        notificationTime,
-        platformChannelSpecifics,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
-        matchDateTimeComponents: DateTimeComponents.time,
-        payload: {"time":notificationTime}.toString(),
-      );
-    }
+    // const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    //   'Channel_id',
+    //   'Channel_name',
+    //   importance: Importance.max,
+    //   priority: Priority.high,
+    //   showWhen: false,
+    //   icon: '@mipmap/ic_launcher',
+    //   largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+    //   channelShowBadge: true,
+    // );
+    // const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+    // final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    //
+    // tz.Location location = tz.getLocation(currentTimeZone);
+    // var now = tz.TZDateTime.now(tz.local);
+    // var scheduledDateTz = tz.TZDateTime(location, scheduledDate.year, scheduledDate.month, scheduledDate.day,
+    //     scheduledDate.hour, scheduledDate.minute);
+    //
+    // var notificationTime = scheduledDateTz.subtract(const Duration(minutes: 30));
+    //
+    // while (notificationTime.weekday == day.index) {
+    //   notificationTime = notificationTime.add(const Duration(days: 1));
+    //
+    //   // Check if notificationTime is outside valid range
+    //   if (notificationTime.isAfter(now.add(const Duration(days: 365)))) {
+    //     // Avoid infinite loop; stop if the date is too far in the future
+    //     break;
+    //   }
+    // }
+    //
+    // // Check if notificationTime is within a valid range
+    // if (notificationTime.isAfter(now)) {
+    //   await flutterLocalNotificationsPlugin.zonedSchedule(
+    //     id,
+    //     title,
+    //     body,
+    //     notificationTime,
+    //     platformChannelSpecifics,
+    //     uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime,
+    //     matchDateTimeComponents: DateTimeComponents.time,
+    //     payload: {"time":notificationTime}.toString(),
+    //   );
+    // }
   }
 
 
   Future<void> scheduleNotification2() async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'Channel_id',
-      'Channel_name',
-      importance: Importance.max,
-      priority: Priority.high,
-      showWhen: false,
-      icon: '@mipmap/ic_launcher',
-      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-      channelShowBadge: true,
-    );
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
-    var now = DateTime.now();
-    var notificationTime = tz.TZDateTime.from(now.add(const Duration(seconds: 5)), tz.local);
-
-
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      22,
-      "2",
-      "2",
-
-      notificationTime,
-
-      platformChannelSpecifics,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dateAndTime,
-
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: notificationTime.toString(),
-
-    );
+    // const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    //   'Channel_id',
+    //   'Channel_name',
+    //   importance: Importance.max,
+    //   priority: Priority.high,
+    //   showWhen: false,
+    //   icon: '@mipmap/ic_launcher',
+    //   largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+    //   channelShowBadge: true,
+    // );
+    // const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+    // var now = DateTime.now();
+    // var notificationTime = tz.TZDateTime.from(now.add(const Duration(seconds: 5)), tz.local);
+    //
+    //
+    // await flutterLocalNotificationsPlugin.zonedSchedule(
+    //   22,
+    //   "2",
+    //   "2",
+    //
+    //   notificationTime,
+    //
+    //   platformChannelSpecifics,
+    //   uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    //   matchDateTimeComponents: DateTimeComponents.dateAndTime,
+    //
+    //   androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    //   payload: notificationTime.toString(),
+    //
+    // );
   }
 
 
@@ -201,22 +201,22 @@ class NotificationConfig{
       largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
       channelShowBadge: true,
     );
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
-    final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
-
-    tz.Location location = tz.getLocation(currentTimeZone);
-    final now = tz.TZDateTime.now(location);
-    final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    var scheduledDateTz = tz.TZDateTime(location,tomorrow.year, tomorrow.month, tomorrow.day,7);
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      91437237, // Notification ID
-      Lang.get(context, key: LangKey.goodMorining), // Title
-      "${Lang.get(context, key: LangKey.dontForGet)} $randomText", // Body
-      scheduledDateTz, // Schedule for next day
-      platformChannelSpecifics,
-      uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
-    );
+    // const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+    // final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    //
+    // tz.Location location = tz.getLocation(currentTimeZone);
+    // final now = tz.TZDateTime.now(location);
+    // final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    // var scheduledDateTz = tz.TZDateTime(location,tomorrow.year, tomorrow.month, tomorrow.day,7);
+    // await flutterLocalNotificationsPlugin.zonedSchedule(
+    //   91437237, // Notification ID
+    //   Lang.get(context, key: LangKey.goodMorining), // Title
+    //   "${Lang.get(context, key: LangKey.dontForGet)} $randomText", // Body
+    //   scheduledDateTz, // Schedule for next day
+    //   platformChannelSpecifics,
+    //   uiLocalNotificationDateInterpretation:
+    //   UILocalNotificationDateInterpretation.absoluteTime,
+    // );
 
   }
 
