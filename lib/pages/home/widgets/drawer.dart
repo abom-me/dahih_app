@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khlfan_shtain/components/alerts.dart';
 import 'package:khlfan_shtain/pages/courses/courses_table.dart';
 import 'package:khlfan_shtain/pages/exams/exams_screen.dart';
+import 'package:khlfan_shtain/pages/privacy_policy.dart';
 import 'package:khlfan_shtain/utils/enum/gender_enum.dart';
 import 'package:khlfan_shtain/utils/global_keys.dart';
 import 'package:khlfan_shtain/viewmodel/settings_viewmodel.dart';
@@ -168,6 +169,17 @@ onTap: () async {
             leading: SvgPicture.asset("assets/images/instagram.svg",width: 30,color: Theme.of(context).colorScheme.primary,),
 
             title: Text(Lang.get(context, key: LangKey.followDevInsta),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+          ),
+          Divider(
+            color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+          ),
+          ListTile(
+            onTap: () async {
+            GoPage.push(page: const PrivacyPolicy(), context: context);
+            },
+            leading: Icon(FluentIcons.info_20_regular,color: Theme.of(context).colorScheme.primary,size: 30,),
+
+            title: Text(Lang.get(context, key: LangKey.privacyPolicyTitle),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
           ),
         ],
       ),

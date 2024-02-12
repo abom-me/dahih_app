@@ -281,7 +281,7 @@ FocusNode roomNoFocus = FocusNode();
                            borderRadius: BorderRadius.circular(100),
                            color: days.contains(day)?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.background,
                          ),
-                         child: Center(child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(fontWeight: FontWeight.w500,color: days.contains(day)?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.primary),)),
+                         child: Center(child: Text(Lang.get(context, key: day.dayToLangKey),style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: days.contains(day)?Theme.of(context).colorScheme.background:Theme.of(context).colorScheme.primary),)),
                        ),
                      ),
                     ),

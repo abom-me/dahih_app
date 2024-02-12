@@ -35,7 +35,8 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
           ),
         ],
       ),
-      body:SizedBox(
+      body:Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         width: Sizes.width(context),
         height: Sizes.height(context),
         child:Column(
