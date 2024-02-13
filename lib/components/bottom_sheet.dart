@@ -1,27 +1,28 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:khlfan_shtain/settings/sizes.dart';
+
+import '../utils/global_keys.dart';
 
 
 
-bottomSheetBlur(BuildContext context,{required widget,required double height,required Color color}){
+bottomSheetBlur(BuildContext context,{required widget,required double height, Color? color}){
 
   showModalBottomSheet(
         barrierColor: Colors.black.withOpacity(0.2),
         isScrollControlled: true,
         elevation: 0,
-        context: context, builder: (d){
+        context: scaffoldKey.currentContext!, builder: (d){
       return BackdropFilter(
 
         filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
         child: Container(
           // width: Sizes.width(context),
           height: height,
-          padding: EdgeInsets.only(top: 10,left: 20,right: 20),
+          padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
           decoration:  BoxDecoration(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-            color: color,
+            color:color?? Theme.of(d).colorScheme.background,
 
           ),
           child: Column(
@@ -35,7 +36,7 @@ bottomSheetBlur(BuildContext context,{required widget,required double height,req
                  color: Colors.grey[300],
                ),
              ),
-              widget
+              Expanded(child: widget)
             ],
           ),
         ),

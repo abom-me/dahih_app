@@ -30,15 +30,15 @@ class _TimelineState extends  ConsumerState<Timeline> {
 
   // Example tasks
   List<Task> tasks = [
-    Task(color:Color(0xff63B4FF),startHour: 12.0, endHour: 13.30, title: 'اسايمنت الداتابيس'),
-    Task(color:Color(0xffB1D199),startHour: 14.00, endHour: 16.00, title: 'اكمال مشروع الويب'),
+    Task(color:const Color(0xff63B4FF),startHour: 12.0, endHour: 13.30, title: 'اسايمنت الداتابيس'),
+    Task(color:const Color(0xffB1D199),startHour: 14.00, endHour: 16.00, title: 'اكمال مشروع الويب'),
     // Add more tasks here
   ];
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer(Duration(milliseconds: 300), () => _scrollToCurrentTime());
+    _timer = Timer(const Duration(milliseconds: 300), () => _scrollToCurrentTime());
   }
 
   @override
@@ -52,7 +52,7 @@ class _TimelineState extends  ConsumerState<Timeline> {
     final scrollPosition = currentTime.hour * 80;
     _scrollController.animateTo(
       scrollPosition.toDouble(),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
     );
   }
@@ -87,14 +87,14 @@ class _TimelineState extends  ConsumerState<Timeline> {
                     height: 80,
                     width: Sizes.width(context),
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
                       children: [
                         Expanded(
                           // flex: 1,
                           child: Text(
                             time.format(context).replaceAll(':', '').replaceAll('0', '').replaceAll("PM", "م").replaceAll("AM", "ص"),
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
 
@@ -127,7 +127,7 @@ class _TimelineState extends  ConsumerState<Timeline> {
                   child: Center(
                     child: Text(
                       task.title,
-                      style: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.w600),
+                      style: const TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),

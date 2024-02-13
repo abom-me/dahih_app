@@ -1,7 +1,7 @@
 
 
 enum TaskStatusEnum {
-  pending("pending"),
+  all("all"),
   inProgress("inProgress"),
   completed("completed");
   const TaskStatusEnum(this.status);

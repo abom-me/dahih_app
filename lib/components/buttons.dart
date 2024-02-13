@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../settings/sizes.dart';
 
 
 class MainButton extends StatelessWidget {
@@ -37,6 +36,44 @@ final VoidCallback onPressed;
             text,
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: 17,
+                fontWeight: FontWeight.w500),
+          )),
+    );
+  }
+}
+
+
+
+
+class SecButton extends StatelessWidget {
+  const SecButton({required this.text,required this.width,required this.height,required this.onPressed,super.key});
+  final double width;
+  final double height;
+  final String text;
+  final VoidCallback onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      width: width,
+      height: height,
+      margin: const EdgeInsets.only(top: 30),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: const [
+
+          ]),
+      child: OutlinedButton(
+          style: OutlinedButton.styleFrom(
+              // shadowColor:Theme.of(context).colorScheme.secondary,
+              // backgroundColor: Theme.of(context).colorScheme.secondary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15))),
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 17,
                 fontWeight: FontWeight.w500),
           )),

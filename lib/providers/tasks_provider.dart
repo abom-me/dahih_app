@@ -16,7 +16,7 @@ class TasksProvider with ChangeNotifier{
 
   TasksProvider({required this.tasksViewModel});
 
-  Future<List<Tasks>> getTodayTasks() async {
+ getTodayTasks() async {
     return await tasksViewModel.getTodayTasks();
   }
 
@@ -32,6 +32,36 @@ class TasksProvider with ChangeNotifier{
 
   addTask(BuildContext context,Tasks task){
     tasksViewModel.addTask(context,task: task);
+    notifyListeners();
+  }
+
+  Future<List<Tasks>> getSelectedTasks() async {
+    return await tasksViewModel.getSelectedTasks();
+  }
+
+  List<String> tasksDates(){
+
+
+    return tasksViewModel.tasksDates();
+  }
+
+  changeSelectedStatus(TaskStatusEnum status) {
+    tasksViewModel.selectedStatus = status;
+    notifyListeners();
+  }
+
+ TaskStatusEnum getSelectedStatus() {
+   return tasksViewModel.selectedStatus ;
+  }
+
+
+
+  Future<List<Tasks>> getTasksByType(TaskStatusEnum status) async {
+    return await tasksViewModel.getTasksByType(status);
+  }
+
+  deleteTask({required BuildContext context,required Tasks task}){
+    tasksViewModel.deleteTask(context:context,task: task);
     notifyListeners();
   }
 }

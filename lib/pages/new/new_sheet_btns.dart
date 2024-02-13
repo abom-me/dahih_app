@@ -19,7 +19,7 @@ class _NewSheetButtonsState extends State<NewSheetButtons> {
   bool start = false;
   @override
   void initState() {
-   Timer(Duration(milliseconds: 100), (){
+   Timer(const Duration(milliseconds: 100), (){
      setState(() {
        start = true;
      });
@@ -69,6 +69,6 @@ class _NewSheetButtonsState extends State<NewSheetButtons> {
 
 
       ),
-    );;
+    );
   }
 }

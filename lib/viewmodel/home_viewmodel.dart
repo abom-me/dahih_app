@@ -3,37 +3,57 @@
 
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:khlfan_shtain/auto_local/lang.dart';
 import 'package:khlfan_shtain/models/tasks_model.dart';
-import 'package:khlfan_shtain/repo/courses.dart';
-import 'package:khlfan_shtain/utils/global_keys.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/alerts.dart';
 import '../models/course_model.dart';
-import '../repo/tasks.dart';
 import '../utils/enum/course_status_enum.dart';
+import '../utils/enum/task_status_enum.dart';
+import 'local_storage_viewmodel.dart';
 
 final homeViewModelProvider = Provider<HomeViewModel>((ref) {
   return HomeViewModel();
 });
 class HomeViewModel{
-FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
-Future<List<Course>> getTodayCourses() async {
-List<Course> todayCourses = [];
-//make Future delay to simulate network call
-await Future.delayed(const Duration(seconds: 2));
+  LocalStorageViewModel local=LocalStorageViewModel();
 
-  courses.forEach((element) {
-    if (element.days!.contains(DateFormat('EEEE').format(DateTime.now()))){
-      todayCourses.add(element);
-    }
+  Future<List<Course>> getTodayCourses() async {
+List<Course> todayCourses = [];
+
+
+final Map<String,dynamic>value=await local.getData(collectionName: 'courses');
+
+if(value['status'] != 'empty'){
+  value.forEach((key, value2) {
+
+    Course course=Course.fromJson(value2);
+
+      if(course.days!.contains(DateFormat("EEEE").format(DateTime.now()))){
+        todayCourses.add(course);
+      }
+
   });
-  return todayCourses;
+
 }
 
+  return todayCourses;
+}
+  welcomeMessage(BuildContext context) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('welcomeMessage') == null){
+      Alert.msg(context, Lang.get(context, key: LangKey.welcomeDahih), Lang.get(context, key: LangKey.welcomeToBeta));
+      prefs.setBool('welcomeMessage', true);
+    }else{
+
+    }
+
+  }
 // double getCourseProgress(DateTime startTime,DateTime endTime) {
 //   var now = DateTime.now();
 //   var start = startTime;
@@ -128,14 +148,20 @@ CourseStatusEnum isCourseInProgress(TimeOfDay startTime,TimeOfDay endTime) {
 
 Future<List<Tasks>> getTasks() async {
   List<Tasks> tasksList = [];
- final data=await firebaseFirestore.collection("tasks").doc(userData.uid).collection('tasks').get();
+ final Map<String,dynamic>data=await local.getData(collectionName: 'tasks');
 
-  data.docs.forEach((element) {
+  if(data['status'] != 'empty'){
 
-    tasksList.add(Tasks.fromJson(element.data()));
-  });
-  // tasksList.sort((a, b) => a.date!.compareTo(b.date!));
-  // print(tasksList.length);
+    data.forEach((key, value) {
+
+      tasksList.add(Tasks.fromJson(value));
+
+     tasksList.removeWhere((element) => element.status==TaskStatusEnum.completed.status);
+
+    });
+  }
+  tasksList.sort((a, b) => a.date!.compareTo(b.date!));
+
   return tasksList;
 }
 

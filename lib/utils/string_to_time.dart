@@ -10,4 +10,10 @@ extension TimeOfDayExtension on String {
   }
 }
 
+extension TimeOfDayExtension2 on TimeOfDay {
+  String get toStringTime {
+    return "$hour:$minute";
+  }
+}
+
 

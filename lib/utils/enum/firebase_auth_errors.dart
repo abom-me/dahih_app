@@ -1,6 +1,6 @@
 
 class FirebaseAuthError{
- static String create(String error){
+ static String create(String error,String lang){
     Map<String,Map<String,String>>errorMessages = {
       'email-already-in-use': {
         'ar': 'عفوا، هذا البريد الإلكتروني مستخدم بالفعل',
@@ -23,10 +23,10 @@ class FirebaseAuthError{
       }
     };
 
-    return  errorMessages[error]!['ar']!;
+    return  errorMessages[error]![lang]!;
   }
 
-  static String login(String error){
+  static String login(String error,String lang){
     Map<String,Map<String,String>>errorMessages = {
       'user-not-found': {
         'ar': 'عفوا، لا يوجد مستخدم بهذا البريد الإلكتروني',
@@ -47,10 +47,33 @@ class FirebaseAuthError{
       'internal-error': {
         'ar': 'عفوا هناك مشكلة في الخادم',
         'en': 'Sorry, internal-error'
+      } ,
+      'INVALID_LOGIN_CREDENTIALS': {
+        'ar': 'عفوا، كلمة المرور غير صحيحة',
+        'en': 'Sorry, the password is incorrect'
       }
     };
 
-    return  errorMessages[error]!['ar']!;
+    return  errorMessages[error]![lang]!;
+  }
+
+  resetPassword(String error,String lang){
+    Map<String,Map<String,String>>errorMessages = {
+      'user-not-found': {
+        'ar': 'عفوا، لا يوجد مستخدم بهذا البريد الإلكتروني',
+        'en': 'Sorry, there is no user with this email'
+      },
+      'invalid-email': {
+        'ar': 'عذرًا، البريد الإلكتروني غير صحيح',
+        'en': 'Sorry, the email is invalid'
+      },
+      'internal-error': {
+        'ar': 'عفوا هناك مشكلة في الخادم',
+        'en': 'Sorry, internal-error'
+      }
+    };
+
+    return  errorMessages[error]![lang]!;
   }
 
 }

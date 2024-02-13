@@ -1,15 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:khlfan_shtain/auto_local/lang.dart';
 
-Widget tryAgainWidget({required Function onPressed}) {
+Widget tryAgainWidget(context ,{required Function onPressed}) {
   return Column(
     children: [
-      const Center(child: Text("حدث خطأ ما",style: TextStyle(fontSize: 17),),),
+
+      Center(child: Text(Lang.get(context, key: LangKey.somethingWentWrong),style: const TextStyle(fontSize: 17),),),
       const SizedBox(height: 10,),
       TextButton(onPressed: (){
         onPressed();
 
-      }, child: const Text("اعادة المحاولة",style: TextStyle(fontWeight: FontWeight.bold),))
+      }, child:  Text(Lang.get(context, key: LangKey.tryAgain),style: const TextStyle(fontWeight: FontWeight.bold),))
     ],
   );
 }

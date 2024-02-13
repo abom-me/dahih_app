@@ -2,7 +2,6 @@
 
 import 'package:khlfan_shtain/auto_local/lang.dart';
 
-import 'enum/days_enum.dart';
 
 extension convertDayToArabic on String {
  LangKey get dayToLangKey{

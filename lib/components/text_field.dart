@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/utils/check_arabic_text.dart';
-import 'package:khlfan_shtain/viewmodel/textfield_viewmodel.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
-import '../providers/textfield_provider.dart';
+
 
 class TextFieldWidget extends ConsumerStatefulWidget {
   const TextFieldWidget( {
     this.multiLine,
     this.readOnly,
     this.onTap,
+    this.onChange,
     required this.controller,
      this.maxline,
     required this.focusNode,
@@ -30,6 +31,7 @@ class TextFieldWidget extends ConsumerStatefulWidget {
   final bool?multiLine;
   final int?maxline;
   final bool? readOnly;
+  final  void Function(String data)?  onChange;
   final GestureTapCallback ?onTap;
  final FormFieldValidator<String>? valid;
 final List<TextInputFormatter>? inputFormatters;
@@ -46,6 +48,9 @@ class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
 //     // TODO: implement dispose
 //     super.dispose();
 //   }
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -57,7 +62,9 @@ class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
       inputFormatters: widget.inputFormatters,
       controller: widget.controller,
       onChanged: (value) {
+
         setState(() {});
+      widget.onChange !=null? widget.onChange!(value):null;
       },
       onFieldSubmitted: (value) {
         widget.focusNode.unfocus();
