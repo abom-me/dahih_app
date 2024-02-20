@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khlfan_shtain/components/bottom_sheet.dart';
 import 'package:khlfan_shtain/pages/courses/widget/add_course.dart';
 import 'package:khlfan_shtain/pages/courses/widget/course_bottom.dart';
-import 'package:khlfan_shtain/pages/courses/widget/export.dart';
 import 'package:khlfan_shtain/settings/routes.dart';
-import 'package:khlfan_shtain/utils/convert_widget_to_image.dart';
 import 'package:khlfan_shtain/utils/day_to_arabic.dart';
 import 'package:khlfan_shtain/utils/string_to_time.dart';
 
